@@ -81,7 +81,7 @@ public class NovaReceita extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel2.setText("Categoria:");
 
-        jComboBoxCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Salário", "Véio", "Véia", "Cadeia" }));
 
         jButton1.setText("Nova Categoria");
 
@@ -170,11 +170,13 @@ public class NovaReceita extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
-
+        //colocar o nome de usuario na tela
        mod_user.setUser_pesquisa(jLabelUsuario.getText());
        int model = dao_user.retornaId(jLabelUsuario.getText());
         
-       // mod_receita.setId(model);
+       
+       
+        mod_receita.setId(model);
         mod_receita.setValor(Double.parseDouble(jTextFieldValor.getText()));
         mod_receita.setCategoria((String)jComboBoxCategoria.getSelectedItem());
         //uuu.setId(Integer.parseInt(dao_receita.buscarAtivo()));

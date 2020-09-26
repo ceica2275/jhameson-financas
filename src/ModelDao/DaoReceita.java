@@ -28,9 +28,9 @@ public class DaoReceita {
     public void Salvar(BeansReceita mod) {
         conex.conexao();
         try {
-            PreparedStatement pst = conex.con.prepareStatement("insert into receita(id_user, valor, categoria) values (?,?,?)");
+            PreparedStatement pst = conex.con.prepareStatement("insert into carteira(id_user, valor, categoria) values (?,?,?)");
 
-            //pst.setInt(1, mod.getId());
+            pst.setInt(1, mod.getId());
             pst.setDouble(2, mod.getValor());
             pst.setString(3, mod.getCategoria());
             pst.execute();

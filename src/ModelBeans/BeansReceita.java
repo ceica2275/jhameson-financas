@@ -11,8 +11,23 @@ package ModelBeans;
  */
 public class BeansReceita extends BeansTransacao {
 
+    /**
+     * @return the id
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
+
     
     private double valor;
+    private int id;
     private String categoria;
     private String pesquisa;
 

@@ -71,7 +71,7 @@ public class DaoUser {
         }catch(SQLException e){
             //JOptionPane.showMessageDialog(null, "OK");
         }
-        return 0;
+        return mod.getId();
     }
     
 }
