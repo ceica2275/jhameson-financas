@@ -56,6 +56,10 @@ public class Connection_BD {
         
     }
     
+    public void teste(){
+        System.out.println("Mensagem");
+    }
+    
     
     
     
