@@ -25,6 +25,7 @@ import javax.swing.JOptionPane;
  */
 public class Connection_BD {
 
+    int teste;
     //acesar de outras classes
     public Statement stm; //realiza pesquisa no BD
     public ResultSet rs; //armazeza resultado da pesquisa
