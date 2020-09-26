@@ -3,8 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-//https://youtu.be/MfZZrK8_0_k?list=PLIzgACkEejd8zH76rwOZ5YDps7YzQTTD4
-//https://youtu.be/O4BdT0q-740
+
 
 package ModelConnection;
 
