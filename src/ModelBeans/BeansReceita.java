@@ -9,7 +9,7 @@ package ModelBeans;
  *
  * @author jhame
  */
-public class BeansReceita extends BeansTransacao {
+public class BeansReceita {
 
     /**
      * @return the id
@@ -30,6 +30,7 @@ public class BeansReceita extends BeansTransacao {
     private int id;
     private String categoria;
     private String pesquisa;
+    private 
 
     /**
      * @return the pesquisa

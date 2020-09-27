@@ -6,9 +6,11 @@
 package view;
 
 import ModelBeans.BeansReceita;
+import ModelBeans.BeansTransacao;
 import ModelBeans.BeansUsuario;
 import ModelConnection.Connection_BD;
 import ModelDao.DaoReceita;
+import ModelDao.DaoTransacao;
 import ModelDao.DaoUser;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -24,14 +26,17 @@ public class NovaReceita extends javax.swing.JFrame {
     /**
      * Creates new form NovaReceita
      */
+    ///////////////////////////////////////////
     BeansReceita mod_receita = new BeansReceita();
-
     BeansUsuario mod_user = new BeansUsuario();
-    DaoUser dao_user = new DaoUser();
+    BeansTransacao mod_trans = new BeansReceita();
 
+    DaoTransacao dao_transacao = new DaoTransacao();
+    DaoUser dao_user = new DaoUser();
     DaoReceita dao_receita = new DaoReceita();
     Connection_BD conex = new Connection_BD();
 
+    ///////////////////////////////////////////
     public NovaReceita(String user) {
 
         initComponents();
@@ -170,18 +175,34 @@ public class NovaReceita extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
-        //colocar o nome de usuario na tela
-       mod_user.setUser_pesquisa(jLabelUsuario.getText());
-       int model = dao_user.retornaId(jLabelUsuario.getText());
+
         
-       
-       
-        mod_receita.setId(model);
+        
+        
+        //linhas responsaveis por colocar o nome de usuario na tela
+        //pesquisa o nome do usuario e sua ID
+        mod_user.setUser_pesquisa(jLabelUsuario.getText());
+        int model = dao_user.retornaId(jLabelUsuario.getText());
+        
+        //1º id de usuario que realizou a transação
+        mod_trans.setId_user(model);
+        //2º id de transação
+        //
+        //3º tipo de transacao
+        mod_trans.setTipo((String)"Receita");
+        
+        //4º id de transação como fk em receita
+        //mod_trans.setPesquisa(jLabelUsuario.getText());
+        //int cont = dao_transacao.contarTransacao(model);
+        //mod_receita.setId_transacao(16);
+        
+        
         mod_receita.setValor(Double.parseDouble(jTextFieldValor.getText()));
-        mod_receita.setCategoria((String)jComboBoxCategoria.getSelectedItem());
-        //uuu.setId(Integer.parseInt(dao_receita.buscarAtivo()));
+        mod_receita.setCategoria((String) jComboBoxCategoria.getSelectedItem());
+                
+        dao_transacao.Salvar(mod_trans);
         dao_receita.Salvar(mod_receita);
-          
+
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
     /**

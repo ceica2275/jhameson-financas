@@ -26,21 +26,41 @@ public class DaoTransacao {
     
     BeansTransacao beans_transacao = new BeansTransacao();
 
+    
+    //salvar a nova transação
     public void Salvar(BeansTransacao mod) {
         conex.conexao();
         try {
-            PreparedStatement pst = conex.con.prepareStatement("insert into transacao(id_user, id_transacao, tipo_transacao) values (?,?,?)");
+            PreparedStatement pst = conex.con.prepareStatement("insert into transacao(id_user,tipo) values (?,?)");
 
             pst.setInt(1, mod.getId_user());
-            pst.setInt(2, mod.getId_transacao());
-            pst.setString(3, mod.getTipo());
+            //pst.setInt(2, mod.getId_transacao());
+            pst.setString(2, mod.getTipo());
             pst.execute();
 
-            JOptionPane.showMessageDialog(null, "Usuário Cadastrado com Sucesso");
+            JOptionPane.showMessageDialog(null, "Transação inserida com sucesso");
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erros ao cadastrar: " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Erros na transação: " + ex.getMessage());
         }
         conex.desconecta();
+    }
+    
+    //gambiarra 2000 para saber qual o numero da transacao
+    public int contarTransacao(int id) {
+        conex.conexao();
+        conex.executaSQL("select count('id_transacao') from transacao where id_user = '"+id+"'");
+        try{
+            conex.rs.first();
+            
+            
+            mod.setId_transacao(conex.rs.getInt("user_id"));
+            return mod.getId_transacao();
+            //JOptionPane.showMessageDialog(null, "OK existe");
+            
+        }catch(SQLException e){
+            //JOptionPane.showMessageDialog(null, "OK");
+        }
+        return mod.getId_transacao();
     }
 /*
     public BeansTransacao buscaReceita(BeansTransacao br) {

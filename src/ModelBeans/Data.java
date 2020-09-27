@@ -17,6 +17,8 @@ public class Data {
     public int getAno() {
         return ano;
     }
+    
+   
 
     public void setDia(int dia) {
         this.dia = dia;
