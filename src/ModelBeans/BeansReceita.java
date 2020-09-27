@@ -5,11 +5,20 @@
  */
 package ModelBeans;
 
+import java.util.Date;
+
 /**
  *
  * @author jhame
  */
 public class BeansReceita {
+    
+    private int id;
+    private double valor;
+    private String categoria;
+    private String data_transacao;
+    
+    private String pesquisa;
 
     /**
      * @return the id
@@ -26,11 +35,15 @@ public class BeansReceita {
     }
 
     
-    private double valor;
-    private int id;
-    private String categoria;
-    private String pesquisa;
-    private 
+   
+
+    public String getData_transacao() {
+        return data_transacao;
+    }
+
+    public void setData_transacao(String data_transacao) {
+        this.data_transacao = data_transacao;
+    }
 
     /**
      * @return the pesquisa

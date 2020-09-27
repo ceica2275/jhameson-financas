@@ -48,12 +48,14 @@ public class DaoUser {
         try{
             conex.rs.first();
             mod.setUsuario(conex.rs.getString("user_usuario"));
+            conex.desconecta();
             return true;
             //JOptionPane.showMessageDialog(null, "OK existe");
             
         }catch(SQLException e){
             //JOptionPane.showMessageDialog(null, "OK");
         }
+        conex.desconecta();
         return false;
     }
     

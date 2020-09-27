@@ -1,8 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
+
+//classe responsavel por montar a tabela
+
+//https://youtu.be/WJ3700ZIxBc?list=PLO38D8juJBEM-zrARo_d3yyUmRZtlFTDr
+
 package ModelConnection;
 
 import java.util.ArrayList;
@@ -14,28 +15,34 @@ import javax.swing.table.AbstractTableModel;
  */
 public class ModelTabela extends AbstractTableModel {
 
-    private ArrayList linhas = null;
-    private String[] colunas = null;
+    private ArrayList linhas = null; //
+    private String[] colunas = null; //
 
     public ModelTabela(ArrayList lin, String[] col) {
         setLinhas(lin);
         setColunas(col);
     }
-    
-    public int getColumnCount(){
+
+    //contas as colunas
+    public int getColumnCount() {
         return colunas.length;
     }
-    public int getRowCount(){
+
+    //conta as linhas
+    public int getRowCount() {
         return linhas.size();
     }
-    public String getColunmName(int numColuna){
+
+    //pegar o valor do nome das colunas
+    public String getColunmName(int numColuna) {
         return colunas[numColuna];
     }
-    public Object getValueAt(int numLin, int numCol){
-        Object [] linha = (Object[])getLinhas().get(numLin);
+
+    //poder montar a tabela
+    public Object getValueAt(int numLin, int numCol) {
+        Object[] linha = (Object[]) getLinhas().get(numLin);
         return linha[numCol];
     }
-    
 
     /**
      * @return the linhas
