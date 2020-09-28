@@ -11,6 +11,13 @@ package ModelBeans;
  */
 public class BeansUsuario {
 
+    private int id;
+    private String nome;
+    private String email;
+    private String usuario;
+    private String senha;
+    private String user_pesquisa;
+    
     /**
      * @return the user_pesquisa
      */
@@ -25,12 +32,7 @@ public class BeansUsuario {
         this.user_pesquisa = user_pesquisa;
     }
 
-    private Integer id;
-    private String nome;
-    private String email;
-    private String usuario;
-    private String senha;
-    private String user_pesquisa;
+   
 
     /**
      * @return the id

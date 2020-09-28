@@ -42,16 +42,17 @@ public class Connection_BD {
             con = DriverManager.getConnection(caminho, usuario, senha);
             //JOptionPane.showMessageDialog(null, "Conectado com sucesso");
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error na conexão: " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "(Connection_BD)Error na conexão: " + ex.getMessage());
         }
 
     }
     public void executaSQL(String sql){
         try {
+            //difere a pesquisa de maiusculo e minusculo // percorre do inicio ao fim e do fim ao inicio
             stm = con.createStatement(rs.TYPE_SCROLL_INSENSITIVE, rs.CONCUR_READ_ONLY); //percorre do inicio ao fim e  vice versa
             rs = stm.executeQuery(sql); 
         } catch (SQLException ex) {
-             JOptionPane.showMessageDialog(null, "Error ExecutaSQL: " + ex.getMessage());
+             JOptionPane.showMessageDialog(null, "(Connection_BD)Error ExecutaSQL: " + ex.getMessage());
         }
         
     }

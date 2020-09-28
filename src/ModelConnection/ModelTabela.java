@@ -1,4 +1,4 @@
-
+ 
 
 //classe responsavel por montar a tabela
 
@@ -52,10 +52,10 @@ public class ModelTabela extends AbstractTableModel {
     }
 
     /**
-     * @param linhas the linhas to set
+     * @param dados the linhas to set
      */
-    public void setLinhas(ArrayList linhas) {
-        this.linhas = linhas;
+    public void setLinhas(ArrayList dados) {
+        this.linhas = dados;
     }
 
     /**

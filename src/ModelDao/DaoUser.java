@@ -9,6 +9,8 @@ import java.sql.*;
 
 import ModelBeans.BeansUsuario;
 import ModelConnection.Connection_BD;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -39,7 +41,24 @@ public class DaoUser {
         conex.desconecta();
     }
     
-    
+    public BeansUsuario buscarUser(BeansUsuario mod){
+        conex.conexao();
+        
+        conex.executaSQL("select *from usuario where user_usuario like '%"+mod.getUser_pesquisa()+"%'");
+        try {
+            conex.rs.first();
+            mod.setId(conex.rs.getInt("user_id"));
+            mod.setNome(conex.rs.getString("user_nome"));
+            mod.setEmail(conex.rs.getString("user_email"));
+            mod.setUsuario(conex.rs.getString("user_usuario"));
+            mod.setSenha(conex.rs.getString("user_senha"));
+        } catch (SQLException ex) {
+             JOptionPane.showMessageDialog(null, "Erro ao encontrar User: " +ex);
+        }
+        
+        conex.desconecta();
+        return mod;
+    }
     //metodo para verificar se o nome do usuario ja existe
     public boolean verificarExiste(String nome){
        
@@ -75,5 +94,6 @@ public class DaoUser {
         }
         return mod.getId();
     }
+    
     
 }
