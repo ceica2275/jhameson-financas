@@ -5,43 +5,62 @@
  */
 package ModelDao;
 
-import ModelBeans.BeansReceita;
-
-import java.sql.*;
-
-
+import ModelBeans.BeansDespesas;
+import ModelBeans.BeansUsuario;
 import ModelConnection.Connection_BD;
-
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author jhame
  */
-public class DaoReceita {
-
-    Connection_BD conex = new Connection_BD();
-    BeansReceita mod = new BeansReceita();
+public class DaoDespesa {
     
+    Connection_BD conex = new Connection_BD();
+    BeansDespesas mod_despesa = new BeansDespesas();
+   
 
-    public void Salvar(BeansReceita mod) {
+    public void Salvar(BeansDespesas mod) {
         conex.conexao();
         try {
-            PreparedStatement pst = conex.con.prepareStatement("insert into receita( id_user, valor, categoria, data_transacao) values (?,?,?,?)");
+            PreparedStatement pst = conex.con.prepareStatement("insert into despesa(id_user, valor, categoria, data, descricao, forma_pagamento, status) values (?,?,?,?,?,?,?)");
 
             pst.setInt(1, mod.getId());
             pst.setDouble(2, mod.getValor());
             pst.setString(3, mod.getCategoria());
-            pst.setString(4, mod.getData_transacao());
+            pst.setString(4, mod.getData());
+            pst.setString(5, mod.getDescricao());
+            pst.setString(6, mod.getForma_pagamento());
+            pst.setString(7, mod.getStatus());
+           
             pst.execute();
 
-            JOptionPane.showMessageDialog(null, "Receita Cadastrado com Sucesso");
+            JOptionPane.showMessageDialog(null, "Despesa Cadastrado com Sucesso");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erros ao cadastrar: " + ex.getMessage());
         }
         conex.desconecta();
     }
+    
+    //metodo para somar o valor em receitas
+    public int somarDespesas(int id) {
+        conex.conexao();
+        conex.executaSQL("select sum(valor) as soma from despesa where id_user = '" + id + "'");
 
+        try {
+            conex.rs.first();
+            
+            
+            return conex.rs.getInt("soma");
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "deu merda");
+        }
+        return 0;
+    }
+    /*
     public BeansReceita buscaReceita(BeansReceita br) {
         conex.conexao();
         conex.executaSQL("select *from receita where categoria like'%" + br.getPesquisa() + "%'");
@@ -77,6 +96,6 @@ public class DaoReceita {
         return 0;
     }
     
-    
+    */
      
 }

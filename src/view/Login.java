@@ -8,6 +8,7 @@ package view;
 import ModelBeans.BeansUsuario;
 import ModelConnection.Connection_BD;
 import ModelDao.DaoUser;
+import java.awt.Color;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -40,44 +41,50 @@ public class Login extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButtonEntrar = new javax.swing.JButton();
-        jLabelUsuario = new javax.swing.JLabel();
         jLabelSenha = new javax.swing.JLabel();
+        jButtonEntrar = new javax.swing.JButton();
         jTextFieldUsuario = new javax.swing.JTextField();
         jPasswordFieSenha = new javax.swing.JPasswordField();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jButtonSair = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
         jLabelFundo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
+        setPreferredSize(null);
         setResizable(false);
         getContentPane().setLayout(null);
 
-        jButtonEntrar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabelSenha.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        jLabelSenha.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelSenha.setText("Credenciais");
+        getContentPane().add(jLabelSenha);
+        jLabelSenha.setBounds(20, 10, 240, 44);
+
+        jButtonEntrar.setBackground(new java.awt.Color(102, 255, 102));
+        jButtonEntrar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButtonEntrar.setText("Entrar");
+        jButtonEntrar.setBorderPainted(false);
+        jButtonEntrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonEntrar.setFocusPainted(false);
+        jButtonEntrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jButtonEntrarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButtonEntrarMouseExited(evt);
+            }
+        });
         jButtonEntrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonEntrarActionPerformed(evt);
             }
         });
         getContentPane().add(jButtonEntrar);
-        jButtonEntrar.setBounds(490, 160, 70, 23);
-
-        jLabelUsuario.setBackground(new java.awt.Color(255, 255, 255));
-        jLabelUsuario.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabelUsuario.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelUsuario.setText("Usuário:");
-        getContentPane().add(jLabelUsuario);
-        jLabelUsuario.setBounds(280, 60, 100, 28);
-
-        jLabelSenha.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabelSenha.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelSenha.setText("Senha:");
-        getContentPane().add(jLabelSenha);
-        jLabelSenha.setBounds(280, 110, 80, 22);
+        jButtonEntrar.setBounds(20, 170, 210, 30);
 
         jTextFieldUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -85,7 +92,7 @@ public class Login extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jTextFieldUsuario);
-        jTextFieldUsuario.setBounds(380, 60, 200, 30);
+        jTextFieldUsuario.setBounds(20, 70, 210, 40);
 
         jPasswordFieSenha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -93,54 +100,73 @@ public class Login extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jPasswordFieSenha);
-        jPasswordFieSenha.setBounds(380, 110, 200, 30);
+        jPasswordFieSenha.setBounds(20, 120, 210, 40);
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jButton1.setBackground(new java.awt.Color(102, 204, 255));
+        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton1.setText("Cadastrar");
+        jButton1.setBorderPainted(false);
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton1.setFocusPainted(false);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(200, 290, 110, 23);
+        jButton1.setBounds(20, 290, 210, 30);
 
-        jButton2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jButton2.setText("Sair");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+        jButtonSair.setBackground(new java.awt.Color(255, 102, 102));
+        jButtonSair.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButtonSair.setText("Sair");
+        jButtonSair.setBorderPainted(false);
+        jButtonSair.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonSair.setFocusPainted(false);
+        jButtonSair.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jButtonSairMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButtonSairMouseExited(evt);
             }
         });
-        getContentPane().add(jButton2);
-        jButton2.setBounds(400, 160, 70, 23);
+        jButtonSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSairActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonSair);
+        jButtonSair.setBounds(20, 210, 210, 30);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Cadastrar Novo Usuário");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(30, 290, 150, 17);
+        jLabel1.setBounds(50, 260, 150, 17);
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Logo200.png"))); // NOI18N
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(20, 50, 200, 200);
+        jLabel2.setBounds(340, 10, 200, 200);
 
-        jButton3.setBackground(new java.awt.Color(0, 0, 204));
+        jButton3.setBackground(new java.awt.Color(255, 255, 255));
         jButton3.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jButton3.setText("Administrador");
+        jButton3.setBorderPainted(false);
+        jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton3.setFocusPainted(false);
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
             }
         });
         getContentPane().add(jButton3);
-        jButton3.setBounds(510, 330, 100, 21);
+        jButton3.setBounds(460, 300, 100, 21);
 
-        jLabelFundo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/shutterstock_722019580.jpg"))); // NOI18N
+        jLabelFundo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/gestao-financeira-controladoria-topo.jpg"))); // NOI18N
         getContentPane().add(jLabelFundo);
-        jLabelFundo.setBounds(0, -200, 1024, 768);
+        jLabelFundo.setBounds(-70, -140, 1024, 768);
 
-        setSize(new java.awt.Dimension(642, 399));
+        setSize(new java.awt.Dimension(563, 331));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -149,9 +175,9 @@ public class Login extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButtonEntrarActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jButtonSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSairActionPerformed
         System.exit(0);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_jButtonSairActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         CadastroUsuario c_user = new CadastroUsuario();
@@ -170,6 +196,26 @@ public class Login extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButtonEntrarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonEntrarMouseEntered
+        jButtonEntrar.setBackground(new Color(0, 102, 51));
+        jButtonEntrar.setForeground(new Color(255,255,255));
+    }//GEN-LAST:event_jButtonEntrarMouseEntered
+
+    private void jButtonSairMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonSairMouseEntered
+        jButtonSair.setBackground(new Color(204, 0, 51));
+        jButtonSair.setForeground(Color.WHITE);
+    }//GEN-LAST:event_jButtonSairMouseEntered
+
+    private void jButtonEntrarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonEntrarMouseExited
+        jButtonEntrar.setBackground(new Color(102,255,102));
+        jButtonEntrar.setForeground(Color.BLACK);
+    }//GEN-LAST:event_jButtonEntrarMouseExited
+
+    private void jButtonSairMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonSairMouseExited
+       jButtonSair.setBackground(new Color(255,102,102));
+        jButtonSair.setForeground(Color.BLACK);
+    }//GEN-LAST:event_jButtonSairMouseExited
 
     private void entrar() {
 
@@ -198,7 +244,7 @@ public class Login extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -224,14 +270,13 @@ public class Login extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButtonEntrar;
+    private javax.swing.JButton jButtonSair;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabelFundo;
     private javax.swing.JLabel jLabelSenha;
-    private javax.swing.JLabel jLabelUsuario;
     private javax.swing.JPasswordField jPasswordFieSenha;
     private javax.swing.JTextField jTextFieldUsuario;
     // End of variables declaration//GEN-END:variables

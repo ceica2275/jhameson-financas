@@ -1,7 +1,7 @@
 
 package ModelBeans;
 
-public class Cartao extends Pagamento{
+public class Cartao{
     private int numero;
     private String bandeira;
     private int valor_atual;
