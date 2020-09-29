@@ -46,23 +46,33 @@ public class TelaInicial extends javax.swing.JFrame {
         beans_user.setUser_pesquisa(jLabelUsuario.getText());
         int IdDoUsuario = mod_user.retornaId(jLabelUsuario.getText());
 
-        preencherTabelaReceita("select *from receita where id_user = '" + IdDoUsuario + "'");
-        preencherTabelaDespesa("select *from despesa where id_user = '" + IdDoUsuario + "'");
+        //preencherTabelaReceita("select *from receita where id_user = '" + IdDoUsuario + "'");
+        //preencherTabelaDespesa("select *from despesa where id_user = '" + IdDoUsuario + "'");
 
         //linhas resposaveis por chamar o metodo de exibir a data na tela inicial
         String dataCompleta = exd.dataCompleta();
-        jLabelData.setText(dataCompleta);
-
+        jLabelData.setText(""+dataCompleta);
+        
+        //retorna o mes atual
+        String datames = exd.dataMes();
+       int datamesInt = Integer.parseInt(datames);
+            
+        //retorna o dia atual
+        String datadia = exd.datadia();
+       int datadiaInt = Integer.parseInt(datadia);
+        
+      
+        
         //mostra a soma das despesas do mes
-        int despesasMes = mod_despesa.somarDespesas(IdDoUsuario);
-        jLabelDespesas.setText("" + despesasMes);
+        //int despesasMes = mod_despesa.somarDespesas(IdDoUsuario);
+        //jLabelDespesas.setText("" + despesasMes);
 
         //mostra a soma das receitas do mes
-        int somaCaralho = mod_receita.somarReceitas(IdDoUsuario);
-        jLabelReceitas.setText("" + somaCaralho);
-
+        int somaCaralho = mod_receita.somarReceitas(IdDoUsuario,datamesInt,datadiaInt);
+        jLabelReceitas.setText("" +somaCaralho);
+        
         //mostra o dinheiro em posse
-        jLabelPosse.setText("" + (somaCaralho - despesasMes));
+        //jLabelPosse.setText("" + (somaCaralho - despesasMes));
     }
 
     private TelaInicial() {
@@ -125,7 +135,6 @@ public class TelaInicial extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(800, 450));
         setMinimumSize(new java.awt.Dimension(800, 450));
-        setPreferredSize(new java.awt.Dimension(800, 450));
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(51, 51, 255));
@@ -242,7 +251,7 @@ public class TelaInicial extends javax.swing.JFrame {
         jLabel3.setText("Receitas do mês:");
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel2.setText("Despesas: ");
+        jLabel2.setText("Despesas do mês: ");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);

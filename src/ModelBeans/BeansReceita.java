@@ -16,8 +16,33 @@ public class BeansReceita {
     private int id;
     private double valor;
     private String categoria;
-    private String data_transacao;
-    
+    private int dia;
+    private int mes;
+    private int ano;
+
+    public int getDia() {
+        return dia;
+    }
+
+    public void setDia(int dia) {
+        this.dia = dia;
+    }
+
+    public int getMes() {
+        return mes;
+    }
+
+    public void setMes(int mes) {
+        this.mes = mes;
+    }
+
+    public int getAno() {
+        return ano;
+    }
+
+    public void setAno(int ano) {
+        this.ano = ano;
+    }
     private String pesquisa;
 
     /**
@@ -37,13 +62,7 @@ public class BeansReceita {
     
    
 
-    public String getData_transacao() {
-        return data_transacao;
-    }
-
-    public void setData_transacao(String data_transacao) {
-        this.data_transacao = data_transacao;
-    }
+   
 
     /**
      * @return the pesquisa

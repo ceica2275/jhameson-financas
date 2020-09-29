@@ -27,12 +27,14 @@ public class DaoReceita {
     public void Salvar(BeansReceita mod) {
         conex.conexao();
         try {
-            PreparedStatement pst = conex.con.prepareStatement("insert into receita( id_user, valor, categoria, data_transacao) values (?,?,?,?)");
+            PreparedStatement pst = conex.con.prepareStatement("insert into receita( id_user, valor, categoria, dia, mes, ano) values (?,?,?,?,?,?)");
 
             pst.setInt(1, mod.getId());
             pst.setDouble(2, mod.getValor());
             pst.setString(3, mod.getCategoria());
-            pst.setString(4, mod.getData_transacao());
+            pst.setInt(4, mod.getDia());
+            pst.setInt(5, mod.getMes());
+            pst.setInt(6, mod.getAno());
             pst.execute();
 
             JOptionPane.showMessageDialog(null, "Receita Cadastrado com Sucesso");
@@ -61,9 +63,9 @@ public class DaoReceita {
     }
 
     //metodo para somar o valor em receitas
-    public int somarReceitas(int id) {
+    public int somarReceitas(int id, int mes, int dia) {
         conex.conexao();
-        conex.executaSQL("select sum(valor) as soma from receita where id_user = '" + id + "'");
+        conex.executaSQL("select sum(valor) as soma from receita where id_user = '"+id+"' and mes = '"+mes+"' and dia <= '"+dia+"'");
 
         try {
             conex.rs.first();
