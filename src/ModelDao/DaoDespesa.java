@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package ModelDao;
-
 import ModelBeans.BeansDespesas;
 import ModelBeans.BeansUsuario;
 import ModelConnection.Connection_BD;
@@ -40,7 +39,7 @@ public class DaoDespesa {
             JOptionPane.showMessageDialog(null, "Despesa Cadastrado com Sucesso");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erros ao cadastrar: " + ex.getMessage());
-        }
+}
         conex.desconecta();
     }
     
@@ -97,5 +96,21 @@ public class DaoDespesa {
     }
     
     */
-     
+     public void excluirTodasDespesas(BeansUsuario mod) {
+        
+        
+        conex.conexao();
+        try {
+            PreparedStatement pst = conex.con.prepareStatement("delete from despesa where id_user = ?");
+
+            pst.setInt(1, mod.getId());
+            pst.execute();
+
+            //JOptionPane.showMessageDialog(null, "Usuário excluido com Sucesso");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "(dao_user)Erros ao excluir: " + ex.getMessage());
+        }
+        conex.desconecta();
+
+    }
 }

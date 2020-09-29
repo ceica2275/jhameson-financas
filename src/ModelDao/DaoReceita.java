@@ -6,6 +6,7 @@
 package ModelDao;
 
 import ModelBeans.BeansReceita;
+import ModelBeans.BeansUsuario;
 
 import java.sql.*;
 
@@ -79,6 +80,23 @@ public class DaoReceita {
         return 0;
     }
     
+    public void excluirTodasReceitas(BeansUsuario mod) {
+        
+        
+        conex.conexao();
+        try {
+            PreparedStatement pst = conex.con.prepareStatement("delete from receita where id_user = ?");
+
+            pst.setInt(1, mod.getId());
+            pst.execute();
+
+            //JOptionPane.showMessageDialog(null, "Usuário excluido com Sucesso");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "(dao_user)Erros ao excluir: " + ex.getMessage());
+        }
+        conex.desconecta();
+
+    }
     
      
 }

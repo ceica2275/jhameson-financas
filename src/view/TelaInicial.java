@@ -46,7 +46,7 @@ public class TelaInicial extends javax.swing.JFrame {
         beans_user.setUser_pesquisa(jLabelUsuario.getText());
         int IdDoUsuario = mod_user.retornaId(jLabelUsuario.getText());
 
-        //preencherTabelaReceita("select *from receita where id_user = '" + IdDoUsuario + "'");
+        preencherTabelaReceita("select valor, categoria, dia from receita where id_user = '" + IdDoUsuario + "'");
         //preencherTabelaDespesa("select *from despesa where id_user = '" + IdDoUsuario + "'");
 
         //linhas resposaveis por chamar o metodo de exibir a data na tela inicial
@@ -535,18 +535,16 @@ public class TelaInicial extends javax.swing.JFrame {
     public void preencherTabelaReceita(String Sql) {
 
         ArrayList dados = new ArrayList();
-        String [] colunas = new String []{"Valor","Categoria","Data"};
+        String [] colunas = new String []{"Valor","Categoria","Dia"};
         
-
         conecta.conexao();
         conecta.executaSQL(Sql);
 
         try {
             conecta.rs.first();
             do {
-
                 dados.add(new Object[]{conecta.rs.getDouble("valor"), conecta.rs.getString("categoria"), 
-                    conecta.rs.getString("data_transacao")});
+                conecta.rs.getInt("dia")});
 
             } while (conecta.rs.next());
         } catch (SQLException ex) {

@@ -284,15 +284,7 @@ public class NovaReceita extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
-        
-        
-        /*
-        
-        PRECISA CASFHNDSJFJD UM TRANSACAO
-        
-        
-        */
-        
+      
         //linhas responsaveis por colocar o nome de usuario na tela
         //pesquisa o nome do usuario e sua ID
         mod_user.setUser_pesquisa(jLabelUsuario.getText());

@@ -21,6 +21,8 @@ public class DaoUser {
 
     Connection_BD conex = new Connection_BD();
     BeansUsuario mod = new BeansUsuario();
+    DaoReceita dao_receita = new DaoReceita();
+    DaoDespesa dao_despesa = new DaoDespesa();
 
     public void Salvar(BeansUsuario mod) {
         conex.conexao();
@@ -40,11 +42,61 @@ public class DaoUser {
         }
         conex.desconecta();
     }
-    
-    public BeansUsuario buscarUser(BeansUsuario mod){
+
+    public void editar(BeansUsuario mod) {
         conex.conexao();
-        
-        conex.executaSQL("select *from usuario where user_usuario like '%"+mod.getUser_pesquisa()+"%'");
+        try {
+            PreparedStatement pst = conex.con.prepareStatement("update usuario set user_nome = ?, user_email = ?, user_senha = ? where user_id = ?");
+
+            pst.setString(1, mod.getNome());
+            pst.setString(2, mod.getEmail());
+            pst.setString(3, mod.getSenha());
+            pst.setInt(4, mod.getId());
+
+            pst.execute();
+
+            JOptionPane.showMessageDialog(null, "Usuário Atualizado com Sucesso");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "(dao_user)Erros ao atualizar: " + ex.getMessage());
+        }
+        conex.desconecta();
+    }
+
+    /*
+    Olá Fredson, você consegue fazendo um DROP TABLE. Caso apresente algum erro, será necessário tirar a chave estrangeira da tabela que deseja excluir.
+
+Para deletar a FK:
+
+ALTER TABLE tabela DROP FOREIGN KEY fk;
+
+Agora devemos deletar a Index dessa FK:
+
+ALTER TABLE tabela DROP INDEX fk;
+
+Espero ter ajudado.
+     */
+    public void excluir(BeansUsuario mod) {
+        dao_receita.excluirTodasReceitas(mod);
+        dao_despesa.excluirTodasDespesas(mod);
+        conex.conexao();
+        try {
+            PreparedStatement pst = conex.con.prepareStatement("delete from usuario where user_id = ?");
+
+            pst.setInt(1, mod.getId());
+            pst.execute();
+
+            JOptionPane.showMessageDialog(null, "Usuário excluido com Sucesso");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "(dao_user)Erros ao excluir: " + ex.getMessage());
+        }
+        conex.desconecta();
+
+    }
+
+    public BeansUsuario buscarUser(BeansUsuario mod) {
+        conex.conexao();
+
+        conex.executaSQL("select *from usuario where user_usuario like '" + mod.getUser_pesquisa() + "'");
         try {
             conex.rs.first();
             mod.setId(conex.rs.getInt("user_id"));
@@ -53,47 +105,47 @@ public class DaoUser {
             mod.setUsuario(conex.rs.getString("user_usuario"));
             mod.setSenha(conex.rs.getString("user_senha"));
         } catch (SQLException ex) {
-             JOptionPane.showMessageDialog(null, "Erro ao encontrar User: " +ex);
+            JOptionPane.showMessageDialog(null, "Erro ao encontrar User: " + ex);
         }
-        
+
         conex.desconecta();
         return mod;
     }
+
     //metodo para verificar se o nome do usuario ja existe
-    public boolean verificarExiste(String nome){
-       
+    public boolean verificarExiste(String nome) {
+
         conex.conexao();
-        conex.executaSQL("select user_usuario from usuario where user_usuario = '"+nome+"'");
-        try{
+        conex.executaSQL("select user_usuario from usuario where user_usuario = '" + nome + "'");
+        try {
             conex.rs.first();
             mod.setUsuario(conex.rs.getString("user_usuario"));
             conex.desconecta();
             return true;
             //JOptionPane.showMessageDialog(null, "OK existe");
-            
-        }catch(SQLException e){
+
+        } catch (SQLException e) {
             //JOptionPane.showMessageDialog(null, "OK");
         }
         conex.desconecta();
         return false;
     }
-    
+
     //metodo para retornar a id
-    public int retornaId(String nome){
-        
+    public int retornaId(String nome) {
+
         conex.conexao();
-        conex.executaSQL("select user_id from usuario where user_usuario = '"+nome+"'");
-        try{
+        conex.executaSQL("select user_id from usuario where user_usuario = '" + nome + "'");
+        try {
             conex.rs.first();
             mod.setId(conex.rs.getInt("user_id"));
             return mod.getId();
             //JOptionPane.showMessageDialog(null, "OK existe");
-            
-        }catch(SQLException e){
+
+        } catch (SQLException e) {
             //JOptionPane.showMessageDialog(null, "OK");
         }
         return mod.getId();
     }
-    
-    
+
 }

@@ -32,23 +32,25 @@ public class TelaUsuario extends javax.swing.JFrame {
     ExibeData exd = new ExibeData();
     BeansUsuario beans_user = new BeansUsuario();
     DaoUser dao_user = new DaoUser();
-    
+
+    //variavel para saber se estou atualizando 
+    int flag = 0;
 
     public TelaUsuario(String usuario) {
         initComponents();
 
         conecta.conexao();
         jLabelUsuario.setText(usuario);
-     
+
         //linhas resposaveis por chamar o metodo de exibir a data na tela inicial
         String dataCompleta = exd.dataCompleta();
         jLabelData.setText(dataCompleta);
-        
+
         //preenche os campos da tela
         //pesquisa as informações do usuario de acordo com o usuario name
         beans_user.setUser_pesquisa(usuario);
         BeansUsuario model = dao_user.buscarUser(beans_user);
-        
+
         jTextFieldCOD.setText(String.valueOf(model.getId()));
         jTextFieldNome.setText(model.getNome());
         jTextFieldEmail.setText(model.getEmail());
@@ -79,9 +81,9 @@ public class TelaUsuario extends javax.swing.JFrame {
         jLabelUsuario = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabelData = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jButtonEditar = new javax.swing.JButton();
+        jButtonExcluir = new javax.swing.JButton();
+        jButtonSalvar = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jTextFieldUsuario = new javax.swing.JTextField();
@@ -136,23 +138,33 @@ public class TelaUsuario extends javax.swing.JFrame {
         jLabelData.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jLabelData.setForeground(new java.awt.Color(0, 0, 255));
 
-        jButton1.setBackground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Editar");
-        jButton1.setBorderPainted(false);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonEditar.setBackground(new java.awt.Color(255, 255, 255));
+        jButtonEditar.setText("Editar");
+        jButtonEditar.setBorderPainted(false);
+        jButtonEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonEditarActionPerformed(evt);
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Excluir Perfil");
-        jButton2.setBorderPainted(false);
+        jButtonExcluir.setBackground(new java.awt.Color(255, 255, 255));
+        jButtonExcluir.setText("Excluir Perfil");
+        jButtonExcluir.setBorderPainted(false);
+        jButtonExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonExcluirActionPerformed(evt);
+            }
+        });
 
-        jButton3.setBackground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("Salvar Alterações");
-        jButton3.setBorderPainted(false);
-        jButton3.setEnabled(false);
+        jButtonSalvar.setBackground(new java.awt.Color(255, 255, 255));
+        jButtonSalvar.setText("Salvar Alterações");
+        jButtonSalvar.setBorderPainted(false);
+        jButtonSalvar.setEnabled(false);
+        jButtonSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSalvarActionPerformed(evt);
+            }
+        });
 
         jButton4.setBackground(new java.awt.Color(255, 255, 255));
         jButton4.setText("Cancelar");
@@ -301,13 +313,13 @@ public class TelaUsuario extends javax.swing.JFrame {
                         .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -317,10 +329,10 @@ public class TelaUsuario extends javax.swing.JFrame {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelUsuario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -477,18 +489,55 @@ public class TelaUsuario extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldNomeActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       jTextFieldNome.setEnabled(true);
-       jTextFieldEmail.setEnabled(true);
-       jTextFieldUsuario.setEnabled(true);
-       jTextFieldSenha.setEnabled(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
+        jTextFieldNome.setEnabled(true);
+        jTextFieldEmail.setEnabled(true);
+        jTextFieldUsuario.setEnabled(true);
+        jTextFieldSenha.setEnabled(true);
+
+        jButtonEditar.setEnabled(false);
+        jButtonExcluir.setEnabled(false);
+        jButtonSalvar.setEnabled(true);
+    }//GEN-LAST:event_jButtonEditarActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         TelaInicial tela = new TelaInicial(jLabelUsuario.getText());
         tela.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
+
+        beans_user.setId(Integer.parseInt(jTextFieldCOD.getText()));
+        beans_user.setNome(jTextFieldNome.getText());
+        beans_user.setEmail(jTextFieldEmail.getText());
+        beans_user.setSenha(jTextFieldSenha.getText());
+
+        dao_user.editar(beans_user);
+
+        jTextFieldNome.setEnabled(false);
+        jTextFieldEmail.setEnabled(false);
+        jTextFieldUsuario.setEnabled(false);
+        jTextFieldSenha.setEnabled(false);
+
+        jButtonEditar.setEnabled(true);
+        jButtonExcluir.setEnabled(true);
+
+    }//GEN-LAST:event_jButtonSalvarActionPerformed
+
+    private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
+        int confirma = 0;
+        confirma =  JOptionPane.showConfirmDialog(rootPane,"Deseja realmente excluir seu PERFIL e todos "
+                + "os dados?");
+        if(confirma == JOptionPane.YES_OPTION){
+            //pegar a informação no campo COD
+            beans_user.setId(Integer.parseInt(jTextFieldCOD.getText()));
+            dao_user.excluir(beans_user);
+            Login login = new Login();
+            login.setVisible(true);
+            dispose();
+        }
+    }//GEN-LAST:event_jButtonExcluirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -527,10 +576,10 @@ public class TelaUsuario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButtonEditar;
+    private javax.swing.JButton jButtonExcluir;
+    private javax.swing.JButton jButtonSalvar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
