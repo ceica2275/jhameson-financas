@@ -97,12 +97,11 @@ public class DaoDespesa {
     
     */
      public void excluirTodasDespesas(BeansUsuario mod) {
-        
+     
         
         conex.conexao();
         try {
             PreparedStatement pst = conex.con.prepareStatement("delete from despesa where id_user = ?");
-
             pst.setInt(1, mod.getId());
             pst.execute();
 

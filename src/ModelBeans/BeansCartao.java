@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ModelBeans;
 
 /**
@@ -10,102 +5,78 @@ package ModelBeans;
  * @author jhame
  */
 public class BeansCartao {
-
-    /**
-     * @return the numero
-     */
-    //jhameson
-     private int numero;
+    private int id;
+    private String numero;
     private String tipo;
     private String bandeira;
-    int teste;
-    int vida;
-    
-    ////**
-    
-    private float limite;
-    private int valor_atual;
-    private Data fechamento;
-    
-    public int getNumero() {
+    private double limite;
+    private double valor;
+    private int dia_fechamento;
+    private String pesquisa;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getNumero() {
         return numero;
     }
 
-    /**
-     * @param numero the numero to set
-     */
-    public void setNumero(int numero) {
+    public void setNumero(String numero) {
         this.numero = numero;
     }
 
-    /**
-     * @return the tipo
-     */
     public String getTipo() {
         return tipo;
     }
 
-    /**
-     * @param tipo the tipo to set
-     */
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
 
-    /**
-     * @return the bandeira
-     */
     public String getBandeira() {
         return bandeira;
     }
 
-    /**
-     * @param bandeira the bandeira to set
-     */
     public void setBandeira(String bandeira) {
         this.bandeira = bandeira;
     }
 
-    /**
-     * @return the limite
-     */
-    public float getLimite() {
+    public double getLimite() {
         return limite;
     }
 
-    /**
-     * @param limite the limite to set
-     */
-    public void setLimite(float limite) {
+    public void setLimite(double limite) {
         this.limite = limite;
     }
 
-    /**
-     * @return the valor_atual
-     */
-    public int getValor_atual() {
-        return valor_atual;
+    public double getValor() {
+        return valor;
     }
 
-    /**
-     * @param valor_atual the valor_atual to set
-     */
-    public void setValor_atual(int valor_atual) {
-        this.valor_atual = valor_atual;
+    public void setValor(double valor) {
+        this.valor = valor;
     }
 
-    /**
-     * @return the fechamento
-     */
-    public Data getFechamento() {
-        return fechamento;
+    public int getDia_fechamento() {
+        return dia_fechamento;
     }
 
-    /**
-     * @param fechamento the fechamento to set
-     */
-    public void setFechamento(Data fechamento) {
-        this.fechamento = fechamento;
+    public void setDia_fechamento(int dia_fechamento) {
+        this.dia_fechamento = dia_fechamento;
     }
-   
+
+    public String getPesquisa() {
+        return pesquisa;
+    }
+
+    public void setPesquisa(String pesquisa) {
+        this.pesquisa = pesquisa;
+    }
+     
+     
 }

@@ -26,9 +26,9 @@ public class NovaDespesa extends javax.swing.JFrame {
     DaoDespesa dao_despesa = new DaoDespesa();
     Connection_BD conex = new Connection_BD();
 
-    public NovaDespesa(String user) {
+    public NovaDespesa(int user) {
         initComponents();
-        jLabelUsuario.setText(user);
+        jLabelUsuario.setText(""+user);
     }
 
     private NovaDespesa() {
@@ -250,10 +250,10 @@ public class NovaDespesa extends javax.swing.JFrame {
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
         //linhas responsaveis por colocar o nome de usuario na tela
         //pesquisa o nome do usuario e sua ID
-        mod_user.setUser_pesquisa(jLabelUsuario.getText());
-        int model = dao_user.retornaId(jLabelUsuario.getText());
+        
+        
 
-        mod_despesa.setId(model);
+        mod_despesa.setId(Integer.parseInt(jLabelUsuario.getText()));
         mod_despesa.setValor(Double.parseDouble(jTextFieldValor.getText()));
         mod_despesa.setCategoria((String) jComboBoxCategoria.getSelectedItem());
         mod_despesa.setData(jFormattedTextFieldData.getText());
@@ -263,7 +263,7 @@ public class NovaDespesa extends javax.swing.JFrame {
 
         dao_despesa.Salvar(mod_despesa);
 
-        TelaInicial tela = new TelaInicial(jLabelUsuario.getText());
+        TelaInicial tela = new TelaInicial(Integer.parseInt(jLabelUsuario.getText()));
         tela.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButtonSalvarActionPerformed

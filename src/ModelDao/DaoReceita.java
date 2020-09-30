@@ -80,13 +80,12 @@ public class DaoReceita {
         return 0;
     }
     
-    public void excluirTodasReceitas(BeansUsuario mod) {
-        
-        
+    //exclui todas as receitas de um determinado usuario
+    public void excluirTodasReceitas(BeansUsuario mod) {       
+       
         conex.conexao();
         try {
             PreparedStatement pst = conex.con.prepareStatement("delete from receita where id_user = ?");
-
             pst.setInt(1, mod.getId());
             pst.execute();
 

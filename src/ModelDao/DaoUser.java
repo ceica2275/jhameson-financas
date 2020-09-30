@@ -23,6 +23,7 @@ public class DaoUser {
     BeansUsuario mod = new BeansUsuario();
     DaoReceita dao_receita = new DaoReceita();
     DaoDespesa dao_despesa = new DaoDespesa();
+    DaoCartao dao_cartao = new DaoCartao();
 
     public void Salvar(BeansUsuario mod) {
         conex.conexao();
@@ -76,8 +77,11 @@ ALTER TABLE tabela DROP INDEX fk;
 Espero ter ajudado.
      */
     public void excluir(BeansUsuario mod) {
+        //exclui todos os dados do usuario que estejam em outras tabelas
         dao_receita.excluirTodasReceitas(mod);
         dao_despesa.excluirTodasDespesas(mod);
+        dao_cartao.excluirTodosCartoes(mod);
+        
         conex.conexao();
         try {
             PreparedStatement pst = conex.con.prepareStatement("delete from usuario where user_id = ?");
@@ -96,7 +100,7 @@ Espero ter ajudado.
     public BeansUsuario buscarUser(BeansUsuario mod) {
         conex.conexao();
 
-        conex.executaSQL("select *from usuario where user_usuario like '" + mod.getUser_pesquisa() + "'");
+        conex.executaSQL("select *from usuario where user_id = '" + mod.getUser_pesquisa() + "'");
         try {
             conex.rs.first();
             mod.setId(conex.rs.getInt("user_id"));

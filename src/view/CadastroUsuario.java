@@ -303,7 +303,7 @@ public class CadastroUsuario extends javax.swing.JFrame {
                 user_mod.setUsuario(jTextFieldUser.getText());
                 user_mod.setSenha(jPasswordFieldSenha.getText());
 
-                user_mod.setUser_pesquisa(jTextFieldUser.getText());
+                user_mod.setUser_pesquisa(Integer.parseInt(jTextFieldUser.getText()));
                 boolean model = dao_user.verificarExiste(jTextFieldUser.getText());
                 //jTextFieldUser.setText(model.getUsuario());
 

@@ -25,7 +25,7 @@ public class Login extends javax.swing.JFrame {
      * Creates new form Login
      */
     Connection_BD conecta = new Connection_BD();
-    DaoUser dao = new DaoUser();
+    DaoUser dao_user = new DaoUser();
     BeansUsuario mod = new BeansUsuario();
 
     public Login() {
@@ -228,7 +228,7 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_jPasswordFieSenhaActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+   
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButtonEntrarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonEntrarMouseEntered
@@ -273,7 +273,10 @@ public class Login extends javax.swing.JFrame {
             conecta.rs.first();
             
             if (conecta.rs.getString("user_senha").equals(jPasswordFieSenha.getText())) {
-                TelaInicial tl = new TelaInicial(jTextFieldUsuario.getText());
+                
+                int id = dao_user.retornaId(jTextFieldUsuario.getText());
+                
+                TelaInicial tl = new TelaInicial(id);
                 tl.setVisible(true);
                 dispose();
             }

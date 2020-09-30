@@ -42,7 +42,7 @@ public class NovaReceita extends javax.swing.JFrame {
     public NovaReceita(String user) {
 
         initComponents();
-        jLabelUsuario.setText(user);
+        jLabelCOD.setText(user);
     }
 
     private NovaReceita() {
@@ -63,7 +63,7 @@ public class NovaReceita extends javax.swing.JFrame {
         jButtonSalvar = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButtonCancelar = new javax.swing.JButton();
-        jLabelUsuario = new javax.swing.JLabel();
+        jLabelCOD = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jComboBoxCategoria = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
@@ -85,12 +85,13 @@ public class NovaReceita extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Nova Receita", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.BELOW_TOP, new java.awt.Font("Linux Libertine G", 1, 24))); // NOI18N
 
-        jButtonSalvar.setBackground(new java.awt.Color(153, 153, 153));
+        jButtonSalvar.setBackground(new java.awt.Color(218, 218, 218));
         jButtonSalvar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButtonSalvar.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonSalvar.setForeground(new java.awt.Color(51, 51, 51));
         jButtonSalvar.setText("Salvar");
         jButtonSalvar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jButtonSalvar.setBorderPainted(false);
+        jButtonSalvar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButtonSalvar.setFocusPainted(false);
         jButtonSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -98,20 +99,22 @@ public class NovaReceita extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(153, 153, 153));
+        jButton1.setBackground(new java.awt.Color(218, 218, 218));
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setForeground(new java.awt.Color(51, 51, 51));
         jButton1.setText("Nova Categoria");
         jButton1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jButton1.setBorderPainted(false);
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton1.setFocusPainted(false);
 
-        jButtonCancelar.setBackground(new java.awt.Color(153, 153, 153));
+        jButtonCancelar.setBackground(new java.awt.Color(218, 218, 218));
         jButtonCancelar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButtonCancelar.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonCancelar.setForeground(new java.awt.Color(51, 51, 51));
         jButtonCancelar.setText("Cancelar");
         jButtonCancelar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jButtonCancelar.setBorderPainted(false);
+        jButtonCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButtonCancelar.setFocusPainted(false);
         jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -119,8 +122,8 @@ public class NovaReceita extends javax.swing.JFrame {
             }
         });
 
-        jLabelUsuario.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
-        jLabelUsuario.setText("jLabel3");
+        jLabelCOD.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        jLabelCOD.setText("jLabel3");
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
@@ -131,23 +134,30 @@ public class NovaReceita extends javax.swing.JFrame {
         jComboBoxCategoria.setBorder(null);
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(51, 51, 51));
         jLabel2.setText("Categoria:");
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(51, 51, 51));
         jLabel3.setText("Dia:");
 
         jTextFieldValor.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jTextFieldValor.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(255, 255, 255), java.awt.Color.gray));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(51, 51, 51));
         jLabel1.setText("Valor:");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(51, 51, 51));
         jLabel4.setText("Mes:");
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(51, 51, 51));
         jLabel5.setText("Ano:");
 
         jTextFieldValorDia.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jTextFieldValorDia.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(255, 255, 255), java.awt.Color.gray));
         jTextFieldValorDia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldValorDiaActionPerformed(evt);
@@ -155,8 +165,10 @@ public class NovaReceita extends javax.swing.JFrame {
         });
 
         jTextFieldValorMes.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jTextFieldValorMes.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(255, 255, 255), java.awt.Color.gray));
 
         jTextFieldValorAno.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jTextFieldValorAno.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(255, 255, 255), java.awt.Color.gray));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -234,7 +246,7 @@ public class NovaReceita extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabelUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabelCOD, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -248,7 +260,7 @@ public class NovaReceita extends javax.swing.JFrame {
                     .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(7, 7, 7)
-                .addComponent(jLabelUsuario))
+                .addComponent(jLabelCOD))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -284,13 +296,7 @@ public class NovaReceita extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
-      
-        //linhas responsaveis por colocar o nome de usuario na tela
-        //pesquisa o nome do usuario e sua ID
-        mod_user.setUser_pesquisa(jLabelUsuario.getText());
-        int model = dao_user.retornaId(jLabelUsuario.getText());
-
-        mod_receita.setId(model);
+        mod_receita.setId(Integer.parseInt(jLabelCOD.getText()));
         mod_receita.setValor(Double.parseDouble(jTextFieldValor.getText()));
         mod_receita.setCategoria((String) jComboBoxCategoria.getSelectedItem());
         mod_receita.setDia(Integer.parseInt(jTextFieldValorDia.getText()));
@@ -299,16 +305,15 @@ public class NovaReceita extends javax.swing.JFrame {
 
         dao_receita.Salvar(mod_receita);
 
-        TelaInicial tela = new TelaInicial(jLabelUsuario.getText());
+        TelaInicial tela = new TelaInicial(Integer.parseInt(jLabelCOD.getText()));
         tela.setVisible(true);
         dispose();
-        
-        
+
 
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
-        TelaInicial tl = new TelaInicial(jLabelUsuario.getText());
+        TelaInicial tl = new TelaInicial(Integer.parseInt(jLabelCOD.getText()));
         tl.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButtonCancelarActionPerformed
@@ -362,7 +367,7 @@ public class NovaReceita extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabelUsuario;
+    private javax.swing.JLabel jLabelCOD;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
