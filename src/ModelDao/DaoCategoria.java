@@ -37,4 +37,40 @@ public class DaoCategoria {
         }
         conex.desconecta();
     }
+    
+     public BeansCategoria buscarCategoria(BeansCategoria mod) {
+        conex.conexao();
+
+        conex.executaSQL("select *from categorias where nome like '%"+mod.getPesquisa() + "%'");
+        try {
+            conex.rs.first();
+           
+            mod.setTipo(conex.rs.getString("tipo"));
+            mod.setNome(conex.rs.getString("nome"));
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao encontrar categoria: " + ex);
+        }
+
+        conex.desconecta();
+        return mod;
+    }
+     
+     public void excluir(BeansCategoria mod) {
+       
+        
+        conex.conexao();
+        try {
+            PreparedStatement pst = conex.con.prepareStatement("delete from categorias where nome = ?");
+
+            pst.setString(1, mod.getNome());
+            pst.execute();
+
+            JOptionPane.showMessageDialog(null, "Categoria excluida com Sucesso");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erros ao excluir: " + ex.getMessage());
+        }
+        conex.desconecta();
+
+    }
 }

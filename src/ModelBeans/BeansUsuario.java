@@ -16,19 +16,19 @@ public class BeansUsuario {
     private String email;
     private String usuario;
     private String senha;
-    private int user_pesquisa;
+    private String user_pesquisa;
     
     /**
      * @return the user_pesquisa
      */
-    public int getUser_pesquisa() {
+    public String getUser_pesquisa() {
         return user_pesquisa;
     }
 
     /**
      * @param user_pesquisa the user_pesquisa to set
      */
-    public void setUser_pesquisa(int user_pesquisa) {
+    public void setUser_pesquisa(String user_pesquisa) {
         this.user_pesquisa = user_pesquisa;
     }
 

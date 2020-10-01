@@ -49,18 +49,10 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemCartoes">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Cart&#xf5;es"/>
+                <Property name="text" type="java.lang.String" value="Op&#xe7;&#xf5;es de Cart&#xf5;es"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemCartoesActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemCarteira">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Carteira"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemCarteiraActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
@@ -72,7 +64,7 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem4">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Nova Categoria"/>
+                <Property name="text" type="java.lang.String" value="Op&#xe7;&#xf5;es de Categorias"/>
               </Properties>
             </MenuItem>
           </SubComponents>
@@ -81,6 +73,13 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Hist&#xf3;rico"/>
           </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem3">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Hist&#xf3;rico de Transa&#xe7;&#xf5;es"/>
+              </Properties>
+            </MenuItem>
+          </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu5">
           <Properties>

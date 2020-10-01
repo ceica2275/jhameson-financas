@@ -48,11 +48,11 @@ public class DaoDespesa {
 
     //metodo para somar o valor em despesas
     public int somarDespesas(int id, int mes, int dia) {
-        
+        /*
         JOptionPane.showMessageDialog(null, "deu merda "+id);
         JOptionPane.showMessageDialog(null, "deu merda "+mes);
         JOptionPane.showMessageDialog(null, "deu merda "+dia);
-        
+        */
         conex.conexao();
         conex.executaSQL("select sum(valor) as soma from despesa where id_user = '" + id + "' and mes = '" + mes + "' and dia <= '" + dia + "'");
         

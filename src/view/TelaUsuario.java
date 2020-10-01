@@ -49,7 +49,8 @@ public class TelaUsuario extends javax.swing.JFrame {
         //preenche os campos da tela
         //pesquisa as informações do id_Tela de acordo com o id_Tela name
         //String nomePesquisa = 
-        beans_user.setUser_pesquisa(id_Tela);
+        beans_user.setUser_pesquisa(String.valueOf(id_Tela));
+       
         BeansUsuario model = dao_user.buscarUser(beans_user);
 
         jTextFieldCOD.setText(String.valueOf(model.getId()));
@@ -101,10 +102,10 @@ public class TelaUsuario extends javax.swing.JFrame {
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenu7 = new javax.swing.JMenu();
         jMenuItemCartoes = new javax.swing.JMenuItem();
-        jMenuItemCarteira = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -366,7 +367,7 @@ public class TelaUsuario extends javax.swing.JFrame {
 
         jMenu7.setText("Contas");
 
-        jMenuItemCartoes.setText("Cartões");
+        jMenuItemCartoes.setText("Opções de Cartões");
         jMenuItemCartoes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemCartoesActionPerformed(evt);
@@ -374,24 +375,20 @@ public class TelaUsuario extends javax.swing.JFrame {
         });
         jMenu7.add(jMenuItemCartoes);
 
-        jMenuItemCarteira.setText("Carteira");
-        jMenuItemCarteira.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemCarteiraActionPerformed(evt);
-            }
-        });
-        jMenu7.add(jMenuItemCarteira);
-
         jMenuBar1.add(jMenu7);
 
         jMenu4.setText("Categorias");
 
-        jMenuItem4.setText("Nova Categoria");
+        jMenuItem4.setText("Opções de Categorias");
         jMenu4.add(jMenuItem4);
 
         jMenuBar1.add(jMenu4);
 
         jMenu2.setText("Histórico");
+
+        jMenuItem3.setText("Histórico de Transações");
+        jMenu2.add(jMenuItem3);
+
         jMenuBar1.add(jMenu2);
 
         jMenu5.setText("Sair");
@@ -450,10 +447,6 @@ public class TelaUsuario extends javax.swing.JFrame {
         ct.setVisible(true);
         dispose();
     }//GEN-LAST:event_jMenuItemCartoesActionPerformed
-
-    private void jMenuItemCarteiraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCarteiraActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItemCarteiraActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         // TODO add your handling code here:
@@ -591,9 +584,9 @@ public class TelaUsuario extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItemCarteira;
     private javax.swing.JMenuItem jMenuItemCartoes;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

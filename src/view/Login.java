@@ -128,7 +128,7 @@ public class Login extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButtonCadastrar);
-        jButtonCadastrar.setBounds(20, 330, 210, 30);
+        jButtonCadastrar.setBounds(20, 320, 210, 30);
 
         jButtonSair.setBackground(new java.awt.Color(204, 0, 51));
         jButtonSair.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -187,7 +187,7 @@ public class Login extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton3);
-        jButton3.setBounds(470, 340, 110, 22);
+        jButton3.setBounds(490, 370, 110, 22);
 
         jLabelFundo.setBackground(new java.awt.Color(204, 204, 204));
         jLabelFundo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/gestao-financeira-controladoria-topo.jpg"))); // NOI18N
@@ -200,7 +200,7 @@ public class Login extends javax.swing.JFrame {
         getContentPane().add(jLabel4);
         jLabel4.setBounds(20, 70, 80, 17);
 
-        setSize(new java.awt.Dimension(590, 375));
+        setSize(new java.awt.Dimension(606, 400));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

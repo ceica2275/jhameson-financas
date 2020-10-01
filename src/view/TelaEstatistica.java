@@ -49,7 +49,7 @@ public class TelaEstatistica extends javax.swing.JFrame {
         //preenche os campos da tela
         //pesquisa as informações do id_Tela de acordo com o id_Tela name
         //String nomePesquisa = 
-        beans_user.setUser_pesquisa(id_Tela);
+        beans_user.setUser_pesquisa(String.valueOf(id_Tela));
         BeansUsuario model = dao_user.buscarUser(beans_user);
 
         

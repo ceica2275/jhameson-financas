@@ -108,6 +108,7 @@ Espero ter ajudado.
             mod.setEmail(conex.rs.getString("user_email"));
             mod.setUsuario(conex.rs.getString("user_usuario"));
             mod.setSenha(conex.rs.getString("user_senha"));
+            return mod;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao encontrar User: " + ex);
         }

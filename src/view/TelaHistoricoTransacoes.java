@@ -23,7 +23,7 @@ import javax.swing.ListSelectionModel;
  *
  * @author jhame
  */
-public class TelaInicial extends javax.swing.JFrame {
+public class TelaHistoricoTransacoes extends javax.swing.JFrame {
 
     /**
      * Creates new form TelaInicial
@@ -36,7 +36,7 @@ public class TelaInicial extends javax.swing.JFrame {
     DaoReceita mod_receita = new DaoReceita();
     DaoDespesa mod_despesa = new DaoDespesa();
 
-    public TelaInicial(int id_Tela) {
+    public TelaHistoricoTransacoes(int id_Tela) {
         initComponents();
 
         conecta.conexao();
@@ -79,7 +79,7 @@ public class TelaInicial extends javax.swing.JFrame {
          preencherTabelaDespesa("select valor, categoria, status from despesa where id_user = '" + id_Tela + "'");
     }
 
-    private TelaInicial() {
+    private TelaHistoricoTransacoes() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -97,22 +97,12 @@ public class TelaInicial extends javax.swing.JFrame {
         jMenu6 = new javax.swing.JMenu();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
-        jButtonReceitas = new javax.swing.JButton();
-        jButtonDespesas = new javax.swing.JButton();
         jLabel00 = new javax.swing.JLabel();
         jLabelCOD = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabelData = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
-        jLabelPosse = new javax.swing.JLabel();
-        jLabelReceitas = new javax.swing.JLabel();
-        jLabelDespesas = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTableDespesas = new javax.swing.JTable();
         jScrollPane4 = new javax.swing.JScrollPane();
@@ -143,75 +133,7 @@ public class TelaInicial extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(51, 51, 51));
 
         jPanel2.setBackground(new java.awt.Color(240, 231, 244));
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tela Inicial", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.BELOW_TOP, new java.awt.Font("Linux Libertine G", 1, 24))); // NOI18N
-
-        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Nova Transação", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.BELOW_TOP, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
-        jPanel3.setForeground(new java.awt.Color(51, 51, 51));
-        jPanel3.setPreferredSize(new java.awt.Dimension(370, 79));
-
-        jButtonReceitas.setBackground(new java.awt.Color(0, 102, 51));
-        jButtonReceitas.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButtonReceitas.setForeground(new java.awt.Color(255, 255, 255));
-        jButtonReceitas.setText("Receitas");
-        jButtonReceitas.setBorderPainted(false);
-        jButtonReceitas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButtonReceitas.setFocusPainted(false);
-        jButtonReceitas.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jButtonReceitasMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jButtonReceitasMouseExited(evt);
-            }
-        });
-        jButtonReceitas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonReceitasActionPerformed(evt);
-            }
-        });
-
-        jButtonDespesas.setBackground(new java.awt.Color(204, 0, 51));
-        jButtonDespesas.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButtonDespesas.setForeground(new java.awt.Color(255, 255, 255));
-        jButtonDespesas.setText("Despesas");
-        jButtonDespesas.setBorderPainted(false);
-        jButtonDespesas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButtonDespesas.setFocusPainted(false);
-        jButtonDespesas.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jButtonDespesasMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jButtonDespesasMouseExited(evt);
-            }
-        });
-        jButtonDespesas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonDespesasActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(45, 45, 45)
-                .addComponent(jButtonReceitas, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
-                .addComponent(jButtonDespesas, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(41, Short.MAX_VALUE))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonReceitas, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonDespesas, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Histórico de Transações", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.BELOW_TOP, new java.awt.Font("Linux Libertine G", 1, 24))); // NOI18N
 
         jLabel00.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jLabel00.setForeground(new java.awt.Color(0, 0, 255));
@@ -234,68 +156,6 @@ public class TelaInicial extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(51, 51, 51));
         jLabel9.setText("Despesas Recentes:");
-
-        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel4.setPreferredSize(new java.awt.Dimension(370, 106));
-
-        jLabelPosse.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabelPosse.setForeground(new java.awt.Color(0, 102, 255));
-        jLabelPosse.setText("jLabel10");
-
-        jLabelReceitas.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabelReceitas.setForeground(new java.awt.Color(0, 255, 51));
-        jLabelReceitas.setText("jLabel10");
-
-        jLabelDespesas.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabelDespesas.setForeground(new java.awt.Color(255, 0, 51));
-        jLabelDespesas.setText("jLabel10");
-
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel1.setText("Dinheiro em Posse:");
-
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel3.setText("Receitas do mês:");
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel2.setText("Despesas do mês: ");
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
-                .addGap(128, 128, 128)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabelPosse, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelReceitas, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelDespesas, javax.swing.GroupLayout.Alignment.LEADING))
-                .addContainerGap(48, Short.MAX_VALUE))
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelPosse)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabelReceitas))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelDespesas)
-                    .addComponent(jLabel2))
-                .addContainerGap(13, Short.MAX_VALUE))
-        );
 
         jTableDespesas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -332,13 +192,10 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addGap(18, 18, Short.MAX_VALUE)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel9)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel5)
+                        .addGap(18, 266, Short.MAX_VALUE)
+                        .addComponent(jLabel9)
+                        .addGap(242, 242, 242))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel00)
@@ -356,11 +213,7 @@ public class TelaInicial extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(130, 130, 130)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
                     .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING))
@@ -504,45 +357,12 @@ public class TelaInicial extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jMenuItemCartoesActionPerformed
 
-    private void jButtonDespesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDespesasActionPerformed
-        NovaDespesa np = new NovaDespesa(Integer.parseInt(jLabelCOD.getText()));
-        np.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_jButtonDespesasActionPerformed
-
-    private void jButtonReceitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReceitasActionPerformed
-
-        NovaReceita nr = new NovaReceita(Integer.parseInt(jLabelCOD.getText()));
-        nr.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_jButtonReceitasActionPerformed
-
     private void jMenuItemPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPerfilActionPerformed
         int id = Integer.parseInt(jLabelCOD.getText());
         TelaUsuario tela_user = new TelaUsuario(id);
         tela_user.setVisible(true);
         dispose();
     }//GEN-LAST:event_jMenuItemPerfilActionPerformed
-
-    private void jButtonReceitasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonReceitasMouseEntered
-        jButtonReceitas.setBackground(new Color(51, 204, 0));
-        jButtonReceitas.setForeground(Color.BLACK);
-    }//GEN-LAST:event_jButtonReceitasMouseEntered
-
-    private void jButtonReceitasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonReceitasMouseExited
-        jButtonReceitas.setBackground(new Color(0, 102, 51));
-        jButtonReceitas.setForeground(new Color(255, 255, 255));
-    }//GEN-LAST:event_jButtonReceitasMouseExited
-
-    private void jButtonDespesasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonDespesasMouseEntered
-        jButtonDespesas.setBackground(new Color(255, 0, 0));
-        jButtonDespesas.setForeground(Color.BLACK);
-    }//GEN-LAST:event_jButtonDespesasMouseEntered
-
-    private void jButtonDespesasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonDespesasMouseExited
-        jButtonDespesas.setBackground(new Color(204, 0, 51));
-        jButtonDespesas.setForeground(Color.WHITE);
-    }//GEN-LAST:event_jButtonDespesasMouseExited
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         TelaCategoria tc = new TelaCategoria(Integer.parseInt(jLabelCOD.getText()));
@@ -654,39 +474,32 @@ public class TelaInicial extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaInicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaHistoricoTransacoes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaInicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaHistoricoTransacoes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaInicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaHistoricoTransacoes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaInicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaHistoricoTransacoes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaInicial().setVisible(true);
+                new TelaHistoricoTransacoes().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonDespesas;
-    private javax.swing.JButton jButtonReceitas;
     private javax.swing.JLabel jLabel00;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelCOD;
     private javax.swing.JLabel jLabelData;
-    private javax.swing.JLabel jLabelDespesas;
-    private javax.swing.JLabel jLabelPosse;
-    private javax.swing.JLabel jLabelReceitas;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -704,8 +517,6 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemPerfil;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTable jTableDespesas;

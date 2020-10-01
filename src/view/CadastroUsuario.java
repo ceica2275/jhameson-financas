@@ -67,16 +67,16 @@ public class CadastroUsuario extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Cadastro de Novo Usuário", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 24))); // NOI18N
         jPanel2.setEnabled(false);
 
-        jLabelNome.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabelNome.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabelNome.setText("Nome:");
 
-        jLabelEmail.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabelEmail.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabelEmail.setText("Email:");
 
-        jLabelUser.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabelUser.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabelUser.setText("Nome de Usuário:");
 
-        jLabelSenha.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabelSenha.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabelSenha.setText("Senha:");
 
         jTextFieldNome.setEnabled(false);
@@ -90,13 +90,13 @@ public class CadastroUsuario extends javax.swing.JFrame {
 
         jTextFieldUser.setEnabled(false);
 
-        jLabelConfirmSenha.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabelConfirmSenha.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabelConfirmSenha.setText("Confirmar Senha:");
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel6.setText("Informações do Usuário");
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel7.setText("Informações de Login");
 
         jPasswordFieldSenha.setEnabled(false);
@@ -153,7 +153,7 @@ public class CadastroUsuario extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTextFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 376, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, 376, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(56, Short.MAX_VALUE))
+                        .addContainerGap(43, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jTextFieldUser)
@@ -201,7 +201,7 @@ public class CadastroUsuario extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelEmail)
                     .addComponent(jTextFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel7)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -223,7 +223,7 @@ public class CadastroUsuario extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonCadastrar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
         );
@@ -303,7 +303,7 @@ public class CadastroUsuario extends javax.swing.JFrame {
                 user_mod.setUsuario(jTextFieldUser.getText());
                 user_mod.setSenha(jPasswordFieldSenha.getText());
 
-                user_mod.setUser_pesquisa(Integer.parseInt(jTextFieldUser.getText()));
+                user_mod.setUser_pesquisa(jTextFieldUser.getText());
                 boolean model = dao_user.verificarExiste(jTextFieldUser.getText());
                 //jTextFieldUser.setText(model.getUsuario());
 

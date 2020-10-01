@@ -100,10 +100,10 @@ public class TelaCartoes extends javax.swing.JFrame {
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenu7 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItemCarteira = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        jMenuItem6 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -446,7 +446,7 @@ public class TelaCartoes extends javax.swing.JFrame {
 
         jMenu1.setText("Usuário");
 
-        jMenuItem5.setText("jMenuItem5");
+        jMenuItem5.setText("Perfil");
         jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem5ActionPerformed(evt);
@@ -458,7 +458,7 @@ public class TelaCartoes extends javax.swing.JFrame {
 
         jMenu7.setText("Contas");
 
-        jMenuItem3.setText("Cartões");
+        jMenuItem3.setText("Opções de Cartões");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem3ActionPerformed(evt);
@@ -466,24 +466,20 @@ public class TelaCartoes extends javax.swing.JFrame {
         });
         jMenu7.add(jMenuItem3);
 
-        jMenuItemCarteira.setText("Carteira");
-        jMenuItemCarteira.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemCarteiraActionPerformed(evt);
-            }
-        });
-        jMenu7.add(jMenuItemCarteira);
-
         jMenuBar1.add(jMenu7);
 
         jMenu4.setText("Categorias");
 
-        jMenuItem4.setText("Nova Categoria");
+        jMenuItem4.setText("Opções de Categorias");
         jMenu4.add(jMenuItem4);
 
         jMenuBar1.add(jMenu4);
 
         jMenu2.setText("Histórico");
+
+        jMenuItem6.setText("Histórico de Transações");
+        jMenu2.add(jMenuItem6);
+
         jMenuBar1.add(jMenu2);
 
         jMenu5.setText("Sair");
@@ -496,7 +492,7 @@ public class TelaCartoes extends javax.swing.JFrame {
         });
         jMenu5.add(jMenuItem2);
 
-        jMenuItem1.setText("Sair");
+        jMenuItem1.setText("Fechar");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
@@ -540,10 +536,6 @@ public class TelaCartoes extends javax.swing.JFrame {
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
 
     }//GEN-LAST:event_jMenuItem3ActionPerformed
-
-    private void jMenuItemCarteiraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCarteiraActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItemCarteiraActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         // TODO add your handling code here:
@@ -786,7 +778,7 @@ public class TelaCartoes extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItemCarteira;
+    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
