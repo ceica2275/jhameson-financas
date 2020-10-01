@@ -10,7 +10,6 @@ import ModelBeans.BeansUsuario;
 
 import java.sql.*;
 
-
 import ModelConnection.Connection_BD;
 
 import javax.swing.JOptionPane;
@@ -23,7 +22,6 @@ public class DaoReceita {
 
     Connection_BD conex = new Connection_BD();
     BeansReceita mod = new BeansReceita();
-    
 
     public void Salvar(BeansReceita mod) {
         conex.conexao();
@@ -66,23 +64,24 @@ public class DaoReceita {
     //metodo para somar o valor em receitas
     public int somarReceitas(int id, int mes, int dia) {
         conex.conexao();
-        conex.executaSQL("select sum(valor) as soma from receita where id_user = '"+id+"' and mes = '"+mes+"' and dia <= '"+dia+"'");
+        conex.executaSQL("select sum(valor) as soma from receita where id_user = '" + id + "' and mes = '" + mes + "' and dia <= '" + dia + "'");
 
         try {
             conex.rs.first();
-            
-            
+            //JOptionPane.showMessageDialog(null, "id "+id);
+           // JOptionPane.showMessageDialog(null, "mes "+mes);
+            //JOptionPane.showMessageDialog(null, "dia "+dia);
+            //JOptionPane.showMessageDialog(null, "deu merda "+conex.rs.getInt("soma"));
             return conex.rs.getInt("soma");
-            
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "deu merda");
         }
         return 0;
     }
-    
+
     //exclui todas as receitas de um determinado usuario
-    public void excluirTodasReceitas(BeansUsuario mod) {       
-       
+    public void excluirTodasReceitas(BeansUsuario mod) {
+
         conex.conexao();
         try {
             PreparedStatement pst = conex.con.prepareStatement("delete from receita where id_user = ?");
@@ -96,6 +95,5 @@ public class DaoReceita {
         conex.desconecta();
 
     }
-    
-     
+
 }

@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package ModelDao;
+
 import ModelBeans.BeansDespesas;
 import ModelBeans.BeansUsuario;
 import ModelConnection.Connection_BD;
@@ -16,49 +17,55 @@ import javax.swing.JOptionPane;
  * @author jhame
  */
 public class DaoDespesa {
-    
+
     Connection_BD conex = new Connection_BD();
     BeansDespesas mod_despesa = new BeansDespesas();
-   
 
     public void Salvar(BeansDespesas mod) {
         conex.conexao();
         try {
-            PreparedStatement pst = conex.con.prepareStatement("insert into despesa(id_user, valor, categoria, data, descricao, forma_pagamento, status) values (?,?,?,?,?,?,?)");
+            PreparedStatement pst = conex.con.prepareStatement("insert into despesa(id_user, valor, categoria, descricao, forma_pagamento, status, dia, mes, ano) values (?,?,?,?,?,?,?,?,?)");
 
             pst.setInt(1, mod.getId());
             pst.setDouble(2, mod.getValor());
             pst.setString(3, mod.getCategoria());
-            pst.setString(4, mod.getData());
-            pst.setString(5, mod.getDescricao());
-            pst.setString(6, mod.getForma_pagamento());
-            pst.setString(7, mod.getStatus());
-           
+
+            pst.setString(4, mod.getDescricao());
+            pst.setString(5, mod.getForma_pagamento());
+            pst.setString(6, mod.getStatus());
+            pst.setInt(7, mod.getDia());
+            pst.setInt(8, mod.getMes());
+            pst.setInt(9, mod.getAno());
+
             pst.execute();
 
             JOptionPane.showMessageDialog(null, "Despesa Cadastrado com Sucesso");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erros ao cadastrar: " + ex.getMessage());
-}
+        }
         conex.desconecta();
     }
-    
-    //metodo para somar o valor em receitas
-    public int somarDespesas(int id) {
-        conex.conexao();
-        conex.executaSQL("select sum(valor) as soma from despesa where id_user = '" + id + "'");
 
+    //metodo para somar o valor em despesas
+    public int somarDespesas(int id, int mes, int dia) {
+        
+        JOptionPane.showMessageDialog(null, "deu merda "+id);
+        JOptionPane.showMessageDialog(null, "deu merda "+mes);
+        JOptionPane.showMessageDialog(null, "deu merda "+dia);
+        
+        conex.conexao();
+        conex.executaSQL("select sum(valor) as soma from despesa where id_user = '" + id + "' and mes = '" + mes + "' and dia <= '" + dia + "'");
+        
         try {
             conex.rs.first();
-            
-            
+
             return conex.rs.getInt("soma");
-            
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "deu merda");
         }
         return 0;
     }
+
     /*
     public BeansReceita buscaReceita(BeansReceita br) {
         conex.conexao();
@@ -95,10 +102,9 @@ public class DaoDespesa {
         return 0;
     }
     
-    */
-     public void excluirTodasDespesas(BeansUsuario mod) {
-     
-        
+     */
+    public void excluirTodasDespesas(BeansUsuario mod) {
+
         conex.conexao();
         try {
             PreparedStatement pst = conex.con.prepareStatement("delete from despesa where id_user = ?");

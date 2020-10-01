@@ -1,0 +1,14 @@
+
+CRUD USUARIO
+    cadastrar ok    
+    remover ok
+    editar ok
+
+
+CRUD CATEGORIA
+CRUD RECEITA
+    cadastrar ok
+CRUD DESPESA
+    cadastrar ok
+CRUD CARTÃO
+    cadastrar ok

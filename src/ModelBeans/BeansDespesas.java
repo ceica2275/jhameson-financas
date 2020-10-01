@@ -1,15 +1,41 @@
-
 package ModelBeans;
 
 public class BeansDespesas {
-    
+
     private int id;
     private double valor;
-     private String categoria;
-    private String data;
+    private String categoria;
+    private int dia;
+    private int mes;
+    private int ano;
+
     private String descricao;
     private String forma_pagamento;
     private String status;
+
+    public int getDia() {
+        return dia;
+    }
+
+    public void setDia(int dia) {
+        this.dia = dia;
+    }
+
+    public int getMes() {
+        return mes;
+    }
+
+    public void setMes(int mes) {
+        this.mes = mes;
+    }
+
+    public int getAno() {
+        return ano;
+    }
+
+    public void setAno(int ano) {
+        this.ano = ano;
+    }
 
     public int getId() {
         return id;
@@ -35,13 +61,7 @@ public class BeansDespesas {
         this.categoria = categoria;
     }
 
-    public String getData() {
-        return data;
-    }
-
-    public void setData(String data) {
-        this.data = data;
-    }
+    
 
     public String getDescricao() {
         return descricao;
@@ -67,5 +87,4 @@ public class BeansDespesas {
         this.status = status;
     }
 
-    
 }

@@ -43,11 +43,10 @@ public class TelaInicial extends javax.swing.JFrame {
         jLabelCOD.setText(""+id_Tela);
 
         //pesquisa no banco pelo nome do id_Tela para ´preencher as tabelas
-        beans_user.setUser_pesquisa(id_Tela);
-        int IdDoUsuario = mod_user.retornaId(jLabelCOD.getText());
-
-        preencherTabelaReceita("select valor, categoria, dia from receita where id_user = '" + IdDoUsuario + "'");
-        preencherTabelaDespesa("select *from despesa where id_user = '" + IdDoUsuario + "'");
+        
+        //JOptionPane.showMessageDialog(null, "deu merda telaaaa "+id_Tela);
+            
+       
 
         //linhas resposaveis por chamar o metodo de exibir a data na tela inicial
         String dataCompleta = exd.dataCompleta();
@@ -63,16 +62,21 @@ public class TelaInicial extends javax.swing.JFrame {
         
       
         
-        //mostra a soma das despesas do mes
-        //int despesasMes = mod_despesa.somarDespesas(IdDoUsuario);
-        //jLabelDespesas.setText("" + despesasMes);
+       
 
         //mostra a soma das receitas do mes
-        int somaCaralho = mod_receita.somarReceitas(IdDoUsuario,datamesInt,datadiaInt);
-        jLabelReceitas.setText("" +somaCaralho);
+        int somaReceitas = mod_receita.somarReceitas(id_Tela,datamesInt,datadiaInt);
+        jLabelReceitas.setText(""+somaReceitas);
+        
+         //mostra a soma das despesas do mes
+        int somaDespesas = mod_despesa.somarDespesas(id_Tela,datamesInt,datadiaInt);
+        jLabelDespesas.setText(""+somaDespesas);
         
         //mostra o dinheiro em posse
-        //jLabelPosse.setText("" + (somaCaralho - despesasMes));
+        jLabelPosse.setText("" + (somaReceitas - somaDespesas));
+        
+         preencherTabelaReceita("select valor, categoria, dia from receita where id_user = '" + id_Tela + "'");
+         preencherTabelaDespesa("select valor, categoria, status from despesa where id_user = '" + id_Tela + "'");
     }
 
     private TelaInicial() {
@@ -499,7 +503,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void jButtonReceitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReceitasActionPerformed
 
-        NovaReceita nr = new NovaReceita(jLabelCOD.getText());
+        NovaReceita nr = new NovaReceita(Integer.parseInt(jLabelCOD.getText()));
         nr.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButtonReceitasActionPerformed
@@ -555,18 +559,18 @@ public class TelaInicial extends javax.swing.JFrame {
         } catch (SQLException ex) {
             //JOptionPane.showMessageDialog(rootPane, "Erro na tabela Transação arraylist: " + ex);
         }
-
+        
         ModelTabela model = new ModelTabela(dados, colunas);
 
         jTableReceitas.setModel(model);
 
-        jTableReceitas.getColumnModel().getColumn(0).setPreferredWidth(73);
+        jTableReceitas.getColumnModel().getColumn(0).setPreferredWidth(93);
         jTableReceitas.getColumnModel().getColumn(0).setResizable(false);
 
-        jTableReceitas.getColumnModel().getColumn(1).setPreferredWidth(160);
+        jTableReceitas.getColumnModel().getColumn(1).setPreferredWidth(180);
         jTableReceitas.getColumnModel().getColumn(1).setResizable(false);
 
-        jTableReceitas.getColumnModel().getColumn(2).setPreferredWidth(100);
+        jTableReceitas.getColumnModel().getColumn(2).setPreferredWidth(90);
         jTableReceitas.getColumnModel().getColumn(2).setResizable(false);
 
         jTableReceitas.getTableHeader().setReorderingAllowed(false);
@@ -575,11 +579,11 @@ public class TelaInicial extends javax.swing.JFrame {
 
         conecta.desconecta();
     }
-
+    
     public void preencherTabelaDespesa(String Sql) {
 
         ArrayList dados = new ArrayList();
-        String [] Colunas = new String []{"Valor", "Categoria", "Data", "Status"};
+        String [] Colunas = new String []{"Valor", "Categoria", "Status"};
 
         conecta.conexao();
         conecta.executaSQL(Sql);
@@ -588,7 +592,7 @@ public class TelaInicial extends javax.swing.JFrame {
             conecta.rs.first();
             do {
 
-                dados.add(new Object[]{conecta.rs.getDouble("valor"), conecta.rs.getString("categoria"), conecta.rs.getString("data"), conecta.rs.getString("status")});
+                dados.add(new Object[]{conecta.rs.getDouble("valor"), conecta.rs.getString("categoria"), conecta.rs.getString("status")});
 
             } while (conecta.rs.next());
         } catch (SQLException ex) {
@@ -599,17 +603,16 @@ public class TelaInicial extends javax.swing.JFrame {
 
         jTableDespesas.setModel(model);
 
-        jTableDespesas.getColumnModel().getColumn(0).setPreferredWidth(53);
+        jTableDespesas.getColumnModel().getColumn(0).setPreferredWidth(93);
         jTableDespesas.getColumnModel().getColumn(0).setResizable(false);
 
-        jTableDespesas.getColumnModel().getColumn(1).setPreferredWidth(130);
+        jTableDespesas.getColumnModel().getColumn(1).setPreferredWidth(180);
         jTableDespesas.getColumnModel().getColumn(1).setResizable(false);
 
-        jTableDespesas.getColumnModel().getColumn(2).setPreferredWidth(100);
+        jTableDespesas.getColumnModel().getColumn(2).setPreferredWidth(90);
         jTableDespesas.getColumnModel().getColumn(2).setResizable(false);
 
-        jTableDespesas.getColumnModel().getColumn(3).setPreferredWidth(50);
-        jTableDespesas.getColumnModel().getColumn(3).setResizable(false);
+      
 
         jTableDespesas.getTableHeader().setReorderingAllowed(false);
         jTableDespesas.setAutoResizeMode(jTableReceitas.AUTO_RESIZE_OFF);
@@ -629,7 +632,7 @@ public class TelaInicial extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
+                if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
