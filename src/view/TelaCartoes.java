@@ -12,11 +12,12 @@ import ModelDao.DaoReceita;
 import ModelDao.*;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
-
+import java.sql.Connection;
 import java.sql.SQLException;
 import javax.swing.ListSelectionModel;
 
 import ModelBeans.*;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -46,7 +47,7 @@ public class TelaCartoes extends javax.swing.JFrame {
         //linhas resposaveis por chamar o metodo de exibir a data na tela inicial
         String dataCompleta = exd.dataCompleta();
         jLabelData.setText(dataCompleta);
-
+        preencherTabela("select tipo, numero from cartao where id_user = '"+usuario+"' order by id_user" );
     }
 
     private TelaCartoes() {
@@ -86,7 +87,7 @@ public class TelaCartoes extends javax.swing.JFrame {
         jTextFieldDiaFechamento = new javax.swing.JTextField();
         jButtonSalvar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableCartao = new javax.swing.JTable();
         jTextFieldPesquisa = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jButtonPesquisar = new javax.swing.JButton();
@@ -274,7 +275,7 @@ public class TelaCartoes extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableCartao.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -285,7 +286,7 @@ public class TelaCartoes extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jTableCartao);
 
         jTextFieldPesquisa.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jTextFieldPesquisa.addActionListener(new java.awt.event.ActionListener() {
@@ -560,7 +561,7 @@ public class TelaCartoes extends javax.swing.JFrame {
         //variavel pesquisa
         beans_cartao.setPesquisa(jTextFieldPesquisa.getText());
         BeansCartao model = dao_cartao.buscarCartao(beans_cartao);
-        
+
         //setando os campos
         jLabelTipoCartao.setText(model.getTipo());
         jTextFieldNumero.setText(model.getNumero());
@@ -568,7 +569,7 @@ public class TelaCartoes extends javax.swing.JFrame {
         jTextFieldLimite.setText(Double.toString(model.getLimite()));
         jTextFieldValorAtual.setText(Double.toString(model.getValor()));
         jTextFieldDiaFechamento.setText(Double.toString(model.getDia_fechamento()));
-       
+
     }//GEN-LAST:event_jButtonPesquisarActionPerformed
 
     private void jTextFieldValorAtualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldValorAtualActionPerformed
@@ -679,6 +680,36 @@ public class TelaCartoes extends javax.swing.JFrame {
         jButtonNovoCredito.setEnabled(false);
     }//GEN-LAST:event_jButtonNovoDebitoActionPerformed
 
+    public void preencherTabela(String SQL){
+        ArrayList dados = new ArrayList();
+        String [] colunas = new String[]{"Tipo","Numero"};
+        conecta.executaSQL(SQL);
+        
+        try {
+            conecta.rs.first();
+            do{
+                dados.add(new Object[]{conecta.rs.getString("tipo"), conecta.rs.getString("numero")});
+                
+            }while(conecta.rs.next());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "erro tabela "+e);
+        }
+        
+        ModelTabela modelo = new ModelTabela(dados, colunas);
+        
+        jTableCartao.setModel(modelo);
+        jTableCartao.getColumnModel().getColumn(0).setPreferredWidth(100);
+        jTableCartao.getColumnModel().getColumn(0).setResizable(false);
+        
+        jTableCartao.getColumnModel().getColumn(1).setPreferredWidth(100);
+        jTableCartao.getColumnModel().getColumn(1).setResizable(false);
+        
+        jTableCartao.getTableHeader().setReorderingAllowed(false);
+        jTableCartao.setAutoResizeMode(jTableCartao.AUTO_RESIZE_OFF);
+        
+        jTableCartao.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -760,7 +791,7 @@ public class TelaCartoes extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTableCartao;
     private javax.swing.JTextField jTextFieldDiaFechamento;
     private javax.swing.JTextField jTextFieldLimite;
     private javax.swing.JTextField jTextFieldNumero;

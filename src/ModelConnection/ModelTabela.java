@@ -22,28 +22,6 @@ public class ModelTabela extends AbstractTableModel {
         setLinhas(lin);
         setColunas(col);
     }
-
-    //contas as colunas
-    public int getColumnCount() {
-        return colunas.length;
-    }
-
-    //conta as linhas
-    public int getRowCount() {
-        return linhas.size();
-    }
-
-    //pegar o valor do nome das colunas
-    public String getColunmName(int numColuna) {
-        return colunas[numColuna];
-    }
-
-    //poder montar a tabela
-    public Object getValueAt(int numLin, int numCol) {
-        Object[] linha = (Object[]) getLinhas().get(numLin);
-        return linha[numCol];
-    }
-
     /**
      * @return the linhas
      */
@@ -71,4 +49,27 @@ public class ModelTabela extends AbstractTableModel {
     public void setColunas(String[] colunas) {
         this.colunas = colunas;
     }
+
+    //contas as colunas
+    public int getColumnCount() {
+        return colunas.length;
+    }
+
+    //conta as linhas
+    public int getRowCount() {
+        return linhas.size();
+    }
+
+    //pegar o valor do nome das colunas
+    public String getColunmName(int numColuna) {
+        return colunas[numColuna];
+    }
+
+    //poder montar a tabela
+    public Object getValueAt(int numLin, int numCol) {
+        Object[] linha = (Object[])getLinhas().get(numLin);
+        return linha[numCol];
+    }
+
+    
 }

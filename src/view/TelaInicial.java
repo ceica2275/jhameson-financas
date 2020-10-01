@@ -75,7 +75,7 @@ public class TelaInicial extends javax.swing.JFrame {
         //mostra o dinheiro em posse
         jLabelPosse.setText("" + (somaReceitas - somaDespesas));
         
-         preencherTabelaReceita("select valor, categoria, dia from receita where id_user = '" + id_Tela + "'");
+         preencherTabelaReceita("select * from receita where id_user = '" + id_Tela + "'");
          preencherTabelaDespesa("select valor, categoria, status from despesa where id_user = '" + id_Tela + "'");
     }
 
@@ -544,7 +544,7 @@ public class TelaInicial extends javax.swing.JFrame {
     public void preencherTabelaReceita(String Sql) {
 
         ArrayList dados = new ArrayList();
-        String [] colunas = new String []{"Valor","Categoria","Dia"};
+        String [] colunas = new String []{"id_user","Valor","categoria","dia","mes","ano"};
         
         conecta.conexao();
         conecta.executaSQL(Sql);
@@ -552,8 +552,8 @@ public class TelaInicial extends javax.swing.JFrame {
         try {
             conecta.rs.first();
             do {
-                dados.add(new Object[]{conecta.rs.getDouble("valor"), conecta.rs.getString("categoria"), 
-                conecta.rs.getInt("dia")});
+                dados.add(new Object[]{conecta.rs.getInt("id_user"),conecta.rs.getDouble("valor"), conecta.rs.getString("categoria"), 
+                conecta.rs.getInt("dia"),conecta.rs.getInt("mes"),conecta.rs.getInt("ano")});
 
             } while (conecta.rs.next());
         } catch (SQLException ex) {
@@ -572,6 +572,12 @@ public class TelaInicial extends javax.swing.JFrame {
 
         jTableReceitas.getColumnModel().getColumn(2).setPreferredWidth(90);
         jTableReceitas.getColumnModel().getColumn(2).setResizable(false);
+        jTableReceitas.getColumnModel().getColumn(3).setPreferredWidth(90);
+        jTableReceitas.getColumnModel().getColumn(3).setResizable(false);
+        jTableReceitas.getColumnModel().getColumn(4).setPreferredWidth(90);
+        jTableReceitas.getColumnModel().getColumn(4).setResizable(false);
+        jTableReceitas.getColumnModel().getColumn(5).setPreferredWidth(90);
+        jTableReceitas.getColumnModel().getColumn(5).setResizable(false);
 
         jTableReceitas.getTableHeader().setReorderingAllowed(false);
         jTableReceitas.setAutoResizeMode(jTableReceitas.AUTO_RESIZE_OFF);
