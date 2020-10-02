@@ -63,7 +63,7 @@ public class TelaHistoricoTransacoes extends javax.swing.JFrame {
       
         
        
-
+/*
         //mostra a soma das receitas do mes
         int somaReceitas = mod_receita.somarReceitas(id_Tela,datamesInt,datadiaInt);
         jLabelReceitas.setText(""+somaReceitas);
@@ -74,7 +74,7 @@ public class TelaHistoricoTransacoes extends javax.swing.JFrame {
         
         //mostra o dinheiro em posse
         jLabelPosse.setText("" + (somaReceitas - somaDespesas));
-        
+        */
          preencherTabelaReceita("select * from receita where id_user = '" + id_Tela + "'");
          preencherTabelaDespesa("select valor, categoria, status from despesa where id_user = '" + id_Tela + "'");
     }

@@ -11,6 +11,7 @@ import ModelConnection.Connection_BD;
 import ModelConnection.ModelTabela;
 import ModelDao.DaoDespesa;
 import ModelDao.DaoReceita;
+import ModelDao.DaoTransacao;
 import ModelDao.DaoUser;
 import java.awt.Color;
 import java.util.ArrayList;
@@ -35,6 +36,7 @@ public class TelaInicial extends javax.swing.JFrame {
     DaoUser mod_user = new DaoUser();
     DaoReceita mod_receita = new DaoReceita();
     DaoDespesa mod_despesa = new DaoDespesa();
+    DaoTransacao dao_transacao = new DaoTransacao();
 
     public TelaInicial(int id_Tela) {
         initComponents();
@@ -42,6 +44,8 @@ public class TelaInicial extends javax.swing.JFrame {
         conecta.conexao();
         jLabelCOD.setText(""+id_Tela);
 
+        dao_transacao.apagaInvalidos();
+        
         //pesquisa no banco pelo nome do id_Tela para ´preencher as tabelas
         
         //JOptionPane.showMessageDialog(null, "deu merda telaaaa "+id_Tela);
@@ -61,7 +65,12 @@ public class TelaInicial extends javax.swing.JFrame {
        int datadiaInt = Integer.parseInt(datadia);
         
       
-        
+        /*
+       SELECT tipo,valor, dia, mes, ano, categoria
+FROM transacao
+INNER JOIN receitas
+ON transacao.id_transacao = receitas.id_transacao where id_user = 20;
+       */
        
 
         //mostra a soma das receitas do mes
@@ -75,8 +84,10 @@ public class TelaInicial extends javax.swing.JFrame {
         //mostra o dinheiro em posse
         jLabelPosse.setText("" + (somaReceitas - somaDespesas));
         
-         preencherTabelaReceita("select * from receita where id_user = '" + id_Tela + "'");
-         preencherTabelaDespesa("select valor, categoria, status from despesa where id_user = '" + id_Tela + "'");
+        preencherTabelaReceita("select valor, tipo, dia from transacao "
+                + "full join despesas on transacao.id_transacao = despesas.id_transacao "
+                + "full join receitas on transacao.id_transacao = receitas.id_transacao where id_user = '"+id_Tela+"'");
+         
     }
 
     private TelaInicial() {
@@ -105,7 +116,6 @@ public class TelaInicial extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabelData = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabelPosse = new javax.swing.JLabel();
         jLabelReceitas = new javax.swing.JLabel();
@@ -113,10 +123,9 @@ public class TelaInicial extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTableDespesas = new javax.swing.JTable();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTableReceitas = new javax.swing.JTable();
+        jPanel5 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItemPerfil = new javax.swing.JMenuItem();
@@ -229,11 +238,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel5.setText("Receitas Recentes:");
-
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel9.setText("Despesas Recentes:");
+        jLabel5.setText("Transações recentes:");
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setPreferredSize(new java.awt.Dimension(370, 106));
@@ -297,19 +302,6 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addContainerGap(13, Short.MAX_VALUE))
         );
 
-        jTableDespesas.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {},
-                {},
-                {},
-                {}
-            },
-            new String [] {
-
-            }
-        ));
-        jScrollPane3.setViewportView(jTableDespesas);
-
         jTableReceitas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -324,6 +316,20 @@ public class TelaInicial extends javax.swing.JFrame {
         jTableReceitas.setAutoscrolls(false);
         jScrollPane4.setViewportView(jTableReceitas);
 
+        jPanel5.setBackground(new java.awt.Color(240, 231, 244));
+        jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -336,9 +342,7 @@ public class TelaInicial extends javax.swing.JFrame {
                             .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING))
                         .addGap(18, 18, Short.MAX_VALUE)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel9)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel00)
@@ -350,8 +354,9 @@ public class TelaInicial extends javax.swing.JFrame {
                         .addComponent(jLabelData, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -361,13 +366,11 @@ public class TelaInicial extends javax.swing.JFrame {
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabelCOD, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -557,7 +560,7 @@ public class TelaInicial extends javax.swing.JFrame {
     public void preencherTabelaReceita(String Sql) {
 
         ArrayList dados = new ArrayList();
-        String [] colunas = new String []{"Valor","categoria","dia"};
+        String [] colunas = new String []{"Valor","Tipo","dia"};
         
         conecta.conexao();
         conecta.executaSQL(Sql);
@@ -565,8 +568,8 @@ public class TelaInicial extends javax.swing.JFrame {
         try {
             conecta.rs.first();
             do {
-                dados.add(new Object[]{conecta.rs.getDouble("valor"), conecta.rs.getString("categoria"), 
-                conecta.rs.getInt("dia")});
+                dados.add(new Object[]{conecta.rs.getDouble("valor"), 
+                conecta.rs.getString("tipo"), conecta.rs.getInt("dia")});
 
             } while (conecta.rs.next());
         } catch (SQLException ex) {
@@ -585,8 +588,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
         jTableReceitas.getColumnModel().getColumn(2).setPreferredWidth(90);
         jTableReceitas.getColumnModel().getColumn(2).setResizable(false);
-        jTableReceitas.getColumnModel().getColumn(3).setPreferredWidth(90);
-        jTableReceitas.getColumnModel().getColumn(3).setResizable(false);
+       
         
 
         jTableReceitas.getTableHeader().setReorderingAllowed(false);
@@ -596,47 +598,7 @@ public class TelaInicial extends javax.swing.JFrame {
         conecta.desconecta();
     }
     
-    public void preencherTabelaDespesa(String Sql) {
-
-        ArrayList dados = new ArrayList();
-        String [] Colunas = new String []{"Valor", "Categoria", "Status"};
-
-        conecta.conexao();
-        conecta.executaSQL(Sql);
-
-        try {
-            conecta.rs.first();
-            do {
-
-                dados.add(new Object[]{conecta.rs.getDouble("valor"), conecta.rs.getString("categoria"), conecta.rs.getString("status")});
-
-            } while (conecta.rs.next());
-        } catch (SQLException ex) {
-            //JOptionPane.showMessageDialog(rootPane, "Erro na tabela Transação arraylist: " + ex);
-        }
-
-        ModelTabela model = new ModelTabela(dados, Colunas);
-
-        jTableDespesas.setModel(model);
-
-        jTableDespesas.getColumnModel().getColumn(0).setPreferredWidth(93);
-        jTableDespesas.getColumnModel().getColumn(0).setResizable(false);
-
-        jTableDespesas.getColumnModel().getColumn(1).setPreferredWidth(180);
-        jTableDespesas.getColumnModel().getColumn(1).setResizable(false);
-
-        jTableDespesas.getColumnModel().getColumn(2).setPreferredWidth(90);
-        jTableDespesas.getColumnModel().getColumn(2).setResizable(false);
-
-      
-
-        jTableDespesas.getTableHeader().setReorderingAllowed(false);
-        jTableDespesas.setAutoResizeMode(jTableReceitas.AUTO_RESIZE_OFF);
-        jTableDespesas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); //selecionar 1 item por tabela
-
-        conecta.desconecta();
-    }
-
+    
     /**
      * @param args the command line arguments
      */
@@ -681,7 +643,6 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelCOD;
     private javax.swing.JLabel jLabelData;
     private javax.swing.JLabel jLabelDespesas;
@@ -706,9 +667,8 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTable jTableDespesas;
     private javax.swing.JTable jTableReceitas;
     // End of variables declaration//GEN-END:variables
 }

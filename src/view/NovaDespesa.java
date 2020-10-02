@@ -6,12 +6,13 @@
 package view;
 
 import ModelBeans.BeansDespesas;
+import ModelBeans.BeansTransacao;
 
 import ModelBeans.BeansUsuario;
 import ModelConnection.Connection_BD;
 import ModelDao.DaoDespesa;
 
-import ModelDao.DaoUser;
+import ModelDao.*;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
@@ -21,10 +22,11 @@ import javax.swing.JOptionPane;
  */
 public class NovaDespesa extends javax.swing.JFrame {
 
-    BeansDespesas mod_despesa = new BeansDespesas();
+    BeansDespesas beans_despesa = new BeansDespesas();
     BeansUsuario mod_user = new BeansUsuario();
     DaoUser dao_user = new DaoUser();
-
+    DaoTransacao dao_transacao = new DaoTransacao();
+    BeansTransacao beans_transacao = new BeansTransacao();
     DaoDespesa dao_despesa = new DaoDespesa();
     Connection_BD conex = new Connection_BD();
 
@@ -32,6 +34,19 @@ public class NovaDespesa extends javax.swing.JFrame {
         initComponents();
         jLabelCOD.setText(""+user);
         preencherComboBox();
+        
+        
+        //setar os campos para adicionar nova despesa
+        beans_transacao.setId_user(Integer.parseInt(jLabelCOD.getText()));
+        beans_transacao.setValor(1);
+        beans_transacao.setTipo("Despesa");
+        beans_transacao.setDia(-1);
+        beans_transacao.setMes(-1);
+        beans_transacao.setAno(-1);
+        
+        dao_transacao.salvarTransacao(beans_transacao);
+        
+        
     }
 
     private NovaDespesa() {
@@ -302,22 +317,24 @@ public class NovaDespesa extends javax.swing.JFrame {
         //linhas responsaveis por colocar o nome de usuario na tela
         //pesquisa o nome do usuario e sua ID
         
-        
+        int id = dao_transacao.retornaUltima();
 
-        mod_despesa.setId(Integer.parseInt(jLabelCOD.getText()));
+        beans_despesa.setId_transacao(id);
         
-        mod_despesa.setValor(Double.parseDouble(jTextFieldValor.getText()));
-        mod_despesa.setCategoria((String) jComboBoxCategoria.getSelectedItem());
+        beans_transacao.setValor(Double.parseDouble(jTextFieldValor.getText()));
+        beans_despesa.setCategoria((String) jComboBoxCategoria.getSelectedItem());
         
-        mod_despesa.setDescricao((String) jTextFieldDescricao.getText());
-        mod_despesa.setForma_pagamento((String) jComboBoxPagamento.getSelectedItem());
-        mod_despesa.setStatus((String) jComboBoxStatus.getSelectedItem());
+        beans_despesa.setDescricao((String) jTextFieldDescricao.getText());
+        beans_despesa.setForma_pagamento((String) jComboBoxPagamento.getSelectedItem());
+        beans_despesa.setStatus((String) jComboBoxStatus.getSelectedItem());
         
-         mod_despesa.setDia(Integer.parseInt(jTextFieldDia.getText()));
-        mod_despesa.setMes(Integer.parseInt(jTextFieldMes.getText()));
-        mod_despesa.setAno(Integer.parseInt(jTextFieldAno.getText()));
+         beans_transacao.setDia(Integer.parseInt(jTextFieldDia.getText()));
+        beans_transacao.setMes(Integer.parseInt(jTextFieldMes.getText()));
+        beans_transacao.setAno(Integer.parseInt(jTextFieldAno.getText()));
 
-        dao_despesa.Salvar(mod_despesa);
+        dao_transacao.SalvarAtualizando(beans_transacao, id);
+        dao_despesa.Salvar(beans_despesa);
+        
 
         TelaInicial tela = new TelaInicial(Integer.parseInt(jLabelCOD.getText()));
         tela.setVisible(true);

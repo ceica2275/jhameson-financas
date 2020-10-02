@@ -24,18 +24,16 @@ public class DaoDespesa {
     public void Salvar(BeansDespesas mod) {
         conex.conexao();
         try {
-            PreparedStatement pst = conex.con.prepareStatement("insert into despesa(id_user, valor, categoria, descricao, forma_pagamento, status, dia, mes, ano) values (?,?,?,?,?,?,?,?,?)");
+            PreparedStatement pst = conex.con.prepareStatement("insert into despesas(id_transacao, categoria, descricao, forma_pagamento, status) values (?,?,?,?,?)");
 
-            pst.setInt(1, mod.getId());
-            pst.setDouble(2, mod.getValor());
-            pst.setString(3, mod.getCategoria());
+            pst.setInt(1, mod.getId_transacao());
+            
+            pst.setString(2, mod.getCategoria());
 
-            pst.setString(4, mod.getDescricao());
-            pst.setString(5, mod.getForma_pagamento());
-            pst.setString(6, mod.getStatus());
-            pst.setInt(7, mod.getDia());
-            pst.setInt(8, mod.getMes());
-            pst.setInt(9, mod.getAno());
+            pst.setString(3, mod.getDescricao());
+            pst.setString(4, mod.getForma_pagamento());
+            pst.setString(5, mod.getStatus());
+           
 
             pst.execute();
 
@@ -54,7 +52,7 @@ public class DaoDespesa {
         JOptionPane.showMessageDialog(null, "deu merda "+dia);
         */
         conex.conexao();
-        conex.executaSQL("select sum(valor) as soma from despesa where id_user = '" + id + "' and mes = '" + mes + "' and dia <= '" + dia + "'");
+        conex.executaSQL("select sum(valor) as soma from transacao where id_user = '" + id + "' and mes = '" + mes + "' and dia <= '" + dia + "' and tipo ='Despesa'");
         
         try {
             conex.rs.first();

@@ -1,56 +1,20 @@
 package ModelBeans;
 
-public class BeansDespesas {
+public class BeansDespesas extends BeansTransacao{
 
-    private int id;
-    private double valor;
+    private int id_transacao;
+   
     private String categoria;
-    private int dia;
-    private int mes;
-    private int ano;
-
     private String descricao;
     private String forma_pagamento;
     private String status;
 
-    public int getDia() {
-        return dia;
+    public int getId_transacao() {
+        return id_transacao;
     }
 
-    public void setDia(int dia) {
-        this.dia = dia;
-    }
-
-    public int getMes() {
-        return mes;
-    }
-
-    public void setMes(int mes) {
-        this.mes = mes;
-    }
-
-    public int getAno() {
-        return ano;
-    }
-
-    public void setAno(int ano) {
-        this.ano = ano;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public double getValor() {
-        return valor;
-    }
-
-    public void setValor(double valor) {
-        this.valor = valor;
+    public void setId_transacao(int id_transacao) {
+        this.id_transacao = id_transacao;
     }
 
     public String getCategoria() {
@@ -60,8 +24,6 @@ public class BeansDespesas {
     public void setCategoria(String categoria) {
         this.categoria = categoria;
     }
-
-    
 
     public String getDescricao() {
         return descricao;
@@ -87,4 +49,5 @@ public class BeansDespesas {
         this.status = status;
     }
 
+    
 }

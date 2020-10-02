@@ -1,0 +1,96 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package ModelDao;
+
+import ModelBeans.BeansReceita;
+import ModelBeans.BeansTransacao;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import ModelConnection.*;
+
+/**
+ *
+ * @author jhame
+ */
+public class DaoTransacao {
+
+    Connection_BD conex = new Connection_BD();
+    BeansTransacao beans_Transacao = new BeansTransacao();
+
+    public void salvarTransacao(BeansTransacao mod) {
+        conex.conexao();
+        try {
+            PreparedStatement pst = conex.con.prepareStatement("insert into transacao(id_user, valor, tipo, dia, mes, ano) values (?,?,?,?,?,?)");
+
+            pst.setInt(1, mod.getId_user());
+            pst.setDouble(2, mod.getValor());
+            pst.setString(3, mod.getTipo());
+            pst.setInt(4, mod.getDia());
+            pst.setInt(5, mod.getMes());
+            pst.setInt(6, mod.getAno());
+            pst.execute();
+
+            JOptionPane.showMessageDialog(null, "Transacao Cadastrado com Sucesso");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erros ao cadastrar transacao: " + ex.getMessage());
+        }
+        conex.desconecta();
+    }
+
+    public int retornaUltima() {
+        conex.conexao();
+
+        conex.executaSQL("select * from transacao where id_transacao = (select max(id_transacao) from transacao)");
+        try {
+            conex.rs.first();
+            beans_Transacao.setId(conex.rs.getInt("id_transacao"));
+            return beans_Transacao.getId();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao encontrar ID_Transa: " + ex);
+        }
+
+        conex.desconecta();
+        return beans_Transacao.getId();
+    }
+
+    //Salva e atualiza
+    public void SalvarAtualizando(BeansTransacao mod, int id) {
+        conex.conexao();
+        try {
+            PreparedStatement pst = conex.con.prepareStatement("update transacao set valor = ?, dia = ?, mes = ?, ano = ? where id_transacao = '" + id + "'");
+
+            pst.setDouble(1, mod.getValor());
+            pst.setInt(2, mod.getDia());
+            pst.setInt(3, mod.getMes());
+            pst.setInt(4, mod.getAno());
+
+            pst.execute();
+
+            JOptionPane.showMessageDialog(null, "transacao Atualizada com Sucesso");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "(dao_user)Erros ao atualizar: " + ex.getMessage());
+        }
+        conex.desconecta();
+    }
+
+    public void apagaInvalidos() {
+
+        conex.conexao();
+        try {
+            PreparedStatement pst = conex.con.prepareStatement("delete from transacao where ano = -1");
+
+            pst.execute();
+
+            JOptionPane.showMessageDialog(null, "Usuário excluido com Sucesso");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "(dao_user)Erros ao excluir: " + ex.getMessage());
+        }
+        conex.desconecta();
+
+    }
+}

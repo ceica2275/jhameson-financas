@@ -23,17 +23,16 @@ public class DaoReceita {
     Connection_BD conex = new Connection_BD();
     BeansReceita mod = new BeansReceita();
 
+    //metodo para salvar receita / atualizar transacao
     public void Salvar(BeansReceita mod) {
         conex.conexao();
         try {
-            PreparedStatement pst = conex.con.prepareStatement("insert into receita( id_user, valor, categoria, dia, mes, ano) values (?,?,?,?,?,?)");
+            PreparedStatement pst = conex.con.prepareStatement("insert into receitas(id_transacao, categoria) values (?,?)");
 
-            pst.setInt(1, mod.getId());
-            pst.setDouble(2, mod.getValor());
-            pst.setString(3, mod.getCategoria());
-            pst.setInt(4, mod.getDia());
-            pst.setInt(5, mod.getMes());
-            pst.setInt(6, mod.getAno());
+            pst.setInt(1, mod.getId_transacao());
+
+            pst.setString(2, mod.getCategoria());
+
             pst.execute();
 
             JOptionPane.showMessageDialog(null, "Receita Cadastrado com Sucesso");
@@ -45,7 +44,7 @@ public class DaoReceita {
 
     public BeansReceita buscaReceita(BeansReceita br) {
         conex.conexao();
-        conex.executaSQL("select *from receita where categoria like'%" + br.getPesquisa() + "%'");
+        conex.executaSQL("select *from receitas where categoria like'%" + br.getPesquisa() + "%'");
         try {
             conex.rs.first();
 
@@ -64,12 +63,12 @@ public class DaoReceita {
     //metodo para somar o valor em receitas
     public int somarReceitas(int id, int mes, int dia) {
         conex.conexao();
-        conex.executaSQL("select sum(valor) as soma from receita where id_user = '" + id + "' and mes = '" + mes + "' and dia <= '" + dia + "'");
+        conex.executaSQL("select sum(valor) as soma from transacao where id_user = '" + id + "' and mes = '" + mes + "' and dia <= '" + dia + "' and tipo = 'Receita'");
 
         try {
             conex.rs.first();
             //JOptionPane.showMessageDialog(null, "id "+id);
-           // JOptionPane.showMessageDialog(null, "mes "+mes);
+            // JOptionPane.showMessageDialog(null, "mes "+mes);
             //JOptionPane.showMessageDialog(null, "dia "+dia);
             //JOptionPane.showMessageDialog(null, "deu merda "+conex.rs.getInt("soma"));
             return conex.rs.getInt("soma");
@@ -84,7 +83,7 @@ public class DaoReceita {
 
         conex.conexao();
         try {
-            PreparedStatement pst = conex.con.prepareStatement("delete from receita where id_user = ?");
+            PreparedStatement pst = conex.con.prepareStatement("delete from receitas where id_user = ?");
             pst.setInt(1, mod.getId());
             pst.execute();
 

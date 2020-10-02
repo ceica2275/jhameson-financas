@@ -6,10 +6,12 @@
 package view;
 
 import ModelBeans.BeansReceita;
+import ModelBeans.BeansTransacao;
 
 import ModelBeans.BeansUsuario;
 import ModelConnection.Connection_BD;
 import ModelDao.DaoReceita;
+import ModelDao.DaoTransacao;
 
 import ModelDao.DaoUser;
 import java.sql.SQLException;
@@ -30,10 +32,13 @@ public class NovaReceita extends javax.swing.JFrame {
      * Creates new form NovaReceita
      */
     ///////////////////////////////////////////
-    BeansReceita mod_receita = new BeansReceita();
+    BeansReceita beans_receita = new BeansReceita();
     //BeansUsuario mod_user = new BeansUsuario();
     //DaoUser dao_user = new DaoUser();
     DaoReceita dao_receita = new DaoReceita();
+
+    DaoTransacao dao_transacao = new DaoTransacao();
+    BeansTransacao beans_transacao = new BeansTransacao();
     Connection_BD conex = new Connection_BD();
 
     SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyy");
@@ -42,9 +47,22 @@ public class NovaReceita extends javax.swing.JFrame {
     public NovaReceita(int user) {
 
         initComponents();
-        
-        jLabelCOD.setText(""+user);
+
+        jLabelCOD.setText("" + user);
         preencherComboBox();
+        
+        //setar os campos para adicionar nova transacao
+        beans_transacao.setId_user(Integer.parseInt(jLabelCOD.getText()));
+        beans_transacao.setValor(1);
+        beans_transacao.setTipo("Receita");
+        beans_transacao.setDia(-1);
+        beans_transacao.setMes(-1);
+        beans_transacao.setAno(-1);
+        
+        dao_transacao.salvarTransacao(beans_transacao);
+        
+        
+        
     }
 
     private NovaReceita() {
@@ -212,14 +230,14 @@ public class NovaReceita extends javax.swing.JFrame {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap(97, Short.MAX_VALUE)
+                        .addGap(0, 86, Short.MAX_VALUE)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jComboBoxCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -301,30 +319,37 @@ public class NovaReceita extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    public void preencherComboBox(){
+    public void preencherComboBox() {
         conex.conexao();
-        conex.executaSQL("select nome from categorias where tipo = 'Receita' and id_user = '"+jLabelCOD.getText()+"'");
+        conex.executaSQL("select nome from categorias where tipo = 'Receita' and id_user = '" + jLabelCOD.getText() + "'");
         try {
             conex.rs.first();
             jComboBoxCategoria.removeAllItems();
-            do{
+            do {
                 jComboBoxCategoria.addItem(conex.rs.getString("nome"));
-            }while(conex.rs.next());
+            } while (conex.rs.next());
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erros ao preencher box: " + ex.getMessage());
         }
         conex.desconecta();
     }
-    
-    private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
-        mod_receita.setId(Integer.parseInt(jLabelCOD.getText()));
-        mod_receita.setValor(Double.parseDouble(jTextFieldValor.getText()));
-        mod_receita.setCategoria((String) jComboBoxCategoria.getSelectedItem());
-        mod_receita.setDia(Integer.parseInt(jTextFieldValorDia.getText()));
-        mod_receita.setMes(Integer.parseInt(jTextFieldValorMes.getText()));
-        mod_receita.setAno(Integer.parseInt(jTextFieldValorAno.getText()));
 
-        dao_receita.Salvar(mod_receita);
+    private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
+       
+        int id = dao_transacao.retornaUltima();
+        
+        
+        beans_receita.setId_transacao(id);
+        
+        beans_transacao.setValor(Double.parseDouble(jTextFieldValor.getText()));
+        beans_receita.setCategoria((String) jComboBoxCategoria.getSelectedItem());
+        beans_transacao.setDia(Integer.parseInt(jTextFieldValorDia.getText()));
+        beans_transacao.setMes(Integer.parseInt(jTextFieldValorMes.getText()));
+        beans_transacao.setAno(Integer.parseInt(jTextFieldValorAno.getText()));
+
+        dao_transacao.SalvarAtualizando(beans_transacao,id);
+        
+        dao_receita.Salvar(beans_receita);
 
         TelaInicial tela = new TelaInicial(Integer.parseInt(jLabelCOD.getText()));
         tela.setVisible(true);
@@ -344,7 +369,7 @@ public class NovaReceita extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldValorDiaActionPerformed
 
     private void jComboBoxCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCategoriaActionPerformed
-       
+
     }//GEN-LAST:event_jComboBoxCategoriaActionPerformed
 
     /**
