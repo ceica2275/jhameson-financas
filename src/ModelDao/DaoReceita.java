@@ -27,11 +27,10 @@ public class DaoReceita {
     public void Salvar(BeansReceita mod) {
         conex.conexao();
         try {
-            PreparedStatement pst = conex.con.prepareStatement("insert into receitas(id_transacao, categoria) values (?,?)");
+            PreparedStatement pst = conex.con.prepareStatement("insert into receitas(id_transacaor) values (?)");
 
             pst.setInt(1, mod.getId_transacao());
 
-            pst.setString(2, mod.getCategoria());
 
             pst.execute();
 
@@ -89,7 +88,7 @@ public class DaoReceita {
 
             //JOptionPane.showMessageDialog(null, "Usuário excluido com Sucesso");
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "(dao_user)Erros ao excluir: " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "aqir: " + ex.getMessage());
         }
         conex.desconecta();
 

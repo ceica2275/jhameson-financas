@@ -47,7 +47,7 @@ public class TelaCartoes extends javax.swing.JFrame {
         //linhas resposaveis por chamar o metodo de exibir a data na tela inicial
         String dataCompleta = exd.dataCompleta();
         jLabelData.setText(dataCompleta);
-        preencherTabela("select tipo, numero from cartao where id_user = '"+usuario+"' order by id_user" );
+        preencherTabela("select tipo, numero, bandeira from cartao where id_user = '" + usuario + "' order by id_user");
     }
 
     private TelaCartoes() {
@@ -85,6 +85,8 @@ public class TelaCartoes extends javax.swing.JFrame {
         jLabelTipoCartao = new javax.swing.JLabel();
         jComboBoxBandeira = new javax.swing.JComboBox<>();
         jTextFieldDiaFechamento = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        jLabelCartaoCod = new javax.swing.JLabel();
         jButtonSalvar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableCartao = new javax.swing.JTable();
@@ -94,6 +96,7 @@ public class TelaCartoes extends javax.swing.JFrame {
         jButtonNovoCredito = new javax.swing.JButton();
         jButtonNovoDebito = new javax.swing.JButton();
         jButtonEditar = new javax.swing.JButton();
+        jButtonCancelar = new javax.swing.JButton();
         jButtonExcluir = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -201,6 +204,12 @@ public class TelaCartoes extends javax.swing.JFrame {
             }
         });
 
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel8.setText("COD:");
+
+        jLabelCartaoCod.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabelCartaoCod.setText("COD");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -208,34 +217,35 @@ public class TelaCartoes extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(572, 572, 572))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabelTipoCartao)
-                                    .addComponent(jLabel2))
-                                .addGap(45, 45, 45)
-                                .addComponent(jTextFieldNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(38, 38, 38)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jComboBoxBandeira, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(38, 38, 38)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jTextFieldLimite, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jTextFieldValorAtual, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel9)
-                                    .addComponent(jTextFieldDiaFechamento, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(jLabel5)
+                            .addComponent(jTextFieldValorAtual, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel9)
+                            .addComponent(jTextFieldDiaFechamento, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabelCartaoCod))
+                        .addGap(36, 36, 36)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabelTipoCartao))
+                        .addGap(50, 50, 50)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jTextFieldNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jComboBoxBandeira, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextFieldLimite, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -243,15 +253,17 @@ public class TelaCartoes extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel1)
                     .addComponent(jLabel3)
-                    .addComponent(jLabel4))
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBoxBandeira, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFieldLimite, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelTipoCartao))
+                    .addComponent(jLabelTipoCartao)
+                    .addComponent(jLabelCartaoCod))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -263,8 +275,9 @@ public class TelaCartoes extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jButtonSalvar.setBackground(new java.awt.Color(255, 255, 255));
-        jButtonSalvar.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jButtonSalvar.setBackground(new java.awt.Color(51, 0, 51));
+        jButtonSalvar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButtonSalvar.setForeground(new java.awt.Color(255, 255, 255));
         jButtonSalvar.setText("Salvar");
         jButtonSalvar.setBorderPainted(false);
         jButtonSalvar.setEnabled(false);
@@ -275,6 +288,7 @@ public class TelaCartoes extends javax.swing.JFrame {
             }
         });
 
+        jTableCartao.setBackground(new java.awt.Color(204, 204, 204));
         jTableCartao.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -286,6 +300,11 @@ public class TelaCartoes extends javax.swing.JFrame {
 
             }
         ));
+        jTableCartao.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableCartaoMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableCartao);
 
         jTextFieldPesquisa.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -298,8 +317,9 @@ public class TelaCartoes extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel10.setText("Pesquisar Cartão:");
 
-        jButtonPesquisar.setBackground(new java.awt.Color(255, 255, 255));
-        jButtonPesquisar.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jButtonPesquisar.setBackground(new java.awt.Color(51, 0, 51));
+        jButtonPesquisar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButtonPesquisar.setForeground(new java.awt.Color(255, 255, 255));
         jButtonPesquisar.setText("Pesquisar");
         jButtonPesquisar.setBorderPainted(false);
         jButtonPesquisar.setFocusPainted(false);
@@ -309,8 +329,9 @@ public class TelaCartoes extends javax.swing.JFrame {
             }
         });
 
-        jButtonNovoCredito.setBackground(new java.awt.Color(255, 255, 255));
-        jButtonNovoCredito.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jButtonNovoCredito.setBackground(new java.awt.Color(51, 0, 51));
+        jButtonNovoCredito.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButtonNovoCredito.setForeground(new java.awt.Color(255, 255, 255));
         jButtonNovoCredito.setText("Novo Cartão Crédito");
         jButtonNovoCredito.setBorderPainted(false);
         jButtonNovoCredito.setFocusPainted(false);
@@ -320,8 +341,9 @@ public class TelaCartoes extends javax.swing.JFrame {
             }
         });
 
-        jButtonNovoDebito.setBackground(new java.awt.Color(255, 255, 255));
-        jButtonNovoDebito.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jButtonNovoDebito.setBackground(new java.awt.Color(51, 0, 51));
+        jButtonNovoDebito.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButtonNovoDebito.setForeground(new java.awt.Color(255, 255, 255));
         jButtonNovoDebito.setText("Novo Cartão Débito");
         jButtonNovoDebito.setBorderPainted(false);
         jButtonNovoDebito.setFocusPainted(false);
@@ -331,8 +353,9 @@ public class TelaCartoes extends javax.swing.JFrame {
             }
         });
 
-        jButtonEditar.setBackground(new java.awt.Color(255, 255, 255));
-        jButtonEditar.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jButtonEditar.setBackground(new java.awt.Color(51, 0, 51));
+        jButtonEditar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButtonEditar.setForeground(new java.awt.Color(255, 255, 255));
         jButtonEditar.setText("Editar");
         jButtonEditar.setBorderPainted(false);
         jButtonEditar.setEnabled(false);
@@ -343,8 +366,21 @@ public class TelaCartoes extends javax.swing.JFrame {
             }
         });
 
-        jButtonExcluir.setBackground(new java.awt.Color(255, 255, 255));
-        jButtonExcluir.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jButtonCancelar.setBackground(new java.awt.Color(51, 0, 51));
+        jButtonCancelar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButtonCancelar.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonCancelar.setText("Cancelar");
+        jButtonCancelar.setBorderPainted(false);
+        jButtonCancelar.setFocusPainted(false);
+        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelarActionPerformed(evt);
+            }
+        });
+
+        jButtonExcluir.setBackground(new java.awt.Color(51, 0, 51));
+        jButtonExcluir.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButtonExcluir.setForeground(new java.awt.Color(255, 255, 255));
         jButtonExcluir.setText("Excluir");
         jButtonExcluir.setBorderPainted(false);
         jButtonExcluir.setEnabled(false);
@@ -362,13 +398,6 @@ public class TelaCartoes extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(237, 237, 237)
-                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextFieldPesquisa)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -376,6 +405,7 @@ public class TelaCartoes extends javax.swing.JFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(233, 233, 233)
                                 .addComponent(jLabelData, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jButtonNovoCredito)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -383,16 +413,25 @@ public class TelaCartoes extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel7)))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButtonNovoCredito, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButtonNovoDebito)
-                        .addGap(66, 66, 66)
-                        .addComponent(jButtonExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButtonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(jButtonExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButtonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(jButtonNovoDebito)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextFieldPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButtonPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -400,20 +439,22 @@ public class TelaCartoes extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButtonPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jTextFieldPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel10))
-                    .addComponent(jButtonPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButtonNovoCredito, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonNovoDebito, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(7, 7, 7)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonNovoCredito, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonNovoDebito, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -550,17 +591,30 @@ public class TelaCartoes extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldNumeroActionPerformed
 
     private void jButtonPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisarActionPerformed
-        //variavel pesquisa
-        beans_cartao.setPesquisa(jTextFieldPesquisa.getText());
-        BeansCartao model = dao_cartao.buscarCartao(beans_cartao);
+        if (jTextFieldPesquisa.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null,"Digite algo a ser pesquisado!");
+        } else {
+            //variavel pesquisa
+            beans_cartao.setPesquisa(jTextFieldPesquisa.getText());
+            BeansCartao model = dao_cartao.buscarCartao(beans_cartao);
 
-        //setando os campos
-        jLabelTipoCartao.setText(model.getTipo());
-        jTextFieldNumero.setText(model.getNumero());
-        jComboBoxBandeira.setSelectedItem(model.getBandeira());
-        jTextFieldLimite.setText(Double.toString(model.getLimite()));
-        jTextFieldValorAtual.setText(Double.toString(model.getValor()));
-        jTextFieldDiaFechamento.setText(Double.toString(model.getDia_fechamento()));
+            //setando os campos
+            jLabelCartaoCod.setText(Integer.toString(model.getId_cartao()));
+            jLabelTipoCartao.setText(model.getTipo());
+            jTextFieldNumero.setText(model.getNumero());
+            jComboBoxBandeira.setSelectedItem(model.getBandeira());
+            jTextFieldLimite.setText(Double.toString(model.getLimite()));
+            jTextFieldValorAtual.setText(Double.toString(model.getValor()));
+            jTextFieldDiaFechamento.setText(Integer.toString(model.getDia_fechamento()));
+
+            jButtonEditar.setEnabled(true);
+            jButtonCancelar.setEnabled(true);
+            jButtonSalvar.setEnabled(false);
+            jButtonExcluir.setEnabled(true);
+            jButtonNovoCredito.setEnabled(true);
+            jButtonNovoDebito.setEnabled(true);
+        }
+
 
     }//GEN-LAST:event_jButtonPesquisarActionPerformed
 
@@ -578,37 +632,84 @@ public class TelaCartoes extends javax.swing.JFrame {
 
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
         flag = 3;
-        jButtonEditar.setEnabled(false);
-        jButtonExcluir.setEnabled(false);
-        jButtonPesquisar.setEnabled(false);
-        jButtonNovoCredito.setEnabled(false);
-        jButtonNovoDebito.setEnabled(false);
+
+        String credito = "Crédito";
+        String debito = "Débito";
+
+        if (debito.equals(jLabelTipoCartao.getText())) {
+            jButtonEditar.setEnabled(false);
+            jButtonCancelar.setEnabled(true);
+            jButtonPesquisar.setEnabled(false);
+            jButtonNovoCredito.setEnabled(false);
+            jButtonNovoDebito.setEnabled(false);
+
+            jTextFieldNumero.setEnabled(true);
+            jComboBoxBandeira.setEnabled(true);
+            jTextFieldLimite.setEnabled(false);
+            jTextFieldValorAtual.setEnabled(false);
+            jTextFieldDiaFechamento.setEnabled(false);
+            jTextFieldPesquisa.setEnabled(false);
+
+            jButtonExcluir.setEnabled(false);
+            jButtonSalvar.setEnabled(true);
+
+        } else if (credito.equals(jLabelTipoCartao.getText())) {
+
+            jButtonEditar.setEnabled(false);
+            jButtonCancelar.setEnabled(true);
+            jButtonPesquisar.setEnabled(false);
+            jButtonNovoCredito.setEnabled(false);
+            jButtonNovoDebito.setEnabled(false);
+
+            jTextFieldNumero.setEnabled(true);
+            jComboBoxBandeira.setEnabled(true);
+            jTextFieldLimite.setEnabled(true);
+            jTextFieldValorAtual.setEnabled(true);
+            jTextFieldDiaFechamento.setEnabled(true);
+            jTextFieldPesquisa.setEnabled(false);
+
+            jButtonExcluir.setEnabled(false);
+            jButtonSalvar.setEnabled(true);
+        }
+
+
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
     private void jButtonNovoCreditoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovoCreditoActionPerformed
         flag = 1;
+
         jLabelTipoCartao.setText("Crédito");
         jTextFieldNumero.setEnabled(true);
         jTextFieldLimite.setEnabled(true);
         jComboBoxBandeira.setEnabled(true);
         jTextFieldValorAtual.setEnabled(true);
         jTextFieldDiaFechamento.setEnabled(true);
+        jTextFieldPesquisa.setEnabled(false);
 
         jButtonSalvar.setEnabled(true);
+        jButtonCancelar.setEnabled(true);
 
         jTextFieldPesquisa.setEditable(false);
         jButtonPesquisar.setEnabled(false);
-        jButtonExcluir.setEnabled(false);
+
         jButtonEditar.setEnabled(false);
         jButtonNovoDebito.setEnabled(false);
         jButtonNovoCredito.setEnabled(false);
     }//GEN-LAST:event_jButtonNovoCreditoActionPerformed
 
-    private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonExcluirActionPerformed
+    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
+        int id = Integer.parseInt(jLabelUsuario.getText());
+        TelaInicial tela = new TelaInicial(id);
+        tela.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
+
+        JOptionPane.showMessageDialog(rootPane, "aqui " + flag);
+        String credito = "Crédito";
+        String debito = "Débito";
+
         if (flag == 1) {
             beans_cartao.setId(Integer.parseInt(jLabelUsuario.getText()));
             beans_cartao.setNumero(jTextFieldNumero.getText());
@@ -619,6 +720,30 @@ public class TelaCartoes extends javax.swing.JFrame {
             beans_cartao.setDia_fechamento(Integer.parseInt(jTextFieldDiaFechamento.getText()));
 
             dao_cartao.SalvarCartaoCredito(beans_cartao);
+
+            jButtonEditar.setEnabled(false);
+            jButtonCancelar.setEnabled(true);
+            jButtonPesquisar.setEnabled(true);
+            jButtonNovoCredito.setEnabled(true);
+            jButtonNovoDebito.setEnabled(true);
+
+            jTextFieldNumero.setEnabled(false);
+            jComboBoxBandeira.setEnabled(false);
+            jTextFieldLimite.setEnabled(false);
+            jTextFieldValorAtual.setEnabled(false);
+            jTextFieldDiaFechamento.setEnabled(false);
+            jTextFieldPesquisa.setEnabled(true);
+
+            jButtonExcluir.setEnabled(false);
+            jButtonSalvar.setEnabled(false);
+
+            jTextFieldNumero.setText("");
+            jComboBoxBandeira.setSelectedItem("");
+            jTextFieldLimite.setText("");
+            jTextFieldValorAtual.setText("");
+            jTextFieldDiaFechamento.setText("");
+            jTextFieldPesquisa.setText("");
+
         } else if (flag == 2) {
             beans_cartao.setId(Integer.parseInt(jLabelUsuario.getText()));
             beans_cartao.setNumero(jTextFieldNumero.getText());
@@ -626,27 +751,99 @@ public class TelaCartoes extends javax.swing.JFrame {
             beans_cartao.setBandeira((String) jComboBoxBandeira.getSelectedItem());
 
             dao_cartao.SalvarCartaoDebito(beans_cartao);
+
+            jButtonEditar.setEnabled(false);
+            jButtonCancelar.setEnabled(true);
+            jButtonPesquisar.setEnabled(true);
+            jButtonNovoCredito.setEnabled(true);
+            jButtonNovoDebito.setEnabled(true);
+
+            jTextFieldNumero.setEnabled(false);
+            jComboBoxBandeira.setEnabled(false);
+            jTextFieldLimite.setEnabled(false);
+            jTextFieldValorAtual.setEnabled(false);
+            jTextFieldDiaFechamento.setEnabled(false);
+            jTextFieldPesquisa.setEnabled(true);
+
+            jButtonExcluir.setEnabled(false);
+            jButtonSalvar.setEnabled(false);
+
+            jTextFieldNumero.setText("");
+            jComboBoxBandeira.setSelectedItem("");
+            jTextFieldLimite.setText("");
+            jTextFieldValorAtual.setText("");
+            jTextFieldDiaFechamento.setText("");
+            jTextFieldPesquisa.setText("");
+
         } else if (flag == 3) {
-            if ("Crédito" == jLabelTipoCartao.getText()) {
-                beans_cartao.setId(Integer.parseInt(jLabelUsuario.getText()));
+            //JOptionPane.showMessageDialog(rootPane, "aqui "+credito);
+            if (credito.equals(jLabelTipoCartao.getText())) {
+
+                beans_cartao.setId_cartao(Integer.parseInt(jLabelCartaoCod.getText()));
+
                 beans_cartao.setNumero(jTextFieldNumero.getText());
-                beans_cartao.setTipo(jLabelTipoCartao.getText());
+
                 beans_cartao.setBandeira((String) jComboBoxBandeira.getSelectedItem());
                 beans_cartao.setLimite(Double.parseDouble(jTextFieldLimite.getText()));
                 beans_cartao.setValor(Double.parseDouble(jTextFieldValorAtual.getText()));
                 beans_cartao.setDia_fechamento(Integer.parseInt(jTextFieldDiaFechamento.getText()));
 
                 dao_cartao.editarCredito(beans_cartao);
-            } else if ("Débito" == jLabelTipoCartao.getText()) {
-                beans_cartao.setId(Integer.parseInt(jLabelUsuario.getText()));
+
+                jButtonEditar.setEnabled(false);
+                jButtonCancelar.setEnabled(true);
+                jButtonPesquisar.setEnabled(true);
+                jButtonNovoCredito.setEnabled(true);
+                jButtonNovoDebito.setEnabled(true);
+
+                jTextFieldNumero.setEnabled(false);
+                jComboBoxBandeira.setEnabled(false);
+                jTextFieldLimite.setEnabled(false);
+                jTextFieldValorAtual.setEnabled(false);
+                jTextFieldDiaFechamento.setEnabled(false);
+                jTextFieldPesquisa.setEnabled(true);
+
+                jButtonExcluir.setEnabled(false);
+                jButtonSalvar.setEnabled(false);
+
+                jTextFieldNumero.setText("");
+                jComboBoxBandeira.setSelectedItem("");
+                jTextFieldLimite.setText("");
+                jTextFieldValorAtual.setText("");
+                jTextFieldDiaFechamento.setText("");
+                jTextFieldPesquisa.setText("");
+
+            } else if (debito.equals(jLabelTipoCartao.getText())) {
+
+                beans_cartao.setId_cartao(Integer.parseInt(jLabelCartaoCod.getText()));
                 beans_cartao.setNumero(jTextFieldNumero.getText());
-                beans_cartao.setTipo(jLabelTipoCartao.getText());
+
                 beans_cartao.setBandeira((String) jComboBoxBandeira.getSelectedItem());
-                beans_cartao.setLimite(Double.parseDouble(jTextFieldLimite.getText()));
-                beans_cartao.setValor(Double.parseDouble(jTextFieldValorAtual.getText()));
-                beans_cartao.setDia_fechamento(Integer.parseInt(jTextFieldDiaFechamento.getText()));
 
                 dao_cartao.editarDebito(beans_cartao);
+
+                jButtonEditar.setEnabled(false);
+                jButtonCancelar.setEnabled(true);
+                jButtonPesquisar.setEnabled(true);
+                jButtonNovoCredito.setEnabled(true);
+                jButtonNovoDebito.setEnabled(true);
+
+                jTextFieldNumero.setEnabled(false);
+                jComboBoxBandeira.setEnabled(false);
+                jTextFieldLimite.setEnabled(false);
+                jTextFieldValorAtual.setEnabled(false);
+                jTextFieldDiaFechamento.setEnabled(false);
+                jTextFieldPesquisa.setEnabled(true);
+
+                jButtonExcluir.setEnabled(false);
+                jButtonSalvar.setEnabled(false);
+
+                jTextFieldNumero.setText("");
+                jComboBoxBandeira.setSelectedItem("");
+                jTextFieldLimite.setText("");
+                jTextFieldValorAtual.setText("");
+                jTextFieldDiaFechamento.setText("");
+                jTextFieldPesquisa.setText("");
             }
         }
 
@@ -661,44 +858,109 @@ public class TelaCartoes extends javax.swing.JFrame {
         jTextFieldValorAtual.setEnabled(false);
         jTextFieldValorAtual.setText("receitas");
         jTextFieldDiaFechamento.setEnabled(false);
+        jTextFieldPesquisa.setEnabled(false);
 
         jButtonSalvar.setEnabled(true);
 
         jTextFieldPesquisa.setEditable(false);
         jButtonPesquisar.setEnabled(false);
-        jButtonExcluir.setEnabled(false);
+        jButtonCancelar.setEnabled(true);
         jButtonEditar.setEnabled(false);
         jButtonNovoDebito.setEnabled(false);
         jButtonNovoCredito.setEnabled(false);
     }//GEN-LAST:event_jButtonNovoDebitoActionPerformed
 
-    public void preencherTabela(String SQL){
-        ArrayList dados = new ArrayList();
-        String [] colunas = new String[]{"Tipo","Numero"};
-        conecta.executaSQL(SQL);
-        
+    private void jTableCartaoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableCartaoMouseClicked
+        String numero = "" + jTableCartao.getValueAt(jTableCartao.getSelectedRow(), 1);
+        conecta.conexao();
+        conecta.executaSQL("select id_cartao,tipo, numero, bandeira, limite, valor_atual, dia_fechamento from cartao where numero = '" + numero + "'");
         try {
             conecta.rs.first();
-            do{
-                dados.add(new Object[]{conecta.rs.getString("tipo"), conecta.rs.getString("numero")});
-                
-            }while(conecta.rs.next());
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "erro tabela "+e);
+            jLabelCartaoCod.setText(conecta.rs.getString("id_cartao"));
+            jLabelTipoCartao.setText(conecta.rs.getString("tipo"));
+            jTextFieldNumero.setText(conecta.rs.getString("numero"));
+            jComboBoxBandeira.setSelectedItem(conecta.rs.getString("bandeira"));
+            jTextFieldLimite.setText(conecta.rs.getString("limite"));
+            jTextFieldValorAtual.setText(conecta.rs.getString("valor_atual"));
+            jTextFieldDiaFechamento.setText(conecta.rs.getString("dia_fechamento"));
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Erro ao selecionar: " + ex);
         }
-        
+
+        conecta.desconecta();
+
+        jButtonCancelar.setEnabled(true);
+        jButtonEditar.setEnabled(true);
+        jButtonExcluir.setEnabled(true);
+
+    }//GEN-LAST:event_jTableCartaoMouseClicked
+
+    private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
+        int confirma = 0;
+        confirma = JOptionPane.showConfirmDialog(rootPane, "Deseja realmente excluir?");
+        if (confirma == JOptionPane.YES_OPTION) {
+            //pegar a informação no campo COD
+            beans_cartao.setId_cartao(Integer.parseInt(jLabelCartaoCod.getText()));
+            dao_cartao.excluir(beans_cartao);
+
+            jTextFieldNumero.setEnabled(false);
+            jComboBoxBandeira.setEnabled(false);
+            jTextFieldLimite.setEnabled(false);
+            jTextFieldValorAtual.setEnabled(false);
+            jTextFieldDiaFechamento.setEnabled(false);
+
+            jTextFieldPesquisa.setEnabled(true);
+            jButtonPesquisar.setEnabled(true);
+
+            jButtonNovoCredito.setEnabled(true);
+            jButtonNovoDebito.setEnabled(true);
+
+            jButtonExcluir.setEnabled(false);
+            jButtonEditar.setEnabled(false);
+            jButtonCancelar.setEnabled(true);
+            jButtonSalvar.setEnabled(false);
+
+            jTextFieldNumero.setText("");
+            jComboBoxBandeira.setSelectedItem("");
+            jTextFieldLimite.setText("");
+            jTextFieldValorAtual.setText("");
+            jTextFieldDiaFechamento.setText("");
+            jTextFieldPesquisa.setText("");
+
+        }
+    }//GEN-LAST:event_jButtonExcluirActionPerformed
+
+    public void preencherTabela(String SQL) {
+        ArrayList dados = new ArrayList();
+        String[] colunas = new String[]{"Tipo", "Numero", "Bandeira"};
+        conecta.executaSQL(SQL);
+
+        try {
+            conecta.rs.first();
+            do {
+                dados.add(new Object[]{conecta.rs.getString("tipo"), conecta.rs.getString("numero"), conecta.rs.getString("bandeira")});
+
+            } while (conecta.rs.next());
+        } catch (Exception e) {
+            //JOptionPane.showMessageDialog(null, "erro tabela " + e);
+        }
+
         ModelTabela modelo = new ModelTabela(dados, colunas);
-        
+
         jTableCartao.setModel(modelo);
-        jTableCartao.getColumnModel().getColumn(0).setPreferredWidth(100);
+        jTableCartao.getColumnModel().getColumn(0).setPreferredWidth(240);
         jTableCartao.getColumnModel().getColumn(0).setResizable(false);
-        
-        jTableCartao.getColumnModel().getColumn(1).setPreferredWidth(100);
+
+        jTableCartao.getColumnModel().getColumn(1).setPreferredWidth(250);
         jTableCartao.getColumnModel().getColumn(1).setResizable(false);
-        
+
+        jTableCartao.getColumnModel().getColumn(2).setPreferredWidth(260);
+        jTableCartao.getColumnModel().getColumn(2).setResizable(false);
+
         jTableCartao.getTableHeader().setReorderingAllowed(false);
         jTableCartao.setAutoResizeMode(jTableCartao.AUTO_RESIZE_OFF);
-        
+
         jTableCartao.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
 
@@ -745,6 +1007,7 @@ public class TelaCartoes extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonEditar;
     private javax.swing.JButton jButtonExcluir;
     private javax.swing.JButton jButtonNovoCredito;
@@ -760,7 +1023,9 @@ public class TelaCartoes extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabelCartaoCod;
     private javax.swing.JLabel jLabelData;
     private javax.swing.JLabel jLabelTipoCartao;
     private javax.swing.JLabel jLabelUsuario;

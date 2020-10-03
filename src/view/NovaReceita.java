@@ -50,7 +50,7 @@ public class NovaReceita extends javax.swing.JFrame {
 
         jLabelCOD.setText("" + user);
         preencherComboBox();
-        
+
         //setar os campos para adicionar nova transacao
         beans_transacao.setId_user(Integer.parseInt(jLabelCOD.getText()));
         beans_transacao.setValor(1);
@@ -58,11 +58,10 @@ public class NovaReceita extends javax.swing.JFrame {
         beans_transacao.setDia(-1);
         beans_transacao.setMes(-1);
         beans_transacao.setAno(-1);
-        
+        beans_transacao.setCategoria("-1");
+
         dao_transacao.salvarTransacao(beans_transacao);
-        
-        
-        
+
     }
 
     private NovaReceita() {
@@ -91,8 +90,8 @@ public class NovaReceita extends javax.swing.JFrame {
         jTextFieldValor = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jTextFieldValorDia = new javax.swing.JTextField();
-        jTextFieldValorMes = new javax.swing.JTextField();
-        jTextFieldValorAno = new javax.swing.JTextField();
+        jTextFieldMes = new javax.swing.JTextField();
+        jTextFieldAno = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
 
@@ -100,14 +99,14 @@ public class NovaReceita extends javax.swing.JFrame {
         setMaximumSize(new java.awt.Dimension(600, 300));
         setUndecorated(true);
 
-        jPanel1.setBackground(new java.awt.Color(0, 204, 0));
+        jPanel1.setBackground(new java.awt.Color(0, 144, 0));
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setBackground(new java.awt.Color(240, 231, 244));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Nova Receita", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.BELOW_TOP, new java.awt.Font("Linux Libertine G", 1, 24))); // NOI18N
 
-        jButtonSalvar.setBackground(new java.awt.Color(218, 218, 218));
+        jButtonSalvar.setBackground(new java.awt.Color(51, 0, 51));
         jButtonSalvar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButtonSalvar.setForeground(new java.awt.Color(51, 51, 51));
+        jButtonSalvar.setForeground(new java.awt.Color(255, 255, 255));
         jButtonSalvar.setText("Salvar");
         jButtonSalvar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jButtonSalvar.setBorderPainted(false);
@@ -119,18 +118,18 @@ public class NovaReceita extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(218, 218, 218));
+        jButton1.setBackground(new java.awt.Color(51, 0, 51));
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(51, 51, 51));
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Nova Categoria");
         jButton1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jButton1.setBorderPainted(false);
         jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton1.setFocusPainted(false);
 
-        jButtonCancelar.setBackground(new java.awt.Color(218, 218, 218));
+        jButtonCancelar.setBackground(new java.awt.Color(51, 0, 51));
         jButtonCancelar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButtonCancelar.setForeground(new java.awt.Color(51, 51, 51));
+        jButtonCancelar.setForeground(new java.awt.Color(255, 255, 255));
         jButtonCancelar.setText("Cancelar");
         jButtonCancelar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jButtonCancelar.setBorderPainted(false);
@@ -145,7 +144,7 @@ public class NovaReceita extends javax.swing.JFrame {
         jLabelCOD.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jLabelCOD.setText("jLabel3");
 
-        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setBackground(new java.awt.Color(240, 231, 244));
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
 
         jComboBoxCategoria.setBackground(new java.awt.Color(153, 153, 153));
@@ -181,11 +180,11 @@ public class NovaReceita extends javax.swing.JFrame {
             }
         });
 
-        jTextFieldValorMes.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextFieldValorMes.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(255, 255, 255), java.awt.Color.gray));
+        jTextFieldMes.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jTextFieldMes.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(255, 255, 255), java.awt.Color.gray));
 
-        jTextFieldValorAno.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextFieldValorAno.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(255, 255, 255), java.awt.Color.gray));
+        jTextFieldAno.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jTextFieldAno.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(255, 255, 255), java.awt.Color.gray));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel6.setText("Mês:");
@@ -204,7 +203,7 @@ public class NovaReceita extends javax.swing.JFrame {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabel1)
-                                .addGap(0, 127, Short.MAX_VALUE))
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(jTextFieldValor))
                         .addGap(28, 28, 28)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -213,45 +212,42 @@ public class NovaReceita extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jTextFieldValorMes, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTextFieldMes, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(22, 22, 22)
-                                .addComponent(jTextFieldValorAno, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jTextFieldAno, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addGap(77, 77, 77)
                                 .addComponent(jLabel7)))
                         .addGap(61, 61, 61))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBoxCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(jComboBoxCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(0, 86, Short.MAX_VALUE)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBoxCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel3)
-                                .addComponent(jLabel6)
-                                .addComponent(jLabel7)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextFieldValor, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldValorDia, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldValorMes, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldValorAno, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                    .addComponent(jLabel1)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel3)
+                        .addComponent(jLabel6)
+                        .addComponent(jLabel7)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFieldValor, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldValorDia, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldMes, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldAno, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jComboBoxCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -261,9 +257,8 @@ public class NovaReceita extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 152, Short.MAX_VALUE)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -273,12 +268,13 @@ public class NovaReceita extends javax.swing.JFrame {
                         .addComponent(jLabelCOD, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -335,25 +331,29 @@ public class NovaReceita extends javax.swing.JFrame {
     }
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
-       
-        int id = dao_transacao.retornaUltima();
-        
-        
-        beans_receita.setId_transacao(id);
-        
-        beans_transacao.setValor(Double.parseDouble(jTextFieldValor.getText()));
-        beans_receita.setCategoria((String) jComboBoxCategoria.getSelectedItem());
-        beans_transacao.setDia(Integer.parseInt(jTextFieldValorDia.getText()));
-        beans_transacao.setMes(Integer.parseInt(jTextFieldValorMes.getText()));
-        beans_transacao.setAno(Integer.parseInt(jTextFieldValorAno.getText()));
 
-        dao_transacao.SalvarAtualizando(beans_transacao,id);
-        
-        dao_receita.Salvar(beans_receita);
+        if (jTextFieldValor.getText().isEmpty() || jTextFieldValorDia.getText().isEmpty() || jTextFieldMes.getText().isEmpty()
+                || jTextFieldAno.getText().isEmpty() || jComboBoxCategoria.getSelectedItem() == null) {
+            JOptionPane.showMessageDialog(rootPane, "Preencha todos os campos");
+        } else {
+            int id = dao_transacao.retornaUltima();
 
-        TelaInicial tela = new TelaInicial(Integer.parseInt(jLabelCOD.getText()));
-        tela.setVisible(true);
-        dispose();
+            beans_receita.setId_transacao(id);
+
+            beans_transacao.setValor(Double.parseDouble(jTextFieldValor.getText()));
+            beans_transacao.setCategoria((String) jComboBoxCategoria.getSelectedItem());
+            beans_transacao.setDia(Integer.parseInt(jTextFieldValorDia.getText()));
+            beans_transacao.setMes(Integer.parseInt(jTextFieldMes.getText()));
+            beans_transacao.setAno(Integer.parseInt(jTextFieldAno.getText()));
+
+            dao_transacao.SalvarAtualizando(beans_transacao, id);
+
+            dao_receita.Salvar(beans_receita);
+
+            TelaInicial tela = new TelaInicial(Integer.parseInt(jLabelCOD.getText()));
+            tela.setVisible(true);
+            dispose();
+        }
 
 
     }//GEN-LAST:event_jButtonSalvarActionPerformed
@@ -421,9 +421,9 @@ public class NovaReceita extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JTextField jTextFieldAno;
+    private javax.swing.JTextField jTextFieldMes;
     private javax.swing.JTextField jTextFieldValor;
-    private javax.swing.JTextField jTextFieldValorAno;
     private javax.swing.JTextField jTextFieldValorDia;
-    private javax.swing.JTextField jTextFieldValorMes;
     // End of variables declaration//GEN-END:variables
 }

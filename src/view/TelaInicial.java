@@ -84,9 +84,9 @@ ON transacao.id_transacao = receitas.id_transacao where id_user = 20;
         //mostra o dinheiro em posse
         jLabelPosse.setText("" + (somaReceitas - somaDespesas));
         
-        preencherTabelaReceita("select valor, tipo, dia from transacao "
-                + "full join despesas on transacao.id_transacao = despesas.id_transacao "
-                + "full join receitas on transacao.id_transacao = receitas.id_transacao where id_user = '"+id_Tela+"'");
+        preencherTabelaReceita("select valor, tipo, categoria, dia from transacao "
+                + "full join despesas on transacao.id_transacao = despesas.id_transacaod "
+                + "full join receitas on transacao.id_transacao = receitas.id_transacaor where id_user = '"+id_Tela+"'");
          
     }
 
@@ -554,13 +554,15 @@ ON transacao.id_transacao = receitas.id_transacao where id_user = 20;
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        
+         TelaHistoricoTransacoes tc = new TelaHistoricoTransacoes(Integer.parseInt(jLabelCOD.getText()));
+        tc.setVisible(true);
+        dispose();
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     public void preencherTabelaReceita(String Sql) {
 
         ArrayList dados = new ArrayList();
-        String [] colunas = new String []{"Valor","Tipo","dia"};
+        String [] colunas = new String []{"Valor","Tipo","categoria","dia"};
         
         conecta.conexao();
         conecta.executaSQL(Sql);
@@ -569,7 +571,7 @@ ON transacao.id_transacao = receitas.id_transacao where id_user = 20;
             conecta.rs.first();
             do {
                 dados.add(new Object[]{conecta.rs.getDouble("valor"), 
-                conecta.rs.getString("tipo"), conecta.rs.getInt("dia")});
+                conecta.rs.getString("tipo"),conecta.rs.getString("categoria"), conecta.rs.getInt("dia")});
 
             } while (conecta.rs.next());
         } catch (SQLException ex) {
@@ -586,6 +588,8 @@ ON transacao.id_transacao = receitas.id_transacao where id_user = 20;
         jTableReceitas.getColumnModel().getColumn(1).setPreferredWidth(180);
         jTableReceitas.getColumnModel().getColumn(1).setResizable(false);
 
+        jTableReceitas.getColumnModel().getColumn(2).setPreferredWidth(90);
+        jTableReceitas.getColumnModel().getColumn(2).setResizable(false);
         jTableReceitas.getColumnModel().getColumn(2).setPreferredWidth(90);
         jTableReceitas.getColumnModel().getColumn(2).setResizable(false);
        

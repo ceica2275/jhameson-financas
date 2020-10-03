@@ -32,21 +32,20 @@ public class NovaDespesa extends javax.swing.JFrame {
 
     public NovaDespesa(int user) {
         initComponents();
-        jLabelCOD.setText(""+user);
+        jLabelCOD.setText("" + user);
         preencherComboBox();
-        
-        
+
         //setar os campos para adicionar nova despesa
         beans_transacao.setId_user(Integer.parseInt(jLabelCOD.getText()));
-        beans_transacao.setValor(1);
+        beans_transacao.setValor(1.5);
         beans_transacao.setTipo("Despesa");
+        beans_transacao.setCategoria("-1");
         beans_transacao.setDia(-1);
         beans_transacao.setMes(-1);
         beans_transacao.setAno(-1);
-        
+
         dao_transacao.salvarTransacao(beans_transacao);
-        
-        
+
     }
 
     private NovaDespesa() {
@@ -73,7 +72,6 @@ public class NovaDespesa extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jTextFieldValor = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTextFieldDia = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jTextFieldMes = new javax.swing.JTextField();
         jTextFieldAno = new javax.swing.JTextField();
@@ -86,6 +84,7 @@ public class NovaDespesa extends javax.swing.JFrame {
         jComboBoxStatus = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         jTextFieldDescricao = new javax.swing.JTextField();
+        jFormattedTextFieldDia = new javax.swing.JFormattedTextField();
 
         jButton3.setText("jButton3");
 
@@ -93,34 +92,61 @@ public class NovaDespesa extends javax.swing.JFrame {
         setUndecorated(true);
         setResizable(false);
 
-        jPanel1.setBackground(new java.awt.Color(204, 0, 51));
+        jPanel1.setBackground(new java.awt.Color(156, 0, 0));
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setBackground(new java.awt.Color(240, 231, 244));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Nova Despesa", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.BELOW_TOP, new java.awt.Font("Linux Libertine G", 1, 24))); // NOI18N
 
+        jButton1.setBackground(new java.awt.Color(51, 0, 51));
+        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Nova Categoria");
+        jButton1.setBorderPainted(false);
+        jButton1.setFocusPainted(false);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
+        jButtonSalvar.setBackground(new java.awt.Color(51, 0, 51));
+        jButtonSalvar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButtonSalvar.setForeground(new java.awt.Color(255, 255, 255));
         jButtonSalvar.setText("Salvar");
+        jButtonSalvar.setBorderPainted(false);
+        jButtonSalvar.setFocusPainted(false);
         jButtonSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonSalvarActionPerformed(evt);
             }
         });
 
+        jButton4.setBackground(new java.awt.Color(51, 0, 51));
+        jButton4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButton4.setForeground(new java.awt.Color(255, 255, 255));
         jButton4.setText("Cancelar");
+        jButton4.setBorderPainted(false);
+        jButton4.setFocusPainted(false);
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jLabelCOD.setText("jLabel7");
 
-        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setBackground(new java.awt.Color(240, 231, 244));
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel2.setText("Valor:");
+
+        jTextFieldValor.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jTextFieldValor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldValorKeyTyped(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel4.setText("Dia:");
@@ -128,26 +154,57 @@ public class NovaDespesa extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel7.setText("Mês:");
 
+        jTextFieldMes.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+
+        jTextFieldAno.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel8.setText("Ano:");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel1.setText("Categoria:");
 
+        jComboBoxCategoria.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jComboBoxCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxCategoria.setBorder(null);
+        jComboBoxCategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxCategoriaActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel3.setText("Forma de Pagamento:");
 
+        jComboBoxPagamento.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jComboBoxPagamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dinheiro", "Cartao" }));
+        jComboBoxPagamento.setBorder(null);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel6.setText("Status:");
 
+        jComboBoxStatus.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jComboBoxStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Paga", "Devendo" }));
+        jComboBoxStatus.setBorder(null);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel5.setText("Descrição:");
+
+        jTextFieldDescricao.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+
+        try {
+            jFormattedTextFieldDia.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jFormattedTextFieldDia.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jFormattedTextFieldDiaKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jFormattedTextFieldDiaKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -169,8 +226,8 @@ public class NovaDespesa extends javax.swing.JFrame {
                                     .addGroup(jPanel3Layout.createSequentialGroup()
                                         .addComponent(jTextFieldValor, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
-                                        .addComponent(jTextFieldDia, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jFormattedTextFieldDia, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(13, 13, 13)
                                         .addComponent(jTextFieldMes, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel3Layout.createSequentialGroup()
                                         .addComponent(jLabel2)
@@ -194,7 +251,7 @@ public class NovaDespesa extends javax.swing.JFrame {
                                 .addComponent(jLabel6)
                                 .addGap(62, 62, 62)
                                 .addComponent(jLabel5)))
-                        .addGap(0, 11, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -210,10 +267,10 @@ public class NovaDespesa extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldValor, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldDia, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFieldMes, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFieldAno, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBoxPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jFormattedTextFieldDia, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -231,19 +288,17 @@ public class NovaDespesa extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabelCOD)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(jLabelCOD)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 118, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -294,52 +349,92 @@ public class NovaDespesa extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-   
-    public void preencherComboBox(){
+
+    public void preencherComboBox() {
         conex.conexao();
-        conex.executaSQL("select nome from categorias where tipo = 'Despesa' and id_user = '"+jLabelCOD.getText()+"'");
+        conex.executaSQL("select nome from categorias where tipo = 'Despesa' and id_user = '" + jLabelCOD.getText() + "'");
         try {
             conex.rs.first();
             jComboBoxCategoria.removeAllItems();
-            do{
+            do {
                 jComboBoxCategoria.addItem(conex.rs.getString("nome"));
-            }while(conex.rs.next());
+            } while (conex.rs.next());
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erros ao preencher box: " + ex.getMessage());
         }
         conex.desconecta();
     }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+        TelaCategoria tc = new TelaCategoria(Integer.parseInt(jLabelCOD.getText()));
+        tc.setVisible(true);
+        dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
-        //linhas responsaveis por colocar o nome de usuario na tela
-        //pesquisa o nome do usuario e sua ID
-        
-        int id = dao_transacao.retornaUltima();
+        if (jTextFieldValor.getText().isEmpty() || jFormattedTextFieldDia.getText().isEmpty() || jTextFieldMes.getText().isEmpty()
+                || jTextFieldAno.getText().isEmpty() || jComboBoxPagamento.getSelectedItem() == null
+                || jComboBoxCategoria.getSelectedItem() == null || jComboBoxStatus.getSelectedItem() == null) {
+            JOptionPane.showMessageDialog(rootPane, "Preencha todos os campos");
+        } else {
+            //retorna o id da ultima transacao adicionada (ela esta sempre vazia, pois acabou de ser criada)
+            int id = dao_transacao.retornaUltima();
 
-        beans_despesa.setId_transacao(id);
-        
-        beans_transacao.setValor(Double.parseDouble(jTextFieldValor.getText()));
-        beans_despesa.setCategoria((String) jComboBoxCategoria.getSelectedItem());
-        
-        beans_despesa.setDescricao((String) jTextFieldDescricao.getText());
-        beans_despesa.setForma_pagamento((String) jComboBoxPagamento.getSelectedItem());
-        beans_despesa.setStatus((String) jComboBoxStatus.getSelectedItem());
-        
-         beans_transacao.setDia(Integer.parseInt(jTextFieldDia.getText()));
-        beans_transacao.setMes(Integer.parseInt(jTextFieldMes.getText()));
-        beans_transacao.setAno(Integer.parseInt(jTextFieldAno.getText()));
+            beans_despesa.setId_transacao(id);
 
-        dao_transacao.SalvarAtualizando(beans_transacao, id);
-        dao_despesa.Salvar(beans_despesa);
-        
+            beans_transacao.setValor(Double.parseDouble(jTextFieldValor.getText()));
+            beans_transacao.setCategoria((String) jComboBoxCategoria.getSelectedItem());
 
-        TelaInicial tela = new TelaInicial(Integer.parseInt(jLabelCOD.getText()));
-        tela.setVisible(true);
-        dispose();
+            beans_despesa.setDescricao((String) jTextFieldDescricao.getText());
+            beans_despesa.setForma_pagamento((String) jComboBoxPagamento.getSelectedItem());
+            beans_despesa.setStatus((String) jComboBoxStatus.getSelectedItem());
+
+            beans_transacao.setDia(Integer.parseInt(jFormattedTextFieldDia.getText()));
+            beans_transacao.setMes(Integer.parseInt(jTextFieldMes.getText()));
+            beans_transacao.setAno(Integer.parseInt(jTextFieldAno.getText()));
+
+            dao_transacao.SalvarAtualizando(beans_transacao, id);
+           // JOptionPane.showMessageDialog(rootPane, "aqui 1");
+            dao_despesa.Salvar(beans_despesa);
+
+            TelaInicial tela = new TelaInicial(Integer.parseInt(jLabelCOD.getText()));
+            tela.setVisible(true);
+            dispose();
+        }
+
     }//GEN-LAST:event_jButtonSalvarActionPerformed
+
+    private void jComboBoxCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCategoriaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxCategoriaActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        TelaInicial tl = new TelaInicial(Integer.parseInt(jLabelCOD.getText()));
+        tl.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jTextFieldValorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldValorKeyTyped
+        //https://www.devmedia.com.br/como-alterar-o-componente-jtextfield-para-aceitar-apenas-numeros/26152
+
+        String caracteres = "0987654321.";
+        if (!caracteres.contains(evt.getKeyChar() + "")) {
+            evt.consume();
+        }
+
+    }//GEN-LAST:event_jTextFieldValorKeyTyped
+
+    private void jFormattedTextFieldDiaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFormattedTextFieldDiaKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jFormattedTextFieldDiaKeyPressed
+
+    private void jFormattedTextFieldDiaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFormattedTextFieldDiaKeyTyped
+        String caracteres = "0987654321";
+       
+        
+        if (!caracteres.contains(evt.getKeyChar() + "")) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_jFormattedTextFieldDiaKeyTyped
 
     /**
      * @param args the command line arguments
@@ -385,6 +480,7 @@ public class NovaDespesa extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBoxCategoria;
     private javax.swing.JComboBox<String> jComboBoxPagamento;
     private javax.swing.JComboBox<String> jComboBoxStatus;
+    private javax.swing.JFormattedTextField jFormattedTextFieldDia;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -399,7 +495,6 @@ public class NovaDespesa extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JTextField jTextFieldAno;
     private javax.swing.JTextField jTextFieldDescricao;
-    private javax.swing.JTextField jTextFieldDia;
     private javax.swing.JTextField jTextFieldMes;
     private javax.swing.JTextField jTextFieldValor;
     // End of variables declaration//GEN-END:variables

@@ -12,11 +12,12 @@ import ModelConnection.ModelTabela;
 import ModelDao.DaoDespesa;
 import ModelDao.DaoReceita;
 import ModelDao.DaoUser;
-import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ListSelectionModel;
 
 /**
@@ -32,51 +33,30 @@ public class TelaHistoricoTransacoes extends javax.swing.JFrame {
 
     ExibeData exd = new ExibeData();
     BeansUsuario beans_user = new BeansUsuario();
-    DaoUser mod_user = new DaoUser();
-    DaoReceita mod_receita = new DaoReceita();
-    DaoDespesa mod_despesa = new DaoDespesa();
+    DaoUser dao_user = new DaoUser();
+
+    //variavel para saber se estou atualizando 
+    int flag = 0;
 
     public TelaHistoricoTransacoes(int id_Tela) {
         initComponents();
 
         conecta.conexao();
-        jLabelCOD.setText(""+id_Tela);
-
-        //pesquisa no banco pelo nome do id_Tela para ´preencher as tabelas
-        
-        //JOptionPane.showMessageDialog(null, "deu merda telaaaa "+id_Tela);
-            
-       
+        jLabelCOD.setText("" + id_Tela);
 
         //linhas resposaveis por chamar o metodo de exibir a data na tela inicial
         String dataCompleta = exd.dataCompleta();
-        jLabelData.setText(""+dataCompleta);
-        
-        //retorna o mes atual
-        String datames = exd.dataMes();
-       int datamesInt = Integer.parseInt(datames);
-            
-        //retorna o dia atual
-        String datadia = exd.datadia();
-       int datadiaInt = Integer.parseInt(datadia);
-        
-      
-        
-       
-/*
-        //mostra a soma das receitas do mes
-        int somaReceitas = mod_receita.somarReceitas(id_Tela,datamesInt,datadiaInt);
-        jLabelReceitas.setText(""+somaReceitas);
-        
-         //mostra a soma das despesas do mes
-        int somaDespesas = mod_despesa.somarDespesas(id_Tela,datamesInt,datadiaInt);
-        jLabelDespesas.setText(""+somaDespesas);
-        
-        //mostra o dinheiro em posse
-        jLabelPosse.setText("" + (somaReceitas - somaDespesas));
-        */
-         preencherTabelaReceita("select * from receita where id_user = '" + id_Tela + "'");
-         preencherTabelaDespesa("select valor, categoria, status from despesa where id_user = '" + id_Tela + "'");
+        jLabelData.setText(dataCompleta);
+
+        //preenche os campos da tela
+        //pesquisa as informações do id_Tela de acordo com o id_Tela name
+        //String nomePesquisa = 
+        beans_user.setUser_pesquisa(String.valueOf(id_Tela));
+        BeansUsuario model = dao_user.buscarUser(beans_user);
+
+        preencherTabela("select id_transacao, tipo, categoria, dia from transacao "
+                + "full join despesas on transacao.id_transacao = despesas.id_transacaod "
+                + "full join receitas on transacao.id_transacao = receitas.id_transacaor where id_user = '" + id_Tela + "'");
     }
 
     private TelaHistoricoTransacoes() {
@@ -97,25 +77,23 @@ public class TelaHistoricoTransacoes extends javax.swing.JFrame {
         jMenu6 = new javax.swing.JMenu();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jLabel00 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
         jLabelCOD = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabelData = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTableDespesas = new javax.swing.JTable();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        jTableReceitas = new javax.swing.JTable();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTableTransacoes = new javax.swing.JTable();
+        jTextFieldCOD_T = new javax.swing.JTextField();
+        jLabelcodddddd = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItemPerfil = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
         jMenu7 = new javax.swing.JMenu();
         jMenuItemCartoes = new javax.swing.JMenuItem();
+        jMenuItemCarteira = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -127,17 +105,15 @@ public class TelaHistoricoTransacoes extends javax.swing.JFrame {
         jMenuBar2.add(jMenu6);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(800, 450));
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(51, 51, 51));
 
         jPanel2.setBackground(new java.awt.Color(240, 231, 244));
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Histórico de Transações", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.BELOW_TOP, new java.awt.Font("Linux Libertine G", 1, 24))); // NOI18N
 
-        jLabel00.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        jLabel00.setForeground(new java.awt.Color(0, 0, 255));
-        jLabel00.setText("Usuário:");
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(0, 0, 255));
+        jLabel6.setText("Usuário:");
 
         jLabelCOD.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jLabelCOD.setForeground(new java.awt.Color(0, 0, 255));
@@ -149,15 +125,7 @@ public class TelaHistoricoTransacoes extends javax.swing.JFrame {
         jLabelData.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jLabelData.setForeground(new java.awt.Color(0, 0, 255));
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel5.setText("Receitas Recentes:");
-
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel9.setText("Despesas Recentes:");
-
-        jTableDespesas.setModel(new javax.swing.table.DefaultTableModel(
+        jTableTransacoes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -168,65 +136,61 @@ public class TelaHistoricoTransacoes extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane3.setViewportView(jTableDespesas);
-
-        jTableReceitas.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {},
-                {},
-                {},
-                {}
-            },
-            new String [] {
-
+        jTableTransacoes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableTransacoesMouseClicked(evt);
             }
-        ));
-        jTableReceitas.setAutoscrolls(false);
-        jScrollPane4.setViewportView(jTableReceitas);
+        });
+        jScrollPane1.setViewportView(jTableTransacoes);
+
+        jLabelcodddddd.setText("jLabel1");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(18, 266, Short.MAX_VALUE)
-                        .addComponent(jLabel9)
-                        .addGap(242, 242, 242))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel00)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabelCOD, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel7)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabelData, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addContainerGap()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(233, 233, 233)
+                                .addComponent(jLabelData, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabelCOD, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel7))))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(125, 125, 125)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(46, 46, 46)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabelcodddddd)
+                            .addComponent(jTextFieldCOD_T, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(73, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(130, 130, 130)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap(48, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabelcodddddd)
+                        .addGap(37, 37, 37)
+                        .addComponent(jTextFieldCOD_T, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabelCOD, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelData, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel00, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabelCOD, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelData, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -234,10 +198,10 @@ public class TelaHistoricoTransacoes extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -247,26 +211,23 @@ public class TelaHistoricoTransacoes extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jMenuBar1.setBackground(new java.awt.Color(255, 255, 255));
         jMenuBar1.setBorder(null);
-        jMenuBar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jMenuBar1.setOpaque(false);
 
         jMenu1.setText("Usuário");
 
-        jMenuItemPerfil.setText("Perfil");
-        jMenuItemPerfil.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem5.setText("Perfil");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemPerfilActionPerformed(evt);
+                jMenuItem5ActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItemPerfil);
+        jMenu1.add(jMenuItem5);
 
         jMenuBar1.add(jMenu1);
 
-        jMenu7.setText("Cartões");
+        jMenu7.setText("Contas");
 
-        jMenuItemCartoes.setText("Opções de Cartões");
+        jMenuItemCartoes.setText("Cartões");
         jMenuItemCartoes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemCartoesActionPerformed(evt);
@@ -274,30 +235,24 @@ public class TelaHistoricoTransacoes extends javax.swing.JFrame {
         });
         jMenu7.add(jMenuItemCartoes);
 
+        jMenuItemCarteira.setText("Carteira");
+        jMenuItemCarteira.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemCarteiraActionPerformed(evt);
+            }
+        });
+        jMenu7.add(jMenuItemCarteira);
+
         jMenuBar1.add(jMenu7);
 
         jMenu4.setText("Categorias");
 
-        jMenuItem4.setText("Opções de Categorias");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
-            }
-        });
+        jMenuItem4.setText("Nova Categoria");
         jMenu4.add(jMenuItem4);
 
         jMenuBar1.add(jMenu4);
 
         jMenu2.setText("Histórico");
-
-        jMenuItem3.setText("Histórico de Transações");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
-            }
-        });
-        jMenu2.add(jMenuItem3);
-
         jMenuBar1.add(jMenu2);
 
         jMenu5.setText("Sair");
@@ -310,7 +265,7 @@ public class TelaHistoricoTransacoes extends javax.swing.JFrame {
         });
         jMenu5.add(jMenuItem2);
 
-        jMenuItem1.setText("Fechar");
+        jMenuItem1.setText("Sair");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
@@ -352,107 +307,80 @@ public class TelaHistoricoTransacoes extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItemCartoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCartoesActionPerformed
-        TelaCartoes tc = new TelaCartoes(Integer.parseInt(jLabelCOD.getText()));
-        tc.setVisible(true);
+        TelaCartoes ct = new TelaCartoes(Integer.parseInt(jLabelCOD.getText()));
+        ct.setVisible(true);
         dispose();
     }//GEN-LAST:event_jMenuItemCartoesActionPerformed
 
-    private void jMenuItemPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPerfilActionPerformed
-        int id = Integer.parseInt(jLabelCOD.getText());
-        TelaUsuario tela_user = new TelaUsuario(id);
-        tela_user.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_jMenuItemPerfilActionPerformed
+    private void jMenuItemCarteiraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCarteiraActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItemCarteiraActionPerformed
 
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        TelaCategoria tc = new TelaCategoria(Integer.parseInt(jLabelCOD.getText()));
-        tc.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
-
-    public void preencherTabelaReceita(String Sql) {
-
-        ArrayList dados = new ArrayList();
-        String [] colunas = new String []{"Valor","categoria","dia"};
-        
+    private void jTableTransacoesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableTransacoesMouseClicked
+       String numero = "" + jTableTransacoes.getValueAt(jTableTransacoes.getSelectedRow(), 1);
         conecta.conexao();
-        conecta.executaSQL(Sql);
+        conecta.executaSQL("select id_transacao from transacao "
+                + "full join despesas on transacao.id_transacao = despesas.id_transacaod "
+                + "full join receitas on transacao.id_transacao = receitas.id_transacaor where id_transacao = '" + numero + "'");
+        
+        
+        
+        try {
+            conecta.rs.first();
+            jTextFieldCOD_T.setText(conecta.rs.getString("id_transacao"));
+           
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaHistoricoTransacoes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_jTableTransacoesMouseClicked
+
+    public void preencherTabela(String SQL) {
+        ArrayList dados = new ArrayList();
+        String[] colunas = new String[]{"COD", "Tipo", "categoria", "dia",};
+
+        conecta.conexao();
+        conecta.executaSQL(SQL);
 
         try {
             conecta.rs.first();
             do {
-                dados.add(new Object[]{conecta.rs.getDouble("valor"), conecta.rs.getString("categoria"), 
-                conecta.rs.getInt("dia")});
+                dados.add(new Object[]{conecta.rs.getInt("id_transacao"),
+                    conecta.rs.getString("tipo"), conecta.rs.getString("categoria"),conecta.rs.getInt("dia")});
 
             } while (conecta.rs.next());
         } catch (SQLException ex) {
             //JOptionPane.showMessageDialog(rootPane, "Erro na tabela Transação arraylist: " + ex);
         }
-        
+
         ModelTabela model = new ModelTabela(dados, colunas);
 
-        jTableReceitas.setModel(model);
+        jTableTransacoes.setModel(model);
 
-        jTableReceitas.getColumnModel().getColumn(0).setPreferredWidth(93);
-        jTableReceitas.getColumnModel().getColumn(0).setResizable(false);
+        jTableTransacoes.getColumnModel().getColumn(0).setPreferredWidth(93);
+        jTableTransacoes.getColumnModel().getColumn(0).setResizable(false);
 
-        jTableReceitas.getColumnModel().getColumn(1).setPreferredWidth(180);
-        jTableReceitas.getColumnModel().getColumn(1).setResizable(false);
+        jTableTransacoes.getColumnModel().getColumn(1).setPreferredWidth(180);
+        jTableTransacoes.getColumnModel().getColumn(1).setResizable(false);
 
-        jTableReceitas.getColumnModel().getColumn(2).setPreferredWidth(90);
-        jTableReceitas.getColumnModel().getColumn(2).setResizable(false);
-        jTableReceitas.getColumnModel().getColumn(3).setPreferredWidth(90);
-        jTableReceitas.getColumnModel().getColumn(3).setResizable(false);
+        jTableTransacoes.getColumnModel().getColumn(2).setPreferredWidth(90);
+        jTableTransacoes.getColumnModel().getColumn(2).setResizable(false);
         
-
-        jTableReceitas.getTableHeader().setReorderingAllowed(false);
-        jTableReceitas.setAutoResizeMode(jTableReceitas.AUTO_RESIZE_OFF);
-        jTableReceitas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); //selecionar 1 item por tabela
-
-        conecta.desconecta();
-    }
-    
-    public void preencherTabelaDespesa(String Sql) {
-
-        ArrayList dados = new ArrayList();
-        String [] Colunas = new String []{"Valor", "Categoria", "Status"};
-
-        conecta.conexao();
-        conecta.executaSQL(Sql);
-
-        try {
-            conecta.rs.first();
-            do {
-
-                dados.add(new Object[]{conecta.rs.getDouble("valor"), conecta.rs.getString("categoria"), conecta.rs.getString("status")});
-
-            } while (conecta.rs.next());
-        } catch (SQLException ex) {
-            //JOptionPane.showMessageDialog(rootPane, "Erro na tabela Transação arraylist: " + ex);
-        }
-
-        ModelTabela model = new ModelTabela(dados, Colunas);
-
-        jTableDespesas.setModel(model);
-
-        jTableDespesas.getColumnModel().getColumn(0).setPreferredWidth(93);
-        jTableDespesas.getColumnModel().getColumn(0).setResizable(false);
-
-        jTableDespesas.getColumnModel().getColumn(1).setPreferredWidth(180);
-        jTableDespesas.getColumnModel().getColumn(1).setResizable(false);
-
-        jTableDespesas.getColumnModel().getColumn(2).setPreferredWidth(90);
-        jTableDespesas.getColumnModel().getColumn(2).setResizable(false);
-
+        
+        jTableTransacoes.getColumnModel().getColumn(3).setPreferredWidth(90);
+        jTableTransacoes.getColumnModel().getColumn(3).setResizable(false);
+        
+        
       
 
-        jTableDespesas.getTableHeader().setReorderingAllowed(false);
-        jTableDespesas.setAutoResizeMode(jTableReceitas.AUTO_RESIZE_OFF);
-        jTableDespesas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); //selecionar 1 item por tabela
+        jTableTransacoes.getTableHeader().setReorderingAllowed(false);
+        jTableTransacoes.setAutoResizeMode(jTableTransacoes.AUTO_RESIZE_OFF);
+        jTableTransacoes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); //selecionar 1 item por tabela
 
         conecta.desconecta();
     }
@@ -468,7 +396,7 @@ public class TelaHistoricoTransacoes extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -484,6 +412,12 @@ public class TelaHistoricoTransacoes extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -494,12 +428,11 @@ public class TelaHistoricoTransacoes extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel00;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelCOD;
     private javax.swing.JLabel jLabelData;
+    private javax.swing.JLabel jLabelcodddddd;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -511,15 +444,14 @@ public class TelaHistoricoTransacoes extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItemCarteira;
     private javax.swing.JMenuItem jMenuItemCartoes;
-    private javax.swing.JMenuItem jMenuItemPerfil;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTable jTableDespesas;
-    private javax.swing.JTable jTableReceitas;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTableTransacoes;
+    private javax.swing.JTextField jTextFieldCOD_T;
     // End of variables declaration//GEN-END:variables
 }

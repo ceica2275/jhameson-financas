@@ -24,7 +24,7 @@ public class DaoTransacao {
     public void salvarTransacao(BeansTransacao mod) {
         conex.conexao();
         try {
-            PreparedStatement pst = conex.con.prepareStatement("insert into transacao(id_user, valor, tipo, dia, mes, ano) values (?,?,?,?,?,?)");
+            PreparedStatement pst = conex.con.prepareStatement("insert into transacao(id_user, valor, tipo, dia, mes, ano, categoria) values (?,?,?,?,?,?,?)");
 
             pst.setInt(1, mod.getId_user());
             pst.setDouble(2, mod.getValor());
@@ -32,6 +32,7 @@ public class DaoTransacao {
             pst.setInt(4, mod.getDia());
             pst.setInt(5, mod.getMes());
             pst.setInt(6, mod.getAno());
+            pst.setString(7, mod.getCategoria());
             pst.execute();
 
             JOptionPane.showMessageDialog(null, "Transacao Cadastrado com Sucesso");
@@ -62,12 +63,13 @@ public class DaoTransacao {
     public void SalvarAtualizando(BeansTransacao mod, int id) {
         conex.conexao();
         try {
-            PreparedStatement pst = conex.con.prepareStatement("update transacao set valor = ?, dia = ?, mes = ?, ano = ? where id_transacao = '" + id + "'");
+            PreparedStatement pst = conex.con.prepareStatement("update transacao set valor = ?, dia = ?, mes = ?, ano = ?, categoria =? where id_transacao = '" + id + "'");
 
             pst.setDouble(1, mod.getValor());
             pst.setInt(2, mod.getDia());
             pst.setInt(3, mod.getMes());
             pst.setInt(4, mod.getAno());
+            pst.setString(5, mod.getCategoria());
 
             pst.execute();
 
@@ -82,7 +84,7 @@ public class DaoTransacao {
 
         conex.conexao();
         try {
-            PreparedStatement pst = conex.con.prepareStatement("delete from transacao where ano = -1");
+            PreparedStatement pst = conex.con.prepareStatement("delete from transacao where ano = -1 and dia = -1 and categoria = '-1'");
 
             pst.execute();
 

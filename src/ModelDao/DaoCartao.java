@@ -81,15 +81,15 @@ public class DaoCartao {
     public void editarCredito(BeansCartao mod) {
         conex.conexao();
         try {
-            PreparedStatement pst = conex.con.prepareStatement("update cartao set id_user = ?, numero= ?, tipo= ?, bandeira= ?, limite= ?, valor_atual= ?, dia_fechamento = ?  where user_id = ?");
+            PreparedStatement pst = conex.con.prepareStatement("update cartao set  numero= ?,  bandeira= ?, limite= ?, valor_atual= ?, dia_fechamento = ?  where id_cartao = ?");
 
-            pst.setInt(1, mod.getId());
-            pst.setString(2, mod.getNumero());
-            pst.setString(3, mod.getTipo());
-            pst.setString(4, mod.getBandeira());
-            pst.setDouble(5, mod.getLimite());
-            pst.setDouble(6, mod.getValor());
-            pst.setInt(7, mod.getDia_fechamento());
+            pst.setString(1, mod.getNumero());
+
+            pst.setString(2, mod.getBandeira());
+            pst.setDouble(3, mod.getLimite());
+            pst.setDouble(4, mod.getValor());
+            pst.setInt(5, mod.getDia_fechamento());
+            pst.setInt(6, mod.getId_cartao());
 
             pst.execute();
 
@@ -103,13 +103,13 @@ public class DaoCartao {
     public void editarDebito(BeansCartao mod) {
         conex.conexao();
         try {
-            PreparedStatement pst = conex.con.prepareStatement("update cartao set id_user = ?, numero= ?, tipo= ?, bandeira= ?  where user_id = ?");
+            PreparedStatement pst = conex.con.prepareStatement("update cartao set  numero= ?,  bandeira= ?  where id_cartao = ?");
 
-            pst.setInt(1, mod.getId());
-            pst.setString(2, mod.getNumero());
-            pst.setString(3, mod.getTipo());
-            pst.setString(4, mod.getBandeira());
+            pst.setString(1, mod.getNumero());
 
+            pst.setString(2, mod.getBandeira());
+         
+            pst.setInt(3, mod.getId_cartao());
             pst.execute();
 
             JOptionPane.showMessageDialog(null, "Debito att sucess");
@@ -118,14 +118,14 @@ public class DaoCartao {
         }
         conex.desconecta();
     }
-    
+
     public BeansCartao buscarCartao(BeansCartao mod) {
         conex.conexao();
 
-        conex.executaSQL("select *from cartao where numero like '%" + mod.getPesquisa() + "%'");
+        conex.executaSQL("select *from cartao where numero like '%" + mod.getPesquisa() + "%' or bandeira like '%" +mod.getPesquisa()+"%'");
         try {
             conex.rs.first();
-            mod.setId(conex.rs.getInt("id_user"));
+            mod.setId_cartao(conex.rs.getInt("id_cartao"));
             mod.setNumero(conex.rs.getString("numero"));
             mod.setBandeira(conex.rs.getString("bandeira"));
             mod.setTipo(conex.rs.getString("tipo"));
@@ -133,11 +133,29 @@ public class DaoCartao {
             mod.setDia_fechamento(conex.rs.getInt("dia_fechamento"));
             mod.setLimite(conex.rs.getDouble("limite"));
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao encontrar cartao: " + ex);
+            JOptionPane.showMessageDialog(null, "Cartão não encontrado! " +ex);
         }
 
         conex.desconecta();
         return mod;
+    }
+    
+    public void excluir(BeansCartao mod) {
+       
+        
+        conex.conexao();
+        try {
+            PreparedStatement pst = conex.con.prepareStatement("delete from cartao where id_cartao = ?");
+
+            pst.setInt(1, mod.getId_cartao());
+            pst.execute();
+
+            JOptionPane.showMessageDialog(null, "Cartao excluido com Sucesso");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erros ao excluir: " + ex.getMessage());
+        }
+        conex.desconecta();
+
     }
 
 }

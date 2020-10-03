@@ -24,15 +24,14 @@ public class DaoDespesa {
     public void Salvar(BeansDespesas mod) {
         conex.conexao();
         try {
-            PreparedStatement pst = conex.con.prepareStatement("insert into despesas(id_transacao, categoria, descricao, forma_pagamento, status) values (?,?,?,?,?)");
+            PreparedStatement pst = conex.con.prepareStatement("insert into despesas(id_transacaod, descricao, forma_pagamento, status) values (?,?,?,?)");
 
             pst.setInt(1, mod.getId_transacao());
             
-            pst.setString(2, mod.getCategoria());
-
-            pst.setString(3, mod.getDescricao());
-            pst.setString(4, mod.getForma_pagamento());
-            pst.setString(5, mod.getStatus());
+            
+            pst.setString(2, mod.getDescricao());
+            pst.setString(3, mod.getForma_pagamento());
+            pst.setString(4, mod.getStatus());
            
 
             pst.execute();
@@ -105,7 +104,7 @@ public class DaoDespesa {
 
         conex.conexao();
         try {
-            PreparedStatement pst = conex.con.prepareStatement("delete from despesa where id_user = ?");
+            PreparedStatement pst = conex.con.prepareStatement("delete from despesas where id_user = ?");
             pst.setInt(1, mod.getId());
             pst.execute();
 

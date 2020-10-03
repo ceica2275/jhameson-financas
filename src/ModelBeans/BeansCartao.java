@@ -6,6 +6,7 @@ package ModelBeans;
  */
 public class BeansCartao {
     private int id;
+    private int id_cartao;
     private String numero;
     private String tipo;
     private String bandeira;
@@ -13,6 +14,14 @@ public class BeansCartao {
     private double valor;
     private int dia_fechamento;
     private String pesquisa;
+
+    public int getId_cartao() {
+        return id_cartao;
+    }
+
+    public void setId_cartao(int id_cartao) {
+        this.id_cartao = id_cartao;
+    }
 
     public int getId() {
         return id;

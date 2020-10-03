@@ -12,6 +12,8 @@ import ModelConnection.ModelTabela;
 import ModelDao.DaoCategoria;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 
@@ -33,7 +35,7 @@ public class TelaCategoria extends javax.swing.JFrame {
 
     //variavel para saber se estou atualizando 
     int flag = 0;
-
+    String nome = "";
     public TelaCategoria(int id_Tela) {
         initComponents();
 
@@ -145,7 +147,7 @@ public class TelaCategoria extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jTextFieldNome, javax.swing.GroupLayout.DEFAULT_SIZE, 506, Short.MAX_VALUE))
+                    .addComponent(jTextFieldNome))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -173,7 +175,9 @@ public class TelaCategoria extends javax.swing.JFrame {
             }
         });
 
-        jButtonPesquisar.setBackground(new java.awt.Color(255, 255, 255));
+        jButtonPesquisar.setBackground(new java.awt.Color(51, 0, 51));
+        jButtonPesquisar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButtonPesquisar.setForeground(new java.awt.Color(255, 255, 255));
         jButtonPesquisar.setText("Pesquisar");
         jButtonPesquisar.setBorderPainted(false);
         jButtonPesquisar.addActionListener(new java.awt.event.ActionListener() {
@@ -193,6 +197,11 @@ public class TelaCategoria extends javax.swing.JFrame {
                 "Tipo", "Nome"
             }
         ));
+        jTableCategorias.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableCategoriasMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableCategorias);
 
         jButtonSalvar.setBackground(new java.awt.Color(51, 0, 51));
@@ -213,7 +222,6 @@ public class TelaCategoria extends javax.swing.JFrame {
         jButtonCancelar.setForeground(new java.awt.Color(255, 255, 255));
         jButtonCancelar.setText("Cancelar");
         jButtonCancelar.setBorderPainted(false);
-        jButtonCancelar.setEnabled(false);
         jButtonCancelar.setFocusPainted(false);
         jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -237,7 +245,7 @@ public class TelaCategoria extends javax.swing.JFrame {
         jButtonNova.setBackground(new java.awt.Color(51, 0, 51));
         jButtonNova.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButtonNova.setForeground(new java.awt.Color(255, 255, 255));
-        jButtonNova.setText("Nova");
+        jButtonNova.setText("Nova Categoria");
         jButtonNova.setBorderPainted(false);
         jButtonNova.setFocusPainted(false);
         jButtonNova.addActionListener(new java.awt.event.ActionListener() {
@@ -286,8 +294,8 @@ public class TelaCategoria extends javax.swing.JFrame {
                         .addGap(154, 154, 154)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldPesquisa)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextFieldPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(jButtonPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -322,7 +330,7 @@ public class TelaCategoria extends javax.swing.JFrame {
                     .addComponent(jLabel4))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -459,18 +467,29 @@ public class TelaCategoria extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldPesquisaActionPerformed
 
     private void jButtonPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisarActionPerformed
-        //variavel pesquisa
-        beans_categoria.setPesquisa(jTextFieldPesquisa.getText());
-        BeansCategoria model = dao_categoria.buscarCategoria(beans_categoria);
+        if (jTextFieldPesquisa.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Digite algo a ser pesquisado!");
+        } else {
+            //variavel pesquisa
+            beans_categoria.setPesquisa(jTextFieldPesquisa.getText());
+            BeansCategoria model = dao_categoria.buscarCategoria(beans_categoria);
 
-        //setando os campos
-        jComboBoxTipo.setSelectedItem(model.getTipo());
-        jTextFieldNome.setText(model.getNome());
+            //setando os campos
+            jComboBoxTipo.setSelectedItem(model.getTipo());
+            jTextFieldNome.setText(model.getNome());
 
-        jButtonEditar.setEnabled(true);
-        jButtonSalvar.setEnabled(true);
-        jButtonCancelar.setEnabled(true);
-        jButtonExcluir.setEnabled(true);
+            jComboBoxTipo.setEnabled(false);
+            jTextFieldNome.setEnabled(false);
+            jTextFieldPesquisa.setEnabled(true);
+
+            jButtonPesquisar.setEnabled(true);
+            jButtonNova.setEnabled(true);
+            jButtonEditar.setEnabled(true);
+            jButtonSalvar.setEnabled(false);
+            jButtonCancelar.setEnabled(true);
+            jButtonExcluir.setEnabled(true);
+        }
+
     }//GEN-LAST:event_jButtonPesquisarActionPerformed
 
     private void jTextFieldNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNomeActionPerformed
@@ -478,21 +497,51 @@ public class TelaCategoria extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldNomeActionPerformed
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
-        beans_categoria.setId_user(Integer.parseInt(jLabelCOD.getText()));
-        beans_categoria.setTipo((String) jComboBoxTipo.getSelectedItem());
-        beans_categoria.setNome(jTextFieldNome.getText());
 
-        dao_categoria.Salvar(beans_categoria);
+        if (flag == 1) {
+            beans_categoria.setId_user(Integer.parseInt(jLabelCOD.getText()));
+            beans_categoria.setTipo((String) jComboBoxTipo.getSelectedItem());
+            beans_categoria.setNome(jTextFieldNome.getText());
 
-        jButtonCancelar.setEnabled(true);
-        jButtonPesquisar.setEnabled(true);
-        jButtonNova.setEnabled(true);
+            dao_categoria.Salvar(beans_categoria);
 
-        jTextFieldNome.setText("");
+            jComboBoxTipo.setEnabled(false);
+            jTextFieldNome.setText("");
+            jTextFieldNome.setEnabled(false);
 
-        jTextFieldPesquisa.setEnabled(true);
+            jButtonCancelar.setEnabled(true);
+            jButtonPesquisar.setEnabled(true);
+            jButtonNova.setEnabled(true);
 
-        jButtonSalvar.setEnabled(false);
+            jButtonExcluir.setEnabled(false);
+            jButtonEditar.setEnabled(false);
+
+            jTextFieldPesquisa.setEnabled(true);
+
+            jButtonSalvar.setEnabled(false);
+        } else if (flag == 2) {
+
+            beans_categoria.setId_user(Integer.parseInt(jLabelCOD.getText()));
+            beans_categoria.setTipo((String) jComboBoxTipo.getSelectedItem());
+            beans_categoria.setNome(jTextFieldNome.getText());
+            
+            dao_categoria.editarCategoria(beans_categoria,nome);
+
+            jComboBoxTipo.setEnabled(false);
+            jTextFieldNome.setText("");
+            jTextFieldNome.setEnabled(false);
+
+            jButtonCancelar.setEnabled(true);
+            jButtonPesquisar.setEnabled(true);
+            jButtonNova.setEnabled(true);
+
+            jButtonExcluir.setEnabled(false);
+            jButtonEditar.setEnabled(false);
+
+            jTextFieldPesquisa.setEnabled(true);
+
+            jButtonSalvar.setEnabled(false);
+        }
 
 
     }//GEN-LAST:event_jButtonSalvarActionPerformed
@@ -505,10 +554,25 @@ public class TelaCategoria extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
+        flag = 2;
+        nome = jTextFieldNome.getText();
+        
+        jComboBoxTipo.setEnabled(true);
+        jTextFieldNome.setEnabled(true);
 
+        jTextFieldPesquisa.setEnabled(false);
+        jButtonPesquisar.setEnabled(false);
+        jButtonNova.setEnabled(false);
+        jButtonExcluir.setEnabled(false);
+        jButtonEditar.setEnabled(false);
+        jButtonCancelar.setEnabled(true);
+        jButtonSalvar.setEnabled(true);
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
     private void jButtonNovaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovaActionPerformed
+
+        flag = 1;
+
         jComboBoxTipo.setEnabled(true);
         jTextFieldNome.setEnabled(true);
         jButtonCancelar.setEnabled(true);
@@ -519,10 +583,14 @@ public class TelaCategoria extends javax.swing.JFrame {
         jButtonEditar.setEnabled(false);
 
         jTableCategorias.setEnabled(false);
+
+        jTextFieldPesquisa.setEnabled(false);
+        jButtonExcluir.setEnabled(false);
     }//GEN-LAST:event_jButtonNovaActionPerformed
 
     private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
         int confirma = 0;
+        flag = 2;
         confirma = JOptionPane.showConfirmDialog(rootPane, "Deseja realmente excluir?");
         if (confirma == JOptionPane.YES_OPTION) {
             //pegar a informação no campo COD
@@ -531,9 +599,42 @@ public class TelaCategoria extends javax.swing.JFrame {
 
             jTextFieldNome.setText("");
             jTextFieldNome.setEnabled(false);
+            jComboBoxTipo.setEnabled(false);
+            jTextFieldPesquisa.setEnabled(true);
+            jButtonPesquisar.setEnabled(true);
+
+            jButtonNova.setEnabled(true);
+            jButtonExcluir.setEnabled(false);
+            jButtonEditar.setEnabled(false);
+            jButtonCancelar.setEnabled(true);
+            jButtonSalvar.setEnabled(true);
+
         }
 
     }//GEN-LAST:event_jButtonExcluirActionPerformed
+
+    private void jTableCategoriasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableCategoriasMouseClicked
+
+        String nome = "" + jTableCategorias.getValueAt(jTableCategorias.getSelectedRow(), 1);
+        conecta.conexao();
+        conecta.executaSQL("select tipo, nome from categorias where nome = '" + nome + "'");
+        try {
+            conecta.rs.first();
+            jComboBoxTipo.setSelectedItem(conecta.rs.getString("tipo"));
+            jTextFieldNome.setText(conecta.rs.getString("nome"));
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Erro ao selecionar: " + ex);
+        }
+
+        conecta.desconecta();
+
+        jButtonExcluir.setEnabled(true);
+        jButtonEditar.setEnabled(true);
+        jButtonCancelar.setEnabled(true);
+        jButtonNova.setEnabled(true);
+
+    }//GEN-LAST:event_jTableCategoriasMouseClicked
 
     public void preencherTabelaReceita(String Sql) {
 

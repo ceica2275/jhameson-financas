@@ -18,6 +18,16 @@ public class BeansTransacao {
     private int mes;
     private int ano;
     private String pesquisa;
+    private String categoria;
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+    
 
     public int getId_user() {
         return id_user;

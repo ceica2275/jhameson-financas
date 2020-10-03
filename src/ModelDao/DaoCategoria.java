@@ -41,7 +41,7 @@ public class DaoCategoria {
      public BeansCategoria buscarCategoria(BeansCategoria mod) {
         conex.conexao();
 
-        conex.executaSQL("select *from categorias where nome like '%"+mod.getPesquisa() + "%'");
+        conex.executaSQL("select *from categorias where nome like '%"+mod.getPesquisa() + "%' or tipo  like '%"+mod.getPesquisa() + "%'");
         try {
             conex.rs.first();
            
@@ -49,7 +49,7 @@ public class DaoCategoria {
             mod.setNome(conex.rs.getString("nome"));
 
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao encontrar categoria: " + ex);
+            JOptionPane.showMessageDialog(null, "Categoria não encontrada!" );
         }
 
         conex.desconecta();
@@ -73,4 +73,24 @@ public class DaoCategoria {
         conex.desconecta();
 
     }
+     
+     public void editarCategoria(BeansCategoria mod, String nome) {
+        conex.conexao();
+        try {
+            PreparedStatement pst = conex.con.prepareStatement("update categorias set  nome= ?,  tipo= ?  where nome = '"+nome+"'");
+
+            pst.setString(1, mod.getNome());
+
+            pst.setString(2, mod.getTipo());
+         
+            
+            pst.execute();
+
+            JOptionPane.showMessageDialog(null, "Categoria Atualizada");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erros ao atualizar: " + ex.getMessage());
+        }
+        conex.desconecta();
+    }
+     
 }
