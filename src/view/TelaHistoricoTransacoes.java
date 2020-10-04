@@ -5,12 +5,17 @@
  */
 package view;
 
+import ModelBeans.BeansCategoria;
+import ModelBeans.BeansDespesas;
+import ModelBeans.BeansTransacao;
 import ModelBeans.BeansUsuario;
 import ModelBeans.ExibeData;
 import ModelConnection.Connection_BD;
 import ModelConnection.ModelTabela;
+import ModelDao.DaoCategoria;
 import ModelDao.DaoDespesa;
 import ModelDao.DaoReceita;
+import ModelDao.DaoTransacao;
 import ModelDao.DaoUser;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -34,6 +39,13 @@ public class TelaHistoricoTransacoes extends javax.swing.JFrame {
     ExibeData exd = new ExibeData();
     BeansUsuario beans_user = new BeansUsuario();
     DaoUser dao_user = new DaoUser();
+    BeansDespesas beans_despesa = new BeansDespesas();
+    DaoDespesa dao_despesa = new DaoDespesa();
+    DaoReceita dao_receita = new DaoReceita();
+    BeansTransacao beans_transacao = new BeansTransacao();
+    DaoTransacao dao_transacao = new DaoTransacao();
+
+    Connection_BD conex = new Connection_BD();
 
     //variavel para saber se estou atualizando 
     int flag = 0;
@@ -42,21 +54,24 @@ public class TelaHistoricoTransacoes extends javax.swing.JFrame {
         initComponents();
 
         conecta.conexao();
+        jRadioButtonTodas.setSelected(true);
+        
         jLabelCOD.setText("" + id_Tela);
 
         //linhas resposaveis por chamar o metodo de exibir a data na tela inicial
         String dataCompleta = exd.dataCompleta();
         jLabelData.setText(dataCompleta);
-
+        
+        
         //preenche os campos da tela
         //pesquisa as informações do id_Tela de acordo com o id_Tela name
         //String nomePesquisa = 
         beans_user.setUser_pesquisa(String.valueOf(id_Tela));
         BeansUsuario model = dao_user.buscarUser(beans_user);
 
-        preencherTabela("select id_transacao, tipo, categoria, dia from transacao "
+        preencherTabela("select id_transacao, valor, tipo, categoria, dia, mes, descricao from transacao "
                 + "full join despesas on transacao.id_transacao = despesas.id_transacaod "
-                + "full join receitas on transacao.id_transacao = receitas.id_transacaor where id_user = '" + id_Tela + "'");
+                + "full join receitas on transacao.id_transacao = receitas.id_transacaor where id_user = '" + id_Tela + "' order by id_transacao DESC");
     }
 
     private TelaHistoricoTransacoes() {
@@ -83,8 +98,40 @@ public class TelaHistoricoTransacoes extends javax.swing.JFrame {
         jLabelData = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableTransacoes = new javax.swing.JTable();
-        jTextFieldCOD_T = new javax.swing.JTextField();
-        jLabelcodddddd = new javax.swing.JLabel();
+        jTextFieldPesquisa = new javax.swing.JTextField();
+        jButtonPesquisar = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
+        jButtonCancelar = new javax.swing.JButton();
+        jButtonPesquisar4 = new javax.swing.JButton();
+        jButtonPesquisar5 = new javax.swing.JButton();
+        jButtonExcluir = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabelTipo = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jTextFieldValor = new javax.swing.JTextField();
+        jTextFieldDia = new javax.swing.JTextField();
+        jTextFieldMes = new javax.swing.JTextField();
+        jTextFieldAno = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jTextFieldDescricao = new javax.swing.JTextField();
+        jComboBoxCategoria = new javax.swing.JComboBox<>();
+        jComboBoxStatus = new javax.swing.JComboBox<>();
+        jComboBoxForma = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
+        jLabelID = new javax.swing.JLabel();
+        jRadioButtonTransacaoMes = new javax.swing.JRadioButton();
+        jRadioButtonReceitas = new javax.swing.JRadioButton();
+        jRadioButtonDespesas = new javax.swing.JRadioButton();
+        jRadioButtonOrdenValor = new javax.swing.JRadioButton();
+        jRadioButtonOrdemDia = new javax.swing.JRadioButton();
+        jRadioButtonTodas = new javax.swing.JRadioButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
@@ -125,6 +172,8 @@ public class TelaHistoricoTransacoes extends javax.swing.JFrame {
         jLabelData.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jLabelData.setForeground(new java.awt.Color(0, 0, 255));
 
+        jTableTransacoes.setBackground(new java.awt.Color(237, 237, 237));
+        jTableTransacoes.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jTableTransacoes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -136,6 +185,8 @@ public class TelaHistoricoTransacoes extends javax.swing.JFrame {
 
             }
         ));
+        jTableTransacoes.setSelectionBackground(new java.awt.Color(212, 133, 255));
+        jTableTransacoes.setShowVerticalLines(false);
         jTableTransacoes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTableTransacoesMouseClicked(evt);
@@ -143,49 +194,437 @@ public class TelaHistoricoTransacoes extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTableTransacoes);
 
-        jLabelcodddddd.setText("jLabel1");
+        jTextFieldPesquisa.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jTextFieldPesquisa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldPesquisaActionPerformed(evt);
+            }
+        });
+
+        jButtonPesquisar.setBackground(new java.awt.Color(51, 0, 51));
+        jButtonPesquisar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButtonPesquisar.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonPesquisar.setText("Pesquisar");
+        jButtonPesquisar.setBorderPainted(false);
+        jButtonPesquisar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonPesquisar.setFocusPainted(false);
+        jButtonPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPesquisarActionPerformed(evt);
+            }
+        });
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel10.setText("Pesquisar Transação:");
+
+        jButtonCancelar.setBackground(new java.awt.Color(51, 0, 51));
+        jButtonCancelar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButtonCancelar.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonCancelar.setText("Cancelar");
+        jButtonCancelar.setBorderPainted(false);
+        jButtonCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonCancelar.setFocusPainted(false);
+        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelarActionPerformed(evt);
+            }
+        });
+
+        jButtonPesquisar4.setBackground(new java.awt.Color(51, 0, 51));
+        jButtonPesquisar4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButtonPesquisar4.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonPesquisar4.setText("Salvar");
+        jButtonPesquisar4.setBorderPainted(false);
+        jButtonPesquisar4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonPesquisar4.setFocusPainted(false);
+        jButtonPesquisar4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPesquisar4ActionPerformed(evt);
+            }
+        });
+
+        jButtonPesquisar5.setBackground(new java.awt.Color(51, 0, 51));
+        jButtonPesquisar5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButtonPesquisar5.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonPesquisar5.setText("Editar");
+        jButtonPesquisar5.setBorderPainted(false);
+        jButtonPesquisar5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonPesquisar5.setFocusPainted(false);
+        jButtonPesquisar5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPesquisar5ActionPerformed(evt);
+            }
+        });
+
+        jButtonExcluir.setBackground(new java.awt.Color(51, 0, 51));
+        jButtonExcluir.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButtonExcluir.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonExcluir.setText("Excluir");
+        jButtonExcluir.setBorderPainted(false);
+        jButtonExcluir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonExcluir.setFocusPainted(false);
+        jButtonExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonExcluirActionPerformed(evt);
+            }
+        });
+
+        jPanel3.setBackground(new java.awt.Color(240, 231, 244));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Editar Transações", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.BELOW_TOP, new java.awt.Font("Linux Libertine G", 1, 24))); // NOI18N
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel1.setText("Tipo:");
+
+        jLabelTipo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabelTipo.setText("Tipo");
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel4.setText("Valor:");
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel5.setText("Dia:");
+
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel8.setText("Mês:");
+
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel9.setText("Ano:");
+
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel11.setText("Categoria:");
+
+        jTextFieldValor.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jTextFieldValor.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        jTextFieldValor.setEnabled(false);
+        jTextFieldValor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldValorActionPerformed(evt);
+            }
+        });
+
+        jTextFieldDia.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jTextFieldDia.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        jTextFieldDia.setEnabled(false);
+        jTextFieldDia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldDiaActionPerformed(evt);
+            }
+        });
+
+        jTextFieldMes.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jTextFieldMes.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        jTextFieldMes.setEnabled(false);
+        jTextFieldMes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldMesActionPerformed(evt);
+            }
+        });
+
+        jTextFieldAno.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jTextFieldAno.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        jTextFieldAno.setEnabled(false);
+        jTextFieldAno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldAnoActionPerformed(evt);
+            }
+        });
+
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel12.setText("Status:");
+
+        jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel13.setText("Forma Pagamento:");
+
+        jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel14.setText("Descrição:");
+
+        jTextFieldDescricao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jTextFieldDescricao.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        jTextFieldDescricao.setEnabled(false);
+        jTextFieldDescricao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldDescricaoActionPerformed(evt);
+            }
+        });
+
+        jComboBoxCategoria.setEnabled(false);
+        jComboBoxCategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxCategoriaActionPerformed(evt);
+            }
+        });
+
+        jComboBoxStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Paga", "Devendo" }));
+        jComboBoxStatus.setEnabled(false);
+
+        jComboBoxForma.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dinheiro", "Cartão" }));
+        jComboBoxForma.setEnabled(false);
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel2.setText("COD:");
+
+        jLabelID.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabelID.setText("COD");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jComboBoxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel12))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jComboBoxForma, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabelID))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabelTipo)
+                                .addGap(4, 4, 4))
+                            .addComponent(jLabel1))
+                        .addGap(52, 52, 52)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                .addComponent(jTextFieldValor, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(4, 4, 4))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(84, 84, 84)))))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jTextFieldDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel14)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel5)
+                                .addComponent(jTextFieldDia, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextFieldMes, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextFieldAno, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9))
+                        .addGap(35, 35, 35)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel11)
+                            .addComponent(jComboBoxCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(2, 2, 2)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel11)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel5))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextFieldAno, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBoxCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldMes, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldDia, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(7, 7, 7)
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextFieldValor, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel13)
+                                    .addComponent(jLabel12)
+                                    .addComponent(jLabel14))
+                                .addGap(8, 8, 8))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addGap(33, 33, 33)
+                                        .addComponent(jLabelTipo))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(jLabel1)
+                                            .addComponent(jLabel2))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabelID)
+                                        .addGap(1, 1, 1)))
+                                .addGap(39, 39, 39)))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextFieldDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBoxForma, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBoxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(0, 10, Short.MAX_VALUE))
+        );
+
+        jRadioButtonTransacaoMes.setBackground(new java.awt.Color(240, 231, 244));
+        jRadioButtonTransacaoMes.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jRadioButtonTransacaoMes.setText("Transações do Mês");
+        jRadioButtonTransacaoMes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jRadioButtonTransacaoMes.setFocusPainted(false);
+        jRadioButtonTransacaoMes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonTransacaoMesActionPerformed(evt);
+            }
+        });
+
+        jRadioButtonReceitas.setBackground(new java.awt.Color(240, 231, 244));
+        jRadioButtonReceitas.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jRadioButtonReceitas.setText("Receitas");
+        jRadioButtonReceitas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jRadioButtonReceitas.setFocusPainted(false);
+        jRadioButtonReceitas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonReceitasActionPerformed(evt);
+            }
+        });
+
+        jRadioButtonDespesas.setBackground(new java.awt.Color(240, 231, 244));
+        jRadioButtonDespesas.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jRadioButtonDespesas.setText("Despesas");
+        jRadioButtonDespesas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jRadioButtonDespesas.setFocusPainted(false);
+        jRadioButtonDespesas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonDespesasActionPerformed(evt);
+            }
+        });
+
+        jRadioButtonOrdenValor.setBackground(new java.awt.Color(240, 231, 244));
+        jRadioButtonOrdenValor.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jRadioButtonOrdenValor.setText("Ordenar por valor");
+        jRadioButtonOrdenValor.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jRadioButtonOrdenValor.setFocusPainted(false);
+        jRadioButtonOrdenValor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonOrdenValorActionPerformed(evt);
+            }
+        });
+
+        jRadioButtonOrdemDia.setBackground(new java.awt.Color(240, 231, 244));
+        jRadioButtonOrdemDia.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jRadioButtonOrdemDia.setText("Ordenar por dia");
+        jRadioButtonOrdemDia.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jRadioButtonOrdemDia.setFocusPainted(false);
+        jRadioButtonOrdemDia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonOrdemDiaActionPerformed(evt);
+            }
+        });
+
+        jRadioButtonTodas.setText("Todas as Transações");
+        jRadioButtonTodas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jRadioButtonTodas.setFocusPainted(false);
+        jRadioButtonTodas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonTodasActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(233, 233, 233)
-                                .addComponent(jLabelData, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabelCOD, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel7))))
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGap(233, 233, 233)
+                                        .addComponent(jLabelData, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel6)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jLabelCOD, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jLabel7)))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jButtonExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonPesquisar5, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonPesquisar4, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(125, 125, 125)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(46, 46, 46)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabelcodddddd)
-                            .addComponent(jTextFieldCOD_T, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(73, Short.MAX_VALUE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jLabel10))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(jRadioButtonTodas)
+                                .addGap(18, 18, 18)
+                                .addComponent(jRadioButtonTransacaoMes)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jRadioButtonReceitas)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jTextFieldPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(4, 4, 4)
+                                .addComponent(jRadioButtonDespesas)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jRadioButtonOrdenValor)
+                                .addGap(7, 7, 7)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jRadioButtonOrdemDia)
+                            .addComponent(jButtonPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(43, 43, 43))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap(48, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabelcodddddd)
-                        .addGap(37, 37, 37)
-                        .addComponent(jTextFieldCOD_T, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap()
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jRadioButtonTransacaoMes)
+                    .addComponent(jRadioButtonReceitas)
+                    .addComponent(jRadioButtonDespesas)
+                    .addComponent(jRadioButtonOrdenValor)
+                    .addComponent(jRadioButtonOrdemDia)
+                    .addComponent(jRadioButtonTodas))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonPesquisar5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonPesquisar4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelCOD, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelData, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -198,9 +637,9 @@ public class TelaHistoricoTransacoes extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 780, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -288,7 +727,7 @@ public class TelaHistoricoTransacoes extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        setSize(new java.awt.Dimension(816, 589));
+        setSize(new java.awt.Dimension(816, 604));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -321,28 +760,226 @@ public class TelaHistoricoTransacoes extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jTableTransacoesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableTransacoesMouseClicked
-       String numero = "" + jTableTransacoes.getValueAt(jTableTransacoes.getSelectedRow(), 1);
+        //AMEM ALELUIA
+        //https://www.guj.com.br/t/resolvido-evento-mouseclicked-em-jtable/235582/4
+
+        BeansTransacao model;
+
+        int row = jTableTransacoes.getSelectedRow();
+        String id = String.valueOf(jTableTransacoes.getValueAt(row, 0));
+
+        // String numero = "" + jTableTransacoes.getValueAt(jTableTransacoes.getSelectedRow(), 1);
         conecta.conexao();
-        conecta.executaSQL("select id_transacao from transacao "
+        conecta.executaSQL("select * from transacao "
                 + "full join despesas on transacao.id_transacao = despesas.id_transacaod "
-                + "full join receitas on transacao.id_transacao = receitas.id_transacaor where id_transacao = '" + numero + "'");
-        
-        
-        
+                + "full join receitas on transacao.id_transacao = receitas.id_transacaor where id_transacao = '" + id + "'");
+
         try {
             conecta.rs.first();
-            jTextFieldCOD_T.setText(conecta.rs.getString("id_transacao"));
-           
-            
+            jLabelID.setText(conecta.rs.getString("id_transacao"));
+            jLabelTipo.setText(conecta.rs.getString("tipo"));
+            jTextFieldValor.setText(conecta.rs.getString("valor"));
+            jTextFieldDia.setText(conecta.rs.getString("dia"));
+            jTextFieldMes.setText(conecta.rs.getString("mes"));
+            jTextFieldAno.setText(conecta.rs.getString("ano"));
+
+            if ("Despesa".equals(jLabelTipo.getText())) {
+                preencherComboBoxCategoriaDespesa();
+                jComboBoxCategoria.setSelectedItem(conecta.rs.getString("categoria"));
+                jComboBoxStatus.setSelectedItem(conecta.rs.getString("status"));
+                jComboBoxForma.setSelectedItem(conecta.rs.getString("forma_pagamento"));
+                jTextFieldDescricao.setText(conecta.rs.getString("descricao"));
+            } else {
+                preencherComboBoxCategoriaReceita();
+                jComboBoxCategoria.setSelectedItem(conecta.rs.getString("categoria"));
+                jComboBoxStatus.setSelectedItem("");
+                jComboBoxForma.setSelectedItem("");
+                jTextFieldDescricao.setText("");
+            }
+
         } catch (SQLException ex) {
             Logger.getLogger(TelaHistoricoTransacoes.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }//GEN-LAST:event_jTableTransacoesMouseClicked
 
+    private void jTextFieldPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldPesquisaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldPesquisaActionPerformed
+
+    private void jButtonPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisarActionPerformed
+        if (jTextFieldPesquisa.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Digite algo a ser pesquisado!");
+        } else {
+            //variavel pesquisa
+            beans_transacao.setPesquisa(jTextFieldPesquisa.getText());
+            BeansTransacao model = dao_transacao.buscarTransacao(beans_transacao);
+
+            //setando os campos
+            jLabelTipo.setText(model.getTipo());
+            jTextFieldValor.setText(Double.toString(model.getValor()));
+            jTextFieldDia.setText(Integer.toString(model.getDia()));
+            jTextFieldMes.setText(Integer.toString(model.getMes()));
+            jTextFieldAno.setText(Integer.toString(model.getAno()));
+
+            if ("Despesa".equals(jLabelTipo.getText())) {
+                preencherComboBoxCategoriaDespesa();
+
+                String id = Integer.toString(model.getId());
+                beans_despesa.setPesquisa(id);
+                BeansDespesas model_despesa = dao_despesa.buscarDespesa(beans_despesa);
+                //JOptionPane.showMessageDialog(rootPane, "Aqui ");
+                jComboBoxStatus.setSelectedItem(model_despesa.getStatus());
+                jComboBoxForma.setSelectedItem(model_despesa.getForma_pagamento());
+                jTextFieldDescricao.setText(model_despesa.getDescricao());
+
+                jComboBoxCategoria.setSelectedItem(model.getCategoria());
+
+            } else {
+
+                preencherComboBoxCategoriaReceita();
+                jComboBoxCategoria.setSelectedItem(model.getCategoria());
+
+                jComboBoxStatus.setSelectedItem("");
+                jComboBoxForma.setSelectedItem("");
+                jTextFieldDescricao.setText("");
+
+            }
+
+
+            /*  jLabelTipoCartao.setText(model.getTipo());
+            jTextFieldNumero.setText(model.getNumero());
+            jComboBoxBandeira.setSelectedItem(model.getBandeira());
+            jTextFieldLimite.setText(Double.toString(model.getLimite()));
+            jTextFieldValorAtual.setText(Double.toString(model.getValor()));
+            jTextFieldDiaFechamento.setText(Integer.toString(model.getDia_fechamento()));*/
+ /*
+            jButtonEditar.setEnabled(true);
+            jButtonCancelar.setEnabled(true);
+            jButtonSalvar.setEnabled(false);
+            jButtonExcluir.setEnabled(true);
+            jButtonNovoCredito.setEnabled(true);
+            jButtonNovoDebito.setEnabled(true);*/
+        }
+
+    }//GEN-LAST:event_jButtonPesquisarActionPerformed
+
+    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
+        TelaInicial tl = new TelaInicial(Integer.parseInt(jLabelCOD.getText()));
+        tl.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButtonCancelarActionPerformed
+
+    private void jButtonPesquisar4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisar4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonPesquisar4ActionPerformed
+
+    private void jButtonPesquisar5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisar5ActionPerformed
+       jTextFieldValor.setEnabled(true);
+       jTextFieldDia.setEnabled(true);
+       jTextFieldMes.setEnabled(true);
+       jTextFieldAno.setEnabled(true);
+       jComboBoxCategoria.setEnabled(true);
+       
+       if("Despesa".equals(jLabelCOD.getText())){
+           jComboBoxStatus.setEnabled(true);
+           jComboBoxForma.setEnabled(true);
+           jTextFieldDescricao.setEnabled(true);
+       }
+    }//GEN-LAST:event_jButtonPesquisar5ActionPerformed
+
+    private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
+        int confirma = 0;
+        confirma = JOptionPane.showConfirmDialog(rootPane, "Deseja realmente excluir?");
+        if (confirma == JOptionPane.YES_OPTION) {
+            //pegar a informação no campo COD
+            if("Despesa".equals(jLabelTipo.getText())){
+                dao_despesa.excluirDespesa(Integer.parseInt(jLabelID.getText()));
+                dao_transacao.excluirTrsancao(Integer.parseInt(jLabelID.getText()));
+            }else{
+                dao_receita.excluirReceita(Integer.parseInt(jLabelID.getText()));
+                dao_transacao.excluirTrsancao(Integer.parseInt(jLabelID.getText()));
+            }
+            
+
+        }
+    }//GEN-LAST:event_jButtonExcluirActionPerformed
+
+    private void jRadioButtonDespesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonDespesasActionPerformed
+        if (jRadioButtonReceitas.isSelected() == true) {
+            jRadioButtonReceitas.setSelected(false);
+        }
+    }//GEN-LAST:event_jRadioButtonDespesasActionPerformed
+
+    private void jRadioButtonReceitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonReceitasActionPerformed
+        if (jRadioButtonDespesas.isSelected() == true) {
+            jRadioButtonDespesas.setSelected(false);
+        }
+    }//GEN-LAST:event_jRadioButtonReceitasActionPerformed
+
+    private void jRadioButtonOrdenValorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonOrdenValorActionPerformed
+        if (jRadioButtonOrdemDia.isSelected() == true) {
+            jRadioButtonOrdemDia.setSelected(false);
+        }
+    }//GEN-LAST:event_jRadioButtonOrdenValorActionPerformed
+
+    private void jRadioButtonOrdemDiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonOrdemDiaActionPerformed
+        if (jRadioButtonOrdenValor.isSelected() == true) {
+            jRadioButtonOrdenValor.setSelected(false);
+        }
+    }//GEN-LAST:event_jRadioButtonOrdemDiaActionPerformed
+
+    private void jTextFieldValorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldValorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldValorActionPerformed
+
+    private void jTextFieldDiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldDiaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldDiaActionPerformed
+
+    private void jTextFieldMesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldMesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldMesActionPerformed
+
+    private void jTextFieldAnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldAnoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldAnoActionPerformed
+
+    private void jTextFieldDescricaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldDescricaoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldDescricaoActionPerformed
+
+    private void jComboBoxCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCategoriaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxCategoriaActionPerformed
+
+    private void jRadioButtonTransacaoMesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonTransacaoMesActionPerformed
+        String mes = exd.dataMes();
+        if(jRadioButtonTodas.isSelected()){
+            jRadioButtonTodas.setSelected(false);
+        preencherTabela("select id_transacao, valor, tipo, categoria, dia, mes, descricao from transacao "
+                + "full join despesas on transacao.id_transacao = despesas.id_transacaod "
+                + "full join receitas on transacao.id_transacao = receitas.id_transacaor where id_user = '" + Integer.parseInt(jLabelCOD.getText()) + "' and mes = '"+Integer.parseInt(mes)+"' order by dia ASC");
+        }
+    }//GEN-LAST:event_jRadioButtonTransacaoMesActionPerformed
+
+    private void jRadioButtonTodasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonTodasActionPerformed
+        if(jRadioButtonTransacaoMes.isSelected()){
+            jRadioButtonTransacaoMes.setSelected(false);
+            preencherTabela("select id_transacao, valor, tipo, categoria, dia, mes, descricao from transacao "
+                + "full join despesas on transacao.id_transacao = despesas.id_transacaod "
+                + "full join receitas on transacao.id_transacao = receitas.id_transacaor where id_user = '" + Integer.parseInt(jLabelCOD.getText()) + "' order by id_transacao DESC");
+    
+        } 
+        
+    }//GEN-LAST:event_jRadioButtonTodasActionPerformed
+
     public void preencherTabela(String SQL) {
+        
+        
+        
         ArrayList dados = new ArrayList();
-        String[] colunas = new String[]{"COD", "Tipo", "categoria", "dia",};
+        String[] colunas = new String[]{"COD", "Valor", "Tipo", "categoria", "Dia", "Mês", "Descrição"};
 
         conecta.conexao();
         conecta.executaSQL(SQL);
@@ -350,8 +987,9 @@ public class TelaHistoricoTransacoes extends javax.swing.JFrame {
         try {
             conecta.rs.first();
             do {
-                dados.add(new Object[]{conecta.rs.getInt("id_transacao"),
-                    conecta.rs.getString("tipo"), conecta.rs.getString("categoria"),conecta.rs.getInt("dia")});
+                dados.add(new Object[]{conecta.rs.getInt("id_transacao"), conecta.rs.getDouble("valor"),
+                    conecta.rs.getString("tipo"), conecta.rs.getString("categoria"), conecta.rs.getInt("dia"),
+                    conecta.rs.getInt("mes"), conecta.rs.getString("descricao")});
 
             } while (conecta.rs.next());
         } catch (SQLException ex) {
@@ -362,27 +1000,66 @@ public class TelaHistoricoTransacoes extends javax.swing.JFrame {
 
         jTableTransacoes.setModel(model);
 
-        jTableTransacoes.getColumnModel().getColumn(0).setPreferredWidth(93);
+        jTableTransacoes.getColumnModel().getColumn(0).setPreferredWidth(53);
         jTableTransacoes.getColumnModel().getColumn(0).setResizable(false);
 
-        jTableTransacoes.getColumnModel().getColumn(1).setPreferredWidth(180);
+        jTableTransacoes.getColumnModel().getColumn(1).setPreferredWidth(100);
         jTableTransacoes.getColumnModel().getColumn(1).setResizable(false);
 
-        jTableTransacoes.getColumnModel().getColumn(2).setPreferredWidth(90);
+        jTableTransacoes.getColumnModel().getColumn(2).setPreferredWidth(100);
         jTableTransacoes.getColumnModel().getColumn(2).setResizable(false);
-        
-        
-        jTableTransacoes.getColumnModel().getColumn(3).setPreferredWidth(90);
+
+        jTableTransacoes.getColumnModel().getColumn(3).setPreferredWidth(180);
         jTableTransacoes.getColumnModel().getColumn(3).setResizable(false);
-        
-        
-      
+
+        jTableTransacoes.getColumnModel().getColumn(4).setPreferredWidth(40);
+        jTableTransacoes.getColumnModel().getColumn(4).setResizable(false);
+
+        jTableTransacoes.getColumnModel().getColumn(5).setPreferredWidth(40);
+        jTableTransacoes.getColumnModel().getColumn(5).setResizable(false);
+
+        jTableTransacoes.getColumnModel().getColumn(6).setPreferredWidth(240);
+        jTableTransacoes.getColumnModel().getColumn(6).setResizable(false);
 
         jTableTransacoes.getTableHeader().setReorderingAllowed(false);
         jTableTransacoes.setAutoResizeMode(jTableTransacoes.AUTO_RESIZE_OFF);
         jTableTransacoes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); //selecionar 1 item por tabela
 
         conecta.desconecta();
+    }
+
+    public void preencherComboBoxCategoriaReceita() {
+        conex.conexao();
+        conex.executaSQL("select nome from categorias where tipo = 'Receita' and id_user = '" + jLabelCOD.getText() + "'");
+        try {
+            conex.rs.first();
+            jComboBoxCategoria.removeAllItems();
+            do {
+                jComboBoxCategoria.addItem(conex.rs.getString("nome"));
+            } while (conex.rs.next());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erros ao preencher box: " + ex.getMessage());
+        }
+        conex.desconecta();
+    }
+
+    public void preencherComboBoxCategoriaDespesa() {
+        conex.conexao();
+        conex.executaSQL("select nome from categorias where tipo = 'Despesa' and id_user = '" + jLabelCOD.getText() + "'");
+        try {
+            conex.rs.first();
+            jComboBoxCategoria.removeAllItems();
+            do {
+                jComboBoxCategoria.addItem(conex.rs.getString("nome"));
+            } while (conex.rs.next());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erros ao preencher box: " + ex.getMessage());
+        }
+        conex.desconecta();
+    }
+
+    public void teste() {
+        JOptionPane.showMessageDialog(rootPane, "aqui");
     }
 
     /**
@@ -428,11 +1105,31 @@ public class TelaHistoricoTransacoes extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonCancelar;
+    private javax.swing.JButton jButtonExcluir;
+    private javax.swing.JButton jButtonPesquisar;
+    private javax.swing.JButton jButtonPesquisar4;
+    private javax.swing.JButton jButtonPesquisar5;
+    private javax.swing.JComboBox<String> jComboBoxCategoria;
+    private javax.swing.JComboBox<String> jComboBoxForma;
+    private javax.swing.JComboBox<String> jComboBoxStatus;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelCOD;
     private javax.swing.JLabel jLabelData;
-    private javax.swing.JLabel jLabelcodddddd;
+    private javax.swing.JLabel jLabelID;
+    private javax.swing.JLabel jLabelTipo;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -450,8 +1147,20 @@ public class TelaHistoricoTransacoes extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemCartoes;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JRadioButton jRadioButtonDespesas;
+    private javax.swing.JRadioButton jRadioButtonOrdemDia;
+    private javax.swing.JRadioButton jRadioButtonOrdenValor;
+    private javax.swing.JRadioButton jRadioButtonReceitas;
+    private javax.swing.JRadioButton jRadioButtonTodas;
+    private javax.swing.JRadioButton jRadioButtonTransacaoMes;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableTransacoes;
-    private javax.swing.JTextField jTextFieldCOD_T;
+    private javax.swing.JTextField jTextFieldAno;
+    private javax.swing.JTextField jTextFieldDescricao;
+    private javax.swing.JTextField jTextFieldDia;
+    private javax.swing.JTextField jTextFieldMes;
+    private javax.swing.JTextField jTextFieldPesquisa;
+    private javax.swing.JTextField jTextFieldValor;
     // End of variables declaration//GEN-END:variables
 }

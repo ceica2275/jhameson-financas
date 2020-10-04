@@ -8,6 +8,16 @@ public class BeansDespesas extends BeansTransacao{
     private String descricao;
     private String forma_pagamento;
     private String status;
+    private String pesquisa;
+
+    public String getPesquisa() {
+        return pesquisa;
+    }
+
+    public void setPesquisa(String pesquisa) {
+        this.pesquisa = pesquisa;
+    }
+    
 
     public int getId_transacao() {
         return id_transacao;

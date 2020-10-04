@@ -93,5 +93,21 @@ public class DaoReceita {
         conex.desconecta();
 
     }
+    
+    public void excluirReceita(int id) {
+
+        conex.conexao();
+        try {
+            PreparedStatement pst = conex.con.prepareStatement("delete from receitas where id_transacaor = '"+id+"'");
+
+            pst.execute();
+
+            JOptionPane.showMessageDialog(null, "Receita excluido com Sucesso");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erros ao excluir: " + ex.getMessage());
+        }
+        conex.desconecta();
+
+    }
 
 }

@@ -9,6 +9,7 @@ import java.sql.*;
 
 import ModelBeans.BeansUsuario;
 import ModelConnection.Connection_BD;
+import java.io.FileInputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -47,12 +48,14 @@ public class DaoUser {
     public void editar(BeansUsuario mod) {
         conex.conexao();
         try {
-            PreparedStatement pst = conex.con.prepareStatement("update usuario set user_nome = ?, user_email = ?, user_senha = ? where user_id = ?");
+            PreparedStatement pst = conex.con.prepareStatement("update usuario set user_nome = ?, user_email = ?, user_senha = ?, user_usuario = ? where user_id = ?");
 
             pst.setString(1, mod.getNome());
             pst.setString(2, mod.getEmail());
             pst.setString(3, mod.getSenha());
-            pst.setInt(4, mod.getId());
+             pst.setString(4, mod.getUsuario());
+            pst.setInt(5, mod.getId());
+           
 
             pst.execute();
 
@@ -64,7 +67,7 @@ public class DaoUser {
     }
 
     /*
-    Olá Fredson, você consegue fazendo um DROP TABLE. Caso apresente algum erro, será necessário tirar a chave estrangeira da tabela que deseja excluir.
+    Olá Fredson, você consegue fazendo um DROP TABLE. Caso apresente algum erro, será necessário tirar a chave estrangeira da tabela que deseja excluirReceita.
 
 Para deletar a FK:
 
@@ -108,6 +111,7 @@ Espero ter ajudado.
             mod.setEmail(conex.rs.getString("user_email"));
             mod.setUsuario(conex.rs.getString("user_usuario"));
             mod.setSenha(conex.rs.getString("user_senha"));
+           
             return mod;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao encontrar User: " + ex);

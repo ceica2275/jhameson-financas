@@ -115,4 +115,41 @@ public class DaoDespesa {
         conex.desconecta();
 
     }
+    
+    public BeansDespesas buscarDespesa(BeansDespesas mod) {
+        conex.conexao();
+
+        conex.executaSQL("select *from despesas where id_transacaod = '"+mod.getPesquisa()+"'");
+        try {
+            conex.rs.first();
+          
+            mod.setForma_pagamento(conex.rs.getString("forma_pagamento"));
+           mod.setStatus(conex.rs.getString("status"));
+           mod.setDescricao(conex.rs.getString("descricao"));
+         
+           
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Categoria não encontrada!" );
+        }
+
+        conex.desconecta();
+        return mod;
+    }
+    
+    public void excluirDespesa(int id) {
+
+        conex.conexao();
+        try {
+            PreparedStatement pst = conex.con.prepareStatement("delete from despesas where id_transacaod = '"+id+"'");
+
+            pst.execute();
+
+            JOptionPane.showMessageDialog(null, "Receita excluido com Sucesso");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erros ao excluir: " + ex.getMessage());
+        }
+        conex.desconecta();
+
+    }
 }

@@ -95,4 +95,64 @@ public class DaoTransacao {
         conex.desconecta();
 
     }
+
+    public BeansTransacao buscarTransacao(BeansTransacao mod) {
+        conex.conexao();
+
+        conex.executaSQL("select *from transacao where  "
+                + "valor  = '" + mod.getPesquisa() + "' or "
+                + "categoria like '%" + mod.getPesquisa() + "%'");
+        try {
+            conex.rs.first();
+            mod.setId(conex.rs.getInt("id_transacao"));
+            mod.setTipo(conex.rs.getString("tipo"));
+            mod.setValor(conex.rs.getDouble("valor"));
+            mod.setDia(conex.rs.getInt("dia"));
+            mod.setMes(conex.rs.getInt("mes"));
+            mod.setAno(conex.rs.getInt("ano"));
+            mod.setCategoria(conex.rs.getString("categoria"));
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Categoria não encontrada!");
+        }
+
+        conex.desconecta();
+        return mod;
+    }
+
+    public BeansTransacao proximo(BeansTransacao mod) {
+        conex.conexao();
+
+        try {
+            conex.rs.next();
+            mod.setId(conex.rs.getInt("id_transacao"));
+            mod.setTipo(conex.rs.getString("tipo"));
+            mod.setValor(conex.rs.getDouble("valor"));
+            mod.setDia(conex.rs.getInt("dia"));
+            mod.setMes(conex.rs.getInt("mes"));
+            mod.setAno(conex.rs.getInt("ano"));
+            mod.setCategoria(conex.rs.getString("categoria"));
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Categoria não encontrada!");
+        }
+
+        return mod;
+    }
+
+    public void excluirTrsancao(int id) {
+
+        conex.conexao();
+        try {
+            PreparedStatement pst = conex.con.prepareStatement("delete from transacao where id_transacao = '"+id+"'");
+
+            pst.execute();
+
+            JOptionPane.showMessageDialog(null, "Cartao excluido com Sucesso");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erros ao excluir: " + ex.getMessage());
+        }
+        conex.desconecta();
+
+    }
 }

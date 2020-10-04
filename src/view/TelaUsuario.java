@@ -12,10 +12,21 @@ import ModelConnection.ModelTabela;
 import ModelDao.DaoDespesa;
 import ModelDao.DaoReceita;
 import ModelDao.DaoUser;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
-
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.imageio.ImageIO;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.ListSelectionModel;
 
 /**
@@ -27,7 +38,10 @@ public class TelaUsuario extends javax.swing.JFrame {
     /**
      * Creates new form TelaInicial
      */
-    Connection_BD conecta = new Connection_BD();
+    FileInputStream fis;
+    int longitudBytes;
+
+    Connection_BD conex = new Connection_BD();
 
     ExibeData exd = new ExibeData();
     BeansUsuario beans_user = new BeansUsuario();
@@ -39,9 +53,9 @@ public class TelaUsuario extends javax.swing.JFrame {
     public TelaUsuario(int id_Tela) {
         initComponents();
 
-        conecta.conexao();
-        jLabelCOD.setText(""+id_Tela);
-
+        conex.conexao();
+        jLabelCOD.setText("" + id_Tela);
+        //exibirFOTO();
         //linhas resposaveis por chamar o metodo de exibir a data na tela inicial
         String dataCompleta = exd.dataCompleta();
         jLabelData.setText(dataCompleta);
@@ -50,7 +64,7 @@ public class TelaUsuario extends javax.swing.JFrame {
         //pesquisa as informações do id_Tela de acordo com o id_Tela name
         //String nomePesquisa = 
         beans_user.setUser_pesquisa(String.valueOf(id_Tela));
-       
+
         BeansUsuario model = dao_user.buscarUser(beans_user);
 
         jTextFieldCOD.setText(String.valueOf(model.getId()));
@@ -58,6 +72,7 @@ public class TelaUsuario extends javax.swing.JFrame {
         jTextFieldEmail.setText(model.getEmail());
         jTextFieldUsuario.setText(model.getUsuario());
         jTextFieldSenha.setText(model.getSenha());
+        jLabelFoto.setIcon((Icon) model.getFis());
     }
 
     private TelaUsuario() {
@@ -97,6 +112,9 @@ public class TelaUsuario extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jTextFieldEmail = new javax.swing.JTextField();
+        jPanel4 = new javax.swing.JPanel();
+        jLabelFoto = new javax.swing.JLabel();
+        jButtonAlterarFOTO = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
@@ -137,37 +155,49 @@ public class TelaUsuario extends javax.swing.JFrame {
         jLabelData.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jLabelData.setForeground(new java.awt.Color(153, 153, 153));
 
-        jButtonEditar.setBackground(new java.awt.Color(255, 255, 255));
+        jButtonEditar.setBackground(new java.awt.Color(51, 0, 51));
+        jButtonEditar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButtonEditar.setForeground(new java.awt.Color(255, 255, 255));
         jButtonEditar.setText("Editar");
         jButtonEditar.setBorderPainted(false);
+        jButtonEditar.setFocusPainted(false);
         jButtonEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonEditarActionPerformed(evt);
             }
         });
 
-        jButtonExcluir.setBackground(new java.awt.Color(255, 255, 255));
+        jButtonExcluir.setBackground(new java.awt.Color(51, 0, 51));
+        jButtonExcluir.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButtonExcluir.setForeground(new java.awt.Color(255, 255, 255));
         jButtonExcluir.setText("Excluir Perfil");
         jButtonExcluir.setBorderPainted(false);
+        jButtonExcluir.setFocusPainted(false);
         jButtonExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonExcluirActionPerformed(evt);
             }
         });
 
-        jButtonSalvar.setBackground(new java.awt.Color(255, 255, 255));
+        jButtonSalvar.setBackground(new java.awt.Color(51, 0, 51));
+        jButtonSalvar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButtonSalvar.setForeground(new java.awt.Color(255, 255, 255));
         jButtonSalvar.setText("Salvar Alterações");
         jButtonSalvar.setBorderPainted(false);
         jButtonSalvar.setEnabled(false);
+        jButtonSalvar.setFocusPainted(false);
         jButtonSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonSalvarActionPerformed(evt);
             }
         });
 
-        jButton4.setBackground(new java.awt.Color(255, 255, 255));
+        jButton4.setBackground(new java.awt.Color(51, 0, 51));
+        jButton4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton4.setForeground(new java.awt.Color(255, 255, 255));
         jButton4.setText("Cancelar");
         jButton4.setBorderPainted(false);
+        jButton4.setFocusPainted(false);
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
@@ -177,7 +207,8 @@ public class TelaUsuario extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(240, 231, 244));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Perfil do Usuário", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.BELOW_TOP, new java.awt.Font("Linux Libertine G", 1, 24))); // NOI18N
 
-        jTextFieldUsuario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jTextFieldUsuario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTextFieldUsuario.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jTextFieldUsuario.setEnabled(false);
         jTextFieldUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -188,7 +219,8 @@ public class TelaUsuario extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setText("Senha:");
 
-        jTextFieldSenha.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jTextFieldSenha.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTextFieldSenha.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jTextFieldSenha.setEnabled(false);
         jTextFieldSenha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -199,8 +231,9 @@ public class TelaUsuario extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setText("Usuário:");
 
-        jTextFieldCOD.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jTextFieldCOD.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jTextFieldCOD.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        jTextFieldCOD.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jTextFieldCOD.setEnabled(false);
         jTextFieldCOD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -208,7 +241,8 @@ public class TelaUsuario extends javax.swing.JFrame {
             }
         });
 
-        jTextFieldNome.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jTextFieldNome.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTextFieldNome.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jTextFieldNome.setEnabled(false);
         jTextFieldNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -225,11 +259,38 @@ public class TelaUsuario extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Email:");
 
-        jTextFieldEmail.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jTextFieldEmail.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTextFieldEmail.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jTextFieldEmail.setEnabled(false);
         jTextFieldEmail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldEmailActionPerformed(evt);
+            }
+        });
+
+        jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 153, 255)));
+        jPanel4.setPreferredSize(new java.awt.Dimension(169, 169));
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabelFoto, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabelFoto, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)
+        );
+
+        jButtonAlterarFOTO.setBackground(new java.awt.Color(51, 0, 51));
+        jButtonAlterarFOTO.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButtonAlterarFOTO.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonAlterarFOTO.setText("Alterar Foto");
+        jButtonAlterarFOTO.setBorderPainted(false);
+        jButtonAlterarFOTO.setFocusPainted(false);
+        jButtonAlterarFOTO.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAlterarFOTOActionPerformed(evt);
             }
         });
 
@@ -258,32 +319,45 @@ public class TelaUsuario extends javax.swing.JFrame {
                             .addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2)))
                     .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING))
-                .addContainerGap(350, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(jButtonAlterarFOTO)
+                        .addGap(32, 32, 32))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldCOD, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldCOD, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextFieldUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jButtonAlterarFOTO))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -304,14 +378,14 @@ public class TelaUsuario extends javax.swing.JFrame {
                         .addComponent(jLabelData, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 218, Short.MAX_VALUE)
+                        .addGap(0, 173, Short.MAX_VALUE)
                         .addComponent(jButtonExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
+                        .addGap(18, 18, 18)
                         .addComponent(jButtonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -319,12 +393,13 @@ public class TelaUsuario extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 137, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 107, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButtonSalvar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButtonExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelCOD, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -432,13 +507,13 @@ public class TelaUsuario extends javax.swing.JFrame {
         Login tela = new Login();
         tela.setVisible(true);
 
-        conecta.desconecta();
+        conex.desconecta();
 
         dispose();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        conecta.desconecta();
+        conex.desconecta();
         System.exit(0);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
@@ -492,28 +567,32 @@ public class TelaUsuario extends javax.swing.JFrame {
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
 
-        beans_user.setId(Integer.parseInt(jTextFieldCOD.getText()));
-        beans_user.setNome(jTextFieldNome.getText());
-        beans_user.setEmail(jTextFieldEmail.getText());
-        beans_user.setSenha(jTextFieldSenha.getText());
+        beans_user.setUsuario(jTextFieldUsuario.getText());
 
-        dao_user.editar(beans_user);
+        beans_user.setUser_pesquisa(jTextFieldUsuario.getText());
+        boolean model = dao_user.verificarExiste(jTextFieldUsuario.getText());
 
-        jTextFieldNome.setEnabled(false);
-        jTextFieldEmail.setEnabled(false);
-        jTextFieldUsuario.setEnabled(false);
-        jTextFieldSenha.setEnabled(false);
+        if (model) {
+            JOptionPane.showMessageDialog(rootPane, "Nome de Usuário não disponível");
+        } else {
 
-        jButtonEditar.setEnabled(true);
-        jButtonExcluir.setEnabled(true);
+            editar();
 
+            jTextFieldNome.setEnabled(false);
+            jTextFieldEmail.setEnabled(false);
+            jTextFieldUsuario.setEnabled(false);
+            jTextFieldSenha.setEnabled(false);
+
+            jButtonEditar.setEnabled(true);
+            jButtonExcluir.setEnabled(true);
+        }
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
     private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
         int confirma = 0;
-        confirma =  JOptionPane.showConfirmDialog(rootPane,"Deseja realmente excluir seu PERFIL e todos "
+        confirma = JOptionPane.showConfirmDialog(rootPane, "Deseja realmente excluir seu PERFIL e todos "
                 + "os dados?");
-        if(confirma == JOptionPane.YES_OPTION){
+        if (confirma == JOptionPane.YES_OPTION) {
             //pegar a informação no campo COD
             beans_user.setId(Integer.parseInt(jTextFieldCOD.getText()));
             dao_user.excluir(beans_user);
@@ -522,6 +601,77 @@ public class TelaUsuario extends javax.swing.JFrame {
             dispose();
         }
     }//GEN-LAST:event_jButtonExcluirActionPerformed
+
+    private void jButtonAlterarFOTOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarFOTOActionPerformed
+        jLabelFoto.setIcon(null);
+        JFileChooser j = new JFileChooser();
+        j.setFileSelectionMode(JFileChooser.FILES_ONLY);
+
+        int estado = j.showOpenDialog(null);
+        if (estado == JFileChooser.APPROVE_OPTION) {
+            try {
+                fis = new FileInputStream(j.getSelectedFile());
+
+                this.longitudBytes = (int) j.getSelectedFile().length();
+                try {
+                    Image icone = ImageIO.read(j.getSelectedFile()).getScaledInstance(jLabelFoto.getWidth(), jLabelFoto.getHeight(), Image.SCALE_DEFAULT);
+                    jLabelFoto.setIcon(new ImageIcon(icone));
+                    jLabelFoto.updateUI();
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(rootPane, "Imagem: " + e);
+                }
+            } catch (FileNotFoundException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }//GEN-LAST:event_jButtonAlterarFOTOActionPerformed
+
+    public void editar() {
+        conex.conexao();
+        try {
+            PreparedStatement pst = conex.con.prepareStatement("update usuario set user_nome = ?, user_email = ?, user_senha = ?, user_usuario = ?, foto =? where user_id = ?");
+
+            pst.setString(1, jTextFieldNome.getText());
+            pst.setString(2, jTextFieldEmail.getText());
+            pst.setString(3, jTextFieldSenha.getText());
+            pst.setString(4, jTextFieldUsuario.getText());
+            pst.setBinaryStream(5, fis, longitudBytes);
+            pst.setInt(6, Integer.parseInt(jLabelCOD.getText()));
+
+            pst.execute();
+
+            JOptionPane.showMessageDialog(null, "Usuário Atualizado com Sucesso");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "(dao_user)Erros ao atualizar: " + ex.getMessage());
+        }
+        conex.desconecta();
+    }
+
+    public void exibirFOTO() {
+        JOptionPane.showMessageDialog(rootPane, "AQUI : " + jLabelCOD.getText());
+        String sql = "select foto from usuario where user_id = '" + Integer.parseInt(jLabelCOD.getText()) + "'";
+        ImageIcon foto;
+        InputStream is;
+        try {
+
+            conex.executaSQL(sql);
+            while (conex.rs.next()) {
+                is = conex.rs.getBinaryStream(1);
+
+                BufferedImage bi = ImageIO.read(is);
+                foto = new ImageIcon(bi);
+
+                Image img = foto.getImage();
+                Image newimg = img.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
+
+                ImageIcon newicon = new ImageIcon(newimg);
+
+                jLabelFoto.setIcon(newicon);
+            }
+         } catch (IOException | SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Erro ao : " + ex);
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -561,6 +711,7 @@ public class TelaUsuario extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButtonAlterarFOTO;
     private javax.swing.JButton jButtonEditar;
     private javax.swing.JButton jButtonExcluir;
     private javax.swing.JButton jButtonSalvar;
@@ -573,6 +724,7 @@ public class TelaUsuario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabelCOD;
     private javax.swing.JLabel jLabelData;
+    private javax.swing.JLabel jLabelFoto;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -591,6 +743,7 @@ public class TelaUsuario extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JTextField jTextFieldCOD;
     private javax.swing.JTextField jTextFieldEmail;
     private javax.swing.JTextField jTextFieldNome;

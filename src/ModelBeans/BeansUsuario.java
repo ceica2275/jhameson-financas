@@ -5,6 +5,8 @@
  */
 package ModelBeans;
 
+import java.io.FileInputStream;
+
 /**
  *
  * @author jhame
@@ -17,6 +19,15 @@ public class BeansUsuario {
     private String usuario;
     private String senha;
     private String user_pesquisa;
+    private FileInputStream fis;
+
+    public FileInputStream getFis() {
+        return fis;
+    }
+
+    public void setFis(FileInputStream fis) {
+        this.fis = fis;
+    }
     
     /**
      * @return the user_pesquisa

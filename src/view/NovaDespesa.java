@@ -177,7 +177,7 @@ public class NovaDespesa extends javax.swing.JFrame {
         jLabel3.setText("Forma de Pagamento:");
 
         jComboBoxPagamento.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jComboBoxPagamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dinheiro", "Cartao" }));
+        jComboBoxPagamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dinheiro", "Cartão" }));
         jComboBoxPagamento.setBorder(null);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N

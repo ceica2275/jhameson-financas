@@ -62,11 +62,11 @@ public class Login extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(null);
 
-        jLabelSenha.setFont(new java.awt.Font("Linux Libertine G", 1, 36)); // NOI18N
+        jLabelSenha.setFont(new java.awt.Font("Linux Libertine G", 1, 48)); // NOI18N
         jLabelSenha.setForeground(new java.awt.Color(255, 255, 255));
         jLabelSenha.setText("Credenciais");
         getContentPane().add(jLabelSenha);
-        jLabelSenha.setBounds(20, 10, 240, 42);
+        jLabelSenha.setBounds(40, 10, 270, 55);
 
         jButtonEntrar.setBackground(new java.awt.Color(0, 102, 51));
         jButtonEntrar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -89,7 +89,7 @@ public class Login extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButtonEntrar);
-        jButtonEntrar.setBounds(20, 200, 210, 30);
+        jButtonEntrar.setBounds(20, 200, 300, 30);
 
         jTextFieldUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -97,7 +97,7 @@ public class Login extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jTextFieldUsuario);
-        jTextFieldUsuario.setBounds(20, 90, 210, 40);
+        jTextFieldUsuario.setBounds(20, 90, 300, 40);
 
         jPasswordFieSenha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -105,7 +105,7 @@ public class Login extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jPasswordFieSenha);
-        jPasswordFieSenha.setBounds(20, 150, 210, 40);
+        jPasswordFieSenha.setBounds(20, 150, 300, 40);
 
         jButtonCadastrar.setBackground(new java.awt.Color(51, 51, 255));
         jButtonCadastrar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -128,7 +128,7 @@ public class Login extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButtonCadastrar);
-        jButtonCadastrar.setBounds(20, 320, 210, 30);
+        jButtonCadastrar.setBounds(20, 320, 300, 30);
 
         jButtonSair.setBackground(new java.awt.Color(204, 0, 51));
         jButtonSair.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -151,7 +151,7 @@ public class Login extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButtonSair);
-        jButtonSair.setBounds(20, 240, 210, 30);
+        jButtonSair.setBounds(20, 240, 300, 30);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -173,7 +173,7 @@ public class Login extends javax.swing.JFrame {
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Logo200.png"))); // NOI18N
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(340, 10, 200, 200);
+        jLabel2.setBounds(600, 0, 200, 200);
 
         jButton3.setBackground(new java.awt.Color(255, 255, 255));
         jButton3.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
@@ -187,10 +187,10 @@ public class Login extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton3);
-        jButton3.setBounds(490, 370, 110, 22);
+        jButton3.setBounds(680, 370, 110, 22);
 
         jLabelFundo.setBackground(new java.awt.Color(204, 204, 204));
-        jLabelFundo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/gestao-financeira-controladoria-topo.jpg"))); // NOI18N
+        jLabelFundo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/imgFUNDO.jpeg"))); // NOI18N
         getContentPane().add(jLabelFundo);
         jLabelFundo.setBounds(-70, -140, 1024, 768);
 
@@ -200,7 +200,7 @@ public class Login extends javax.swing.JFrame {
         getContentPane().add(jLabel4);
         jLabel4.setBounds(20, 70, 80, 17);
 
-        setSize(new java.awt.Dimension(606, 400));
+        setSize(new java.awt.Dimension(800, 400));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
