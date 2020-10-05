@@ -197,6 +197,11 @@ public class NovaDespesa extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        jFormattedTextFieldDia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jFormattedTextFieldDiaActionPerformed(evt);
+            }
+        });
         jFormattedTextFieldDia.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jFormattedTextFieldDiaKeyPressed(evt);
@@ -360,7 +365,7 @@ public class NovaDespesa extends javax.swing.JFrame {
                 jComboBoxCategoria.addItem(conex.rs.getString("nome"));
             } while (conex.rs.next());
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erros ao preencher box: " + ex.getMessage());
+           // JOptionPane.showMessageDialog(null, "Erros ao preencher box: " + ex.getMessage());
         }
         conex.desconecta();
     }
@@ -435,6 +440,10 @@ public class NovaDespesa extends javax.swing.JFrame {
             evt.consume();
         }
     }//GEN-LAST:event_jFormattedTextFieldDiaKeyTyped
+
+    private void jFormattedTextFieldDiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextFieldDiaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jFormattedTextFieldDiaActionPerformed
 
     /**
      * @param args the command line arguments

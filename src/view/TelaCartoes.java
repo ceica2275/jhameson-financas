@@ -102,7 +102,6 @@ public class TelaCartoes extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenu7 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
@@ -484,6 +483,10 @@ public class TelaCartoes extends javax.swing.JFrame {
 
         jMenuBar1.setBackground(new java.awt.Color(255, 255, 255));
         jMenuBar1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jMenuBar1.setBorderPainted(false);
+        jMenuBar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jMenuBar1.setFocusable(false);
+        jMenuBar1.setRequestFocusEnabled(false);
 
         jMenu1.setText("Usuário");
 
@@ -498,20 +501,16 @@ public class TelaCartoes extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         jMenu7.setText("Contas");
-
-        jMenuItem3.setText("Opções de Cartões");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
-            }
-        });
-        jMenu7.add(jMenuItem3);
-
         jMenuBar1.add(jMenu7);
 
         jMenu4.setText("Categorias");
 
         jMenuItem4.setText("Opções de Categorias");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
         jMenu4.add(jMenuItem4);
 
         jMenuBar1.add(jMenu4);
@@ -519,6 +518,11 @@ public class TelaCartoes extends javax.swing.JFrame {
         jMenu2.setText("Histórico");
 
         jMenuItem6.setText("Histórico de Transações");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem6);
 
         jMenuBar1.add(jMenu2);
@@ -574,12 +578,11 @@ public class TelaCartoes extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
-
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        // TODO add your handling code here:
+        int id = Integer.parseInt(jLabelUsuario.getText());
+        TelaUsuario tela_user = new TelaUsuario(id);
+        tela_user.setVisible(true);
+        dispose();
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jTextFieldLimiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldLimiteActionPerformed
@@ -592,7 +595,7 @@ public class TelaCartoes extends javax.swing.JFrame {
 
     private void jButtonPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisarActionPerformed
         if (jTextFieldPesquisa.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null,"Digite algo a ser pesquisado!");
+            JOptionPane.showMessageDialog(null, "Digite algo a ser pesquisado!");
         } else {
             //variavel pesquisa
             beans_cartao.setPesquisa(jTextFieldPesquisa.getText());
@@ -931,6 +934,18 @@ public class TelaCartoes extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonExcluirActionPerformed
 
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        TelaCategoria tc = new TelaCategoria(Integer.parseInt(jLabelUsuario.getText()));
+        tc.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        TelaHistoricoTransacoes tc = new TelaHistoricoTransacoes(Integer.parseInt(jLabelUsuario.getText()));
+        tc.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
+
     public void preencherTabela(String SQL) {
         ArrayList dados = new ArrayList();
         String[] colunas = new String[]{"Tipo", "Numero", "Bandeira"};
@@ -1040,7 +1055,6 @@ public class TelaCartoes extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;

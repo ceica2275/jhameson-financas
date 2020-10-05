@@ -28,7 +28,7 @@ public class DaoReceita {
         conex.conexao();
         try {
             PreparedStatement pst = conex.con.prepareStatement("insert into receitas(id_transacaor, id_user_receita) values (?,?)");
-
+            
             pst.setInt(1, mod.getId_transacao());
             pst.setInt(2, mod.getId_user_receita());
 
@@ -62,7 +62,8 @@ public class DaoReceita {
     //metodo para somar o valor em receitas
     public int somarReceitasMes(int id, int mes, int dia) {
         conex.conexao();
-        conex.executaSQL("select sum(valor) as soma from transacao where id_user = '" + id + "' and mes = '" + mes + "' and tipo = 'Receita'");
+        conex.executaSQL("select sum(valor) as soma from transacao where id_user = '" + id + "' "
+                + "and mes = '" + mes + "' and tipo = 'Receita'");
 
         try {
             conex.rs.first();
@@ -97,7 +98,7 @@ public class DaoReceita {
         return 0;
     }
 
-    //exclui todas as receitas de um determinado usuario
+    //exclui todas as receitas de um determinado usuario quando ele for ecluir o perfil
     public void excluirTodasReceitas(BeansUsuario mod) {
 
         conex.conexao();

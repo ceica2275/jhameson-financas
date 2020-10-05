@@ -5,6 +5,7 @@
  */
 package view;
 
+import java.lang.*;
 import ModelBeans.BeansCategoria;
 import ModelBeans.BeansDespesas;
 import ModelBeans.BeansTransacao;
@@ -19,7 +20,7 @@ import ModelDao.DaoTransacao;
 import ModelDao.DaoUser;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
-
+import java.awt.event.*;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -57,7 +58,7 @@ public class TelaHistoricoTransacoes extends javax.swing.JFrame {
         jRadioButtonTodas.setSelected(true);
 
         jLabelCOD.setText("" + id_Tela);
-
+        preencherComboBoxPesquisa();
         //linhas resposaveis por chamar o metodo de exibir a data na tela inicial
         String dataCompleta = exd.dataCompleta();
         jLabelData.setText(dataCompleta);
@@ -97,7 +98,6 @@ public class TelaHistoricoTransacoes extends javax.swing.JFrame {
         jLabelData = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableTransacoes = new javax.swing.JTable();
-        jTextFieldPesquisa = new javax.swing.JTextField();
         jButtonPesquisar = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         jButtonCancelar = new javax.swing.JButton();
@@ -131,12 +131,14 @@ public class TelaHistoricoTransacoes extends javax.swing.JFrame {
         jRadioButtonOrdenValor = new javax.swing.JRadioButton();
         jRadioButtonOrdemDia = new javax.swing.JRadioButton();
         jRadioButtonTodas = new javax.swing.JRadioButton();
+        jFormattedTextFieldPesquisa = new javax.swing.JFormattedTextField();
+        jComboBoxCategoriaPesquisa = new javax.swing.JComboBox<>();
+        jButtonPesquisarCategoria = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenu7 = new javax.swing.JMenu();
         jMenuItemCartoes = new javax.swing.JMenuItem();
-        jMenuItemCarteira = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
@@ -171,7 +173,7 @@ public class TelaHistoricoTransacoes extends javax.swing.JFrame {
         jLabelData.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jLabelData.setForeground(new java.awt.Color(0, 0, 255));
 
-        jTableTransacoes.setBackground(new java.awt.Color(237, 237, 237));
+        jTableTransacoes.setBackground(new java.awt.Color(240, 231, 244));
         jTableTransacoes.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jTableTransacoes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -184,7 +186,11 @@ public class TelaHistoricoTransacoes extends javax.swing.JFrame {
 
             }
         ));
+        jTableTransacoes.setFocusable(false);
+        jTableTransacoes.setGridColor(new java.awt.Color(51, 0, 51));
         jTableTransacoes.setSelectionBackground(new java.awt.Color(212, 133, 255));
+        jTableTransacoes.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jTableTransacoes.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jTableTransacoes.setShowVerticalLines(false);
         jTableTransacoes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -195,13 +201,6 @@ public class TelaHistoricoTransacoes extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(jTableTransacoes);
-
-        jTextFieldPesquisa.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jTextFieldPesquisa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldPesquisaActionPerformed(evt);
-            }
-        });
 
         jButtonPesquisar.setBackground(new java.awt.Color(51, 0, 51));
         jButtonPesquisar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -217,7 +216,7 @@ public class TelaHistoricoTransacoes extends javax.swing.JFrame {
         });
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel10.setText("Pesquisar Transação:");
+        jLabel10.setText("Pesquisa por Mês:");
 
         jButtonCancelar.setBackground(new java.awt.Color(51, 0, 51));
         jButtonCancelar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -546,6 +545,41 @@ public class TelaHistoricoTransacoes extends javax.swing.JFrame {
             }
         });
 
+        try {
+            jFormattedTextFieldPesquisa.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jFormattedTextFieldPesquisa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jFormattedTextFieldPesquisaActionPerformed(evt);
+            }
+        });
+        jFormattedTextFieldPesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jFormattedTextFieldPesquisaKeyTyped(evt);
+            }
+        });
+
+        jComboBoxCategoriaPesquisa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxCategoriaPesquisaActionPerformed(evt);
+            }
+        });
+
+        jButtonPesquisarCategoria.setBackground(new java.awt.Color(51, 0, 51));
+        jButtonPesquisarCategoria.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButtonPesquisarCategoria.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonPesquisarCategoria.setText("Pesquisar");
+        jButtonPesquisarCategoria.setBorderPainted(false);
+        jButtonPesquisarCategoria.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonPesquisarCategoria.setFocusPainted(false);
+        jButtonPesquisarCategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPesquisarCategoriaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -581,25 +615,29 @@ public class TelaHistoricoTransacoes extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jLabel10))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                 .addComponent(jRadioButtonTodas)
                                 .addGap(18, 18, 18)
                                 .addComponent(jRadioButtonTransacaoMes)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jRadioButtonReceitas)))
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jRadioButtonReceitas))
                             .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jComboBoxCategoriaPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jTextFieldPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18))
+                                .addComponent(jButtonPesquisarCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(4, 4, 4)
                                 .addComponent(jRadioButtonDespesas)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(36, 36, 36)
                                 .addComponent(jRadioButtonOrdenValor)
-                                .addGap(7, 7, 7)))
+                                .addGap(7, 7, 7))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel10)
+                                .addGap(31, 31, 31)
+                                .addComponent(jFormattedTextFieldPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)))
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jRadioButtonOrdemDia)
                             .addComponent(jButtonPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -613,8 +651,10 @@ public class TelaHistoricoTransacoes extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10))
+                    .addComponent(jLabel10)
+                    .addComponent(jFormattedTextFieldPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                    .addComponent(jComboBoxCategoriaPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonPesquisarCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jRadioButtonTransacaoMes)
@@ -631,7 +671,7 @@ public class TelaHistoricoTransacoes extends javax.swing.JFrame {
                     .addComponent(jButtonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelCOD, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelData, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -673,7 +713,7 @@ public class TelaHistoricoTransacoes extends javax.swing.JFrame {
 
         jMenu7.setText("Contas");
 
-        jMenuItemCartoes.setText("Cartões");
+        jMenuItemCartoes.setText("Opções de Cartões");
         jMenuItemCartoes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemCartoesActionPerformed(evt);
@@ -681,19 +721,16 @@ public class TelaHistoricoTransacoes extends javax.swing.JFrame {
         });
         jMenu7.add(jMenuItemCartoes);
 
-        jMenuItemCarteira.setText("Carteira");
-        jMenuItemCarteira.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemCarteiraActionPerformed(evt);
-            }
-        });
-        jMenu7.add(jMenuItemCarteira);
-
         jMenuBar1.add(jMenu7);
 
         jMenu4.setText("Categorias");
 
         jMenuItem4.setText("Nova Categoria");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
         jMenu4.add(jMenuItem4);
 
         jMenuBar1.add(jMenu4);
@@ -758,12 +795,11 @@ public class TelaHistoricoTransacoes extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jMenuItemCartoesActionPerformed
 
-    private void jMenuItemCarteiraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCarteiraActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItemCarteiraActionPerformed
-
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        // TODO add your handling code here:
+        int id = Integer.parseInt(jLabelCOD.getText());
+        TelaUsuario tela_user = new TelaUsuario(id);
+        tela_user.setVisible(true);
+        dispose();
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jTableTransacoesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableTransacoesMouseClicked
@@ -799,8 +835,8 @@ public class TelaHistoricoTransacoes extends javax.swing.JFrame {
             } else {
                 preencherComboBoxCategoriaReceita();
                 jComboBoxCategoria.setSelectedItem(conecta.rs.getString("categoria"));
-                jComboBoxStatus.setSelectedItem("");
-                jComboBoxForma.setSelectedItem("");
+                jComboBoxStatus.setSelectedItem(null);
+                jComboBoxForma.setSelectedItem(null);
                 jTextFieldDescricao.setText("");
             }
 
@@ -810,49 +846,18 @@ public class TelaHistoricoTransacoes extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jTableTransacoesMouseClicked
 
-    private void jTextFieldPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldPesquisaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldPesquisaActionPerformed
-
     private void jButtonPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisarActionPerformed
-        if (jTextFieldPesquisa.getText().isEmpty()) {
+        if (jFormattedTextFieldPesquisa.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Digite algo a ser pesquisado!");
         } else {
-            //variavel pesquisa
-            beans_transacao.setPesquisa(jTextFieldPesquisa.getText());
-            BeansTransacao model = dao_transacao.buscarTransacao(beans_transacao);
-
-            //setando os campos
-            jLabelTipo.setText(model.getTipo());
-            jTextFieldValor.setText(Double.toString(model.getValor()));
-            jTextFieldDia.setText(Integer.toString(model.getDia()));
-            jTextFieldMes.setText(Integer.toString(model.getMes()));
-            jTextFieldAno.setText(Integer.toString(model.getAno()));
-
-            if ("Despesa".equals(jLabelTipo.getText())) {
-                preencherComboBoxCategoriaDespesa();
-
-                String id = Integer.toString(model.getId());
-                beans_despesa.setPesquisa(id);
-                BeansDespesas model_despesa = dao_despesa.buscarDespesa(beans_despesa);
-                //JOptionPane.showMessageDialog(rootPane, "Aqui ");
-                jComboBoxStatus.setSelectedItem(model_despesa.getStatus());
-                jComboBoxForma.setSelectedItem(model_despesa.getForma_pagamento());
-                jTextFieldDescricao.setText(model_despesa.getDescricao());
-
-                jComboBoxCategoria.setSelectedItem(model.getCategoria());
-
-            } else {
-
-                preencherComboBoxCategoriaReceita();
-                jComboBoxCategoria.setSelectedItem(model.getCategoria());
-
-                jComboBoxStatus.setSelectedItem("");
-                jComboBoxForma.setSelectedItem("");
-                jTextFieldDescricao.setText("");
-
-            }
-
+           
+            
+                preencherTabela("select id_transacao, valor, tipo, categoria, dia, mes, descricao from transacao "
+                        + "full join despesas on transacao.id_transacao = despesas.id_transacaod "
+                        + "full join receitas on transacao.id_transacao = receitas.id_transacaor "
+                        + "where id_user = '" + Integer.parseInt(jLabelCOD.getText()) + "' and mes = '" + Integer.parseInt(jFormattedTextFieldPesquisa.getText()) + "' "
+                                + "order by dia ASC");
+            
 
             /*  jLabelTipoCartao.setText(model.getTipo());
             jTextFieldNumero.setText(model.getNumero());
@@ -881,8 +886,8 @@ public class TelaHistoricoTransacoes extends javax.swing.JFrame {
 
         //seta os campos para salvar no banco , editando
         beans_transacao.setId(Integer.parseInt(jLabelID.getText()));
-         beans_despesa.setId_transacao(Integer.parseInt(jLabelID.getText()));
-         
+        beans_despesa.setId_transacao(Integer.parseInt(jLabelID.getText()));
+
         beans_transacao.setValor(Double.parseDouble(jTextFieldValor.getText()));
 
         beans_transacao.setDia(Integer.parseInt(jTextFieldDia.getText()));
@@ -890,20 +895,19 @@ public class TelaHistoricoTransacoes extends javax.swing.JFrame {
         beans_transacao.setAno(Integer.parseInt(jTextFieldAno.getText()));
 
         beans_transacao.setCategoria((String) jComboBoxCategoria.getSelectedItem());
-        JOptionPane.showMessageDialog(rootPane, "chegou aqui HEHE ");
-        
+        //JOptionPane.showMessageDialog(rootPane, "chegou aqui HEHE ");
 
         if (flag == 2) {
             beans_despesa.setForma_pagamento((String) jComboBoxForma.getSelectedItem());
             beans_despesa.setStatus((String) jComboBoxStatus.getSelectedItem());
             beans_despesa.setDescricao(jTextFieldDescricao.getText());
-            
+
             dao_despesa.editarDespesa(beans_despesa);
             dao_transacao.editarTransacao(beans_transacao);
-        }else{
+        } else {
             dao_transacao.editarTransacao(beans_transacao);
         }
-       
+
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
@@ -940,8 +944,7 @@ public class TelaHistoricoTransacoes extends javax.swing.JFrame {
             }
 
         }
-        
-        
+
 
     }//GEN-LAST:event_jButtonExcluirActionPerformed
 
@@ -1015,13 +1018,60 @@ public class TelaHistoricoTransacoes extends javax.swing.JFrame {
     }//GEN-LAST:event_jRadioButtonTodasActionPerformed
 
     private void jTableTransacoesMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableTransacoesMouseReleased
-       
-        
+
+
     }//GEN-LAST:event_jTableTransacoesMouseReleased
 
     private void jButtonExcluirMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonExcluirMouseReleased
-       
+
     }//GEN-LAST:event_jButtonExcluirMouseReleased
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        TelaCategoria tc = new TelaCategoria(Integer.parseInt(jLabelCOD.getText()));
+        tc.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jFormattedTextFieldPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextFieldPesquisaActionPerformed
+
+    }//GEN-LAST:event_jFormattedTextFieldPesquisaActionPerformed
+
+    private void jFormattedTextFieldPesquisaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFormattedTextFieldPesquisaKeyTyped
+        String caracteres = "0987654321";
+
+        if (!caracteres.contains(evt.getKeyChar() + "")) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_jFormattedTextFieldPesquisaKeyTyped
+
+    private void jComboBoxCategoriaPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCategoriaPesquisaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxCategoriaPesquisaActionPerformed
+
+    private void jButtonPesquisarCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisarCategoriaActionPerformed
+      
+                preencherTabela("select id_transacao, valor, tipo, categoria, dia, mes, descricao from transacao "
+                        + "full join despesas on transacao.id_transacao = despesas.id_transacaod "
+                        + "full join receitas on transacao.id_transacao = receitas.id_transacaor "
+                        + "where id_user = '" + Integer.parseInt(jLabelCOD.getText()) + "' and categoria = '" + jComboBoxCategoriaPesquisa.getSelectedItem() + "' "
+                                + "order by dia ASC");
+            
+
+            /*  jLabelTipoCartao.setText(model.getTipo());
+            jTextFieldNumero.setText(model.getNumero());
+            jComboBoxBandeira.setSelectedItem(model.getBandeira());
+            jTextFieldLimite.setText(Double.toString(model.getLimite()));
+            jTextFieldValorAtual.setText(Double.toString(model.getValor()));
+            jTextFieldDiaFechamento.setText(Integer.toString(model.getDia_fechamento()));*/
+ /*
+            jButtonEditar.setEnabled(true);
+            jButtonCancelar.setEnabled(true);
+            jButtonSalvar.setEnabled(false);
+            jButtonExcluir.setEnabled(true);
+            jButtonNovoCredito.setEnabled(true);
+            jButtonNovoDebito.setEnabled(true);*/
+        
+    }//GEN-LAST:event_jButtonPesquisarCategoriaActionPerformed
 
     public void preencherTabela(String SQL) {
 
@@ -1105,6 +1155,23 @@ public class TelaHistoricoTransacoes extends javax.swing.JFrame {
         conex.desconecta();
     }
 
+    public void preencherComboBoxPesquisa() {
+        conex.conexao();
+        conex.executaSQL("select nome from categorias where "
+                + " id_user = '" + jLabelCOD.getText() + "'");
+        try {
+            conex.rs.first();
+            jComboBoxCategoria.removeAllItems();
+            do {
+                jComboBoxCategoriaPesquisa.addItem(conex.rs.getString("nome"));
+            } while (conex.rs.next());
+        } catch (SQLException ex) {
+            //JOptionPane.showMessageDialog(null, "Erros ao preencher box: " + ex.getMessage());
+        }
+        conex.desconecta();
+    }
+    
+    
     public void teste() {
         JOptionPane.showMessageDialog(rootPane, "aqui");
     }
@@ -1156,10 +1223,13 @@ public class TelaHistoricoTransacoes extends javax.swing.JFrame {
     private javax.swing.JButton jButtonEditar;
     private javax.swing.JButton jButtonExcluir;
     private javax.swing.JButton jButtonPesquisar;
+    private javax.swing.JButton jButtonPesquisarCategoria;
     private javax.swing.JButton jButtonSalvar;
     private javax.swing.JComboBox<String> jComboBoxCategoria;
+    private javax.swing.JComboBox<String> jComboBoxCategoriaPesquisa;
     private javax.swing.JComboBox<String> jComboBoxForma;
     private javax.swing.JComboBox<String> jComboBoxStatus;
+    private javax.swing.JFormattedTextField jFormattedTextFieldPesquisa;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1190,7 +1260,6 @@ public class TelaHistoricoTransacoes extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItemCarteira;
     private javax.swing.JMenuItem jMenuItemCartoes;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -1207,7 +1276,6 @@ public class TelaHistoricoTransacoes extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldDescricao;
     private javax.swing.JTextField jTextFieldDia;
     private javax.swing.JTextField jTextFieldMes;
-    private javax.swing.JTextField jTextFieldPesquisa;
     private javax.swing.JTextField jTextFieldValor;
     // End of variables declaration//GEN-END:variables
 }

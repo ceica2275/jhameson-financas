@@ -48,6 +48,7 @@ public class NovaReceita extends javax.swing.JFrame {
         initComponents();
 
         jLabelCOD.setText("" + user);
+        
         preencherComboBox();
 
         //setar os campos para adicionar nova transacao
@@ -321,7 +322,8 @@ public class NovaReceita extends javax.swing.JFrame {
 
     public void preencherComboBox() {
         conex.conexao();
-        conex.executaSQL("select nome from categorias where tipo = 'Receita' and id_user = '" + jLabelCOD.getText() + "'");
+        conex.executaSQL("select nome from categorias where "
+                + "tipo = 'Receita' and id_user = '" + jLabelCOD.getText() + "'");
         try {
             conex.rs.first();
             jComboBoxCategoria.removeAllItems();
@@ -329,7 +331,7 @@ public class NovaReceita extends javax.swing.JFrame {
                 jComboBoxCategoria.addItem(conex.rs.getString("nome"));
             } while (conex.rs.next());
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erros ao preencher box: " + ex.getMessage());
+            //JOptionPane.showMessageDialog(null, "Erros ao preencher box: " + ex.getMessage());
         }
         conex.desconecta();
     }

@@ -92,7 +92,6 @@ public class TelaCategoria extends javax.swing.JFrame {
         jMenu7 = new javax.swing.JMenu();
         jMenuItemCartoes = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
@@ -390,15 +389,16 @@ public class TelaCategoria extends javax.swing.JFrame {
         jMenuBar1.add(jMenu7);
 
         jMenu4.setText("Categorias");
-
-        jMenuItem4.setText("Opções de Categorias");
-        jMenu4.add(jMenuItem4);
-
         jMenuBar1.add(jMenu4);
 
         jMenu2.setText("Histórico");
 
         jMenuItem3.setText("Histórico de Transações");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem3);
 
         jMenuBar1.add(jMenu2);
@@ -455,11 +455,16 @@ public class TelaCategoria extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItemCartoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCartoesActionPerformed
-
+ TelaCartoes tc = new TelaCartoes(Integer.parseInt(jLabelCOD.getText()));
+        tc.setVisible(true);
+        dispose();
     }//GEN-LAST:event_jMenuItemCartoesActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        // TODO add your handling code here:
+        int id = Integer.parseInt(jLabelCOD.getText());
+        TelaUsuario tela_user = new TelaUsuario(id);
+        tela_user.setVisible(true);
+        dispose();
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jTextFieldPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldPesquisaActionPerformed
@@ -636,6 +641,12 @@ public class TelaCategoria extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jTableCategoriasMouseClicked
 
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        TelaHistoricoTransacoes tc = new TelaHistoricoTransacoes(Integer.parseInt(jLabelCOD.getText()));
+        tc.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
     public void preencherTabelaReceita(String Sql) {
 
         ArrayList dados = new ArrayList();
@@ -736,7 +747,6 @@ public class TelaCategoria extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItemCartoes;
     private javax.swing.JPanel jPanel1;

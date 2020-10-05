@@ -31,7 +31,8 @@ public class DaoUser {
     public void Salvar(BeansUsuario mod) {
         conex.conexao();
         try {
-            PreparedStatement pst = conex.con.prepareStatement("insert into usuario(user_nome, user_email, user_usuario, user_senha) values (?,?,?,?)");
+            PreparedStatement pst = conex.con.prepareStatement("insert into usuario"
+                    + " (user_nome, user_email, user_usuario, user_senha) values (?,?,?,?)");
 
             pst.setString(1, mod.getNome());
             pst.setString(2, mod.getEmail());
@@ -50,7 +51,8 @@ public class DaoUser {
     public void editar(BeansUsuario mod) {
         conex.conexao();
         try {
-            PreparedStatement pst = conex.con.prepareStatement("update usuario set user_nome = ?, user_email = ?, user_senha = ?, user_usuario = ? where user_id = ?");
+            PreparedStatement pst = conex.con.prepareStatement("update usuario set user_nome = ?, "
+                    + "user_email = ?, user_senha = ?, user_usuario = ? where user_id = ?");
 
             pst.setString(1, mod.getNome());
             pst.setString(2, mod.getEmail());
@@ -69,18 +71,15 @@ public class DaoUser {
     }
 
     /*
-    Olá Fredson, você consegue fazendo um DROP TABLE. Caso apresente algum erro, será necessário tirar a chave estrangeira da tabela que deseja excluirReceita.
-
-Para deletar a FK:
-
-ALTER TABLE tabela DROP FOREIGN KEY fk;
-
-Agora devemos deletar a Index dessa FK:
-
-ALTER TABLE tabela DROP INDEX fk;
-
-Espero ter ajudado.
+    Olá Fredson, você consegue fazendo um DROP TABLE. Caso apresente algum erro, 
+    será necessário tirar a chave estrangeira da tabela que deseja excluirReceita.
+    Para deletar a FK:
+    ALTER TABLE tabela DROP FOREIGN KEY fk;
+    Agora devemos deletar a Index dessa FK:
+    ALTER TABLE tabela DROP INDEX fk;
+    Espero ter ajudado.
      */
+    
     public void excluir(BeansUsuario mod) {
         //exclui todos os dados do usuario que estejam em outras tabelas
         dao_categoria.excluirTodasCategorias(mod);

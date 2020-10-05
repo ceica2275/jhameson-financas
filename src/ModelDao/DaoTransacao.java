@@ -25,7 +25,8 @@ public class DaoTransacao {
     public void salvarTransacao(BeansTransacao mod) {
         conex.conexao();
         try {
-            PreparedStatement pst = conex.con.prepareStatement("insert into transacao(id_user, valor, tipo, dia, mes, ano, categoria) values (?,?,?,?,?,?,?)");
+            PreparedStatement pst = conex.con.prepareStatement("insert into transacao "
+                    + "(id_user, valor, tipo, dia, mes, ano, categoria) values (?,?,?,?,?,?,?)");
 
             pst.setInt(1, mod.getId_user());
             pst.setDouble(2, mod.getValor());
@@ -101,8 +102,7 @@ public class DaoTransacao {
         conex.conexao();
 
         conex.executaSQL("select *from transacao where  "
-                + "valor  = '" + mod.getPesquisa() + "' or "
-                + "categoria like '%" + mod.getPesquisa() + "%'");
+                + "mes  = '" + mod.getPesquisa() + "'");
         try {
             conex.rs.first();
             mod.setId(conex.rs.getInt("id_transacao"));
@@ -121,25 +121,7 @@ public class DaoTransacao {
         return mod;
     }
 
-    public BeansTransacao proximo(BeansTransacao mod) {
-        conex.conexao();
-
-        try {
-            conex.rs.next();
-            mod.setId(conex.rs.getInt("id_transacao"));
-            mod.setTipo(conex.rs.getString("tipo"));
-            mod.setValor(conex.rs.getDouble("valor"));
-            mod.setDia(conex.rs.getInt("dia"));
-            mod.setMes(conex.rs.getInt("mes"));
-            mod.setAno(conex.rs.getInt("ano"));
-            mod.setCategoria(conex.rs.getString("categoria"));
-
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Categoria não encontrada!");
-        }
-
-        return mod;
-    }
+    
 
     public void excluirTrsancao(int id) {
 
@@ -156,7 +138,7 @@ public class DaoTransacao {
         conex.desconecta();
 
     }
-    
+    //usada quando o usuario for excluir  o perfil
     public void excluiTodasTransacoes(BeansUsuario mod) {
 
         conex.conexao();
