@@ -25,6 +25,8 @@ public class DaoUser {
     DaoReceita dao_receita = new DaoReceita();
     DaoDespesa dao_despesa = new DaoDespesa();
     DaoCartao dao_cartao = new DaoCartao();
+    DaoTransacao dao_transacao = new DaoTransacao();
+    DaoCategoria dao_categoria = new DaoCategoria();
 
     public void Salvar(BeansUsuario mod) {
         conex.conexao();
@@ -81,9 +83,13 @@ Espero ter ajudado.
      */
     public void excluir(BeansUsuario mod) {
         //exclui todos os dados do usuario que estejam em outras tabelas
+        dao_categoria.excluirTodasCategorias(mod);
         dao_receita.excluirTodasReceitas(mod);
         dao_despesa.excluirTodasDespesas(mod);
+        
         dao_cartao.excluirTodosCartoes(mod);
+        dao_transacao.excluiTodasTransacoes(mod);
+        
         
         conex.conexao();
         try {

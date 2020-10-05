@@ -24,15 +24,14 @@ public class DaoDespesa {
     public void Salvar(BeansDespesas mod) {
         conex.conexao();
         try {
-            PreparedStatement pst = conex.con.prepareStatement("insert into despesas(id_transacaod, descricao, forma_pagamento, status) values (?,?,?,?)");
+            PreparedStatement pst = conex.con.prepareStatement("insert into despesas(id_transacaod, descricao, forma_pagamento, status, id_user_despesa) values (?,?,?,?,?)");
 
             pst.setInt(1, mod.getId_transacao());
-            
-            
+
             pst.setString(2, mod.getDescricao());
             pst.setString(3, mod.getForma_pagamento());
             pst.setString(4, mod.getStatus());
-           
+            pst.setInt(5, mod.getId_user_despesa());
 
             pst.execute();
 
@@ -44,15 +43,35 @@ public class DaoDespesa {
     }
 
     //metodo para somar o valor em despesas
-    public int somarDespesas(int id, int mes, int dia) {
+    public int somarDespesasMes(int id, int mes, int dia) {
         /*
         JOptionPane.showMessageDialog(null, "deu merda "+id);
         JOptionPane.showMessageDialog(null, "deu merda "+mes);
         JOptionPane.showMessageDialog(null, "deu merda "+dia);
-        */
+         */
         conex.conexao();
         conex.executaSQL("select sum(valor) as soma from transacao where id_user = '" + id + "' and mes = '" + mes + "' and dia <= '" + dia + "' and tipo ='Despesa'");
-        
+
+        try {
+            conex.rs.first();
+
+            return conex.rs.getInt("soma");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "deu merda");
+        }
+        conex.desconecta();
+        return 0;
+    }
+    
+    public int somarDespesasTodas(int id, int mes, int dia) {
+        /*
+        JOptionPane.showMessageDialog(null, "deu merda "+id);
+        JOptionPane.showMessageDialog(null, "deu merda "+mes);
+        JOptionPane.showMessageDialog(null, "deu merda "+dia);
+         */
+        conex.conexao();
+        conex.executaSQL("select sum(valor) as soma from transacao where id_user = '" + id + "' and mes <= '" + mes + "' and tipo ='Despesa'");
+
         try {
             conex.rs.first();
 
@@ -104,7 +123,7 @@ public class DaoDespesa {
 
         conex.conexao();
         try {
-            PreparedStatement pst = conex.con.prepareStatement("delete from despesas where id_user = ?");
+            PreparedStatement pst = conex.con.prepareStatement("delete from despesas where id_user_despesa = ?");
             pst.setInt(1, mod.getId());
             pst.execute();
 
@@ -115,33 +134,31 @@ public class DaoDespesa {
         conex.desconecta();
 
     }
-    
+
     public BeansDespesas buscarDespesa(BeansDespesas mod) {
         conex.conexao();
 
-        conex.executaSQL("select *from despesas where id_transacaod = '"+mod.getPesquisa()+"'");
+        conex.executaSQL("select *from despesas where id_transacaod = '" + mod.getPesquisa() + "'");
         try {
             conex.rs.first();
-          
+
             mod.setForma_pagamento(conex.rs.getString("forma_pagamento"));
-           mod.setStatus(conex.rs.getString("status"));
-           mod.setDescricao(conex.rs.getString("descricao"));
-         
-           
-            
+            mod.setStatus(conex.rs.getString("status"));
+            mod.setDescricao(conex.rs.getString("descricao"));
+
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Categoria não encontrada!" );
+            JOptionPane.showMessageDialog(null, "Categoria não encontrada!");
         }
 
         conex.desconecta();
         return mod;
     }
-    
+
     public void excluirDespesa(int id) {
 
         conex.conexao();
         try {
-            PreparedStatement pst = conex.con.prepareStatement("delete from despesas where id_transacaod = '"+id+"'");
+            PreparedStatement pst = conex.con.prepareStatement("delete from despesas where id_transacaod = '" + id + "'");
 
             pst.execute();
 
@@ -151,5 +168,28 @@ public class DaoDespesa {
         }
         conex.desconecta();
 
+    }
+
+    //Edita a receita de acordo com o id_transacao
+    public void editarDespesa(BeansDespesas mod) {
+        conex.conexao();
+        try {
+            PreparedStatement pst = conex.con.prepareStatement("update despesas set  "
+                    + " forma_pagamento= ?,  status = ?, descricao = ?  where id_transacaod = ?");
+
+            pst.setString(1, mod.getForma_pagamento());
+
+            pst.setString(2, mod.getStatus());
+            pst.setString(3, mod.getDescricao());
+
+            pst.setInt(4, mod.getId());
+
+            pst.execute();
+
+            JOptionPane.showMessageDialog(null, "Transacao atualizada!");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erros ao atualizar: " + ex.getMessage());
+        }
+        conex.desconecta();
     }
 }

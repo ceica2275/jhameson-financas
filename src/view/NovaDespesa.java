@@ -380,7 +380,7 @@ public class NovaDespesa extends javax.swing.JFrame {
             int id = dao_transacao.retornaUltima();
 
             beans_despesa.setId_transacao(id);
-
+            beans_despesa.setId_user_despesa(Integer.parseInt(jLabelCOD.getText()));
             beans_transacao.setValor(Double.parseDouble(jTextFieldValor.getText()));
             beans_transacao.setCategoria((String) jComboBoxCategoria.getSelectedItem());
 

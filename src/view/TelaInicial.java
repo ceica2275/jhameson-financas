@@ -43,14 +43,8 @@ public class TelaInicial extends javax.swing.JFrame {
 
         conecta.conexao();
         jLabelCOD.setText(""+id_Tela);
-
+        //apaga transaçoes invalidas
         dao_transacao.apagaInvalidos();
-        
-        //pesquisa no banco pelo nome do id_Tela para ´preencher as tabelas
-        
-        //JOptionPane.showMessageDialog(null, "deu merda telaaaa "+id_Tela);
-            
-       
 
         //linhas resposaveis por chamar o metodo de exibir a data na tela inicial
         String dataCompleta = exd.dataCompleta();
@@ -63,26 +57,21 @@ public class TelaInicial extends javax.swing.JFrame {
         //retorna o dia atual
         String datadia = exd.datadia();
        int datadiaInt = Integer.parseInt(datadia);
-        
-      
-        /*
-       SELECT tipo,valor, dia, mes, ano, categoria
-FROM transacao
-INNER JOIN receitas
-ON transacao.id_transacao = receitas.id_transacao where id_user = 20;
-       */
-       
-
+    
         //mostra a soma das receitas do mes
-        int somaReceitas = mod_receita.somarReceitas(id_Tela,datamesInt,datadiaInt);
+        int somaReceitas = mod_receita.somarReceitasMes(id_Tela,datamesInt,datadiaInt);
         jLabelReceitas.setText(""+somaReceitas);
         
          //mostra a soma das despesas do mes
-        int somaDespesas = mod_despesa.somarDespesas(id_Tela,datamesInt,datadiaInt);
+        int somaDespesas = mod_despesa.somarDespesasMes(id_Tela,datamesInt,datadiaInt);
         jLabelDespesas.setText(""+somaDespesas);
         
         //mostra o dinheiro em posse
-        jLabelPosse.setText("" + (somaReceitas - somaDespesas));
+        int todasReceitas = mod_receita.somarReceitasTodas(id_Tela,datamesInt,datadiaInt);
+        int todasDespesas = mod_despesa.somarDespesasTodas(id_Tela,datamesInt,datadiaInt);
+        
+        
+        jLabelPosse.setText(""+(todasReceitas - todasDespesas));
         
         preencherTabelaReceita("select valor, tipo, categoria, dia from transacao "
                 + "full join despesas on transacao.id_transacao = despesas.id_transacaod "
@@ -585,12 +574,12 @@ ON transacao.id_transacao = receitas.id_transacao where id_user = 20;
         jTableReceitas.getColumnModel().getColumn(0).setPreferredWidth(93);
         jTableReceitas.getColumnModel().getColumn(0).setResizable(false);
 
-        jTableReceitas.getColumnModel().getColumn(1).setPreferredWidth(180);
+        jTableReceitas.getColumnModel().getColumn(1).setPreferredWidth(100);
         jTableReceitas.getColumnModel().getColumn(1).setResizable(false);
 
         jTableReceitas.getColumnModel().getColumn(2).setPreferredWidth(90);
         jTableReceitas.getColumnModel().getColumn(2).setResizable(false);
-        jTableReceitas.getColumnModel().getColumn(2).setPreferredWidth(90);
+        jTableReceitas.getColumnModel().getColumn(2).setPreferredWidth(40);
         jTableReceitas.getColumnModel().getColumn(2).setResizable(false);
        
         

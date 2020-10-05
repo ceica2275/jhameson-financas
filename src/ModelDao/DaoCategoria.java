@@ -5,6 +5,7 @@
  */
 package ModelDao;
 import ModelBeans.BeansCategoria;
+import ModelBeans.BeansUsuario;
 
 import java.sql.*;
 
@@ -69,6 +70,22 @@ public class DaoCategoria {
             JOptionPane.showMessageDialog(null, "Categoria excluida com Sucesso");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erros ao excluir: " + ex.getMessage());
+        }
+        conex.desconecta();
+
+    }
+     
+      public void excluirTodasCategorias(BeansUsuario mod) {
+
+        conex.conexao();
+        try {
+            PreparedStatement pst = conex.con.prepareStatement("delete from categorias where id_user = ?");
+            pst.setInt(1, mod.getId());
+            pst.execute();
+
+            //JOptionPane.showMessageDialog(null, "Usuário excluido com Sucesso");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erros ao excluir catgs: " + ex.getMessage());
         }
         conex.desconecta();
 

@@ -14,8 +14,22 @@ import java.util.Date;
 public class BeansReceita extends BeansTransacao{
     
     private int id_transacao;
+    private int id_user_receita;
+
     
-    private String categoria;
+    
+    
+    
+    
+    public int getId_user_receita() {
+        return id_user_receita;
+    }
+
+    public void setId_user_receita(int id_user_receita) {
+        this.id_user_receita = id_user_receita;
+    }
+    
+   
 
     public int getId_transacao() {
         return id_transacao;
@@ -25,13 +39,7 @@ public class BeansReceita extends BeansTransacao{
         this.id_transacao = id_transacao;
     }
 
-    public String getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
-    }
+   
    
     
    

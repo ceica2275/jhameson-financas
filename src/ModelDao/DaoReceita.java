@@ -27,10 +27,10 @@ public class DaoReceita {
     public void Salvar(BeansReceita mod) {
         conex.conexao();
         try {
-            PreparedStatement pst = conex.con.prepareStatement("insert into receitas(id_transacaor) values (?)");
+            PreparedStatement pst = conex.con.prepareStatement("insert into receitas(id_transacaor, id_user_receita) values (?,?)");
 
             pst.setInt(1, mod.getId_transacao());
-
+            pst.setInt(2, mod.getId_user_receita());
 
             pst.execute();
 
@@ -60,9 +60,9 @@ public class DaoReceita {
     }
 
     //metodo para somar o valor em receitas
-    public int somarReceitas(int id, int mes, int dia) {
+    public int somarReceitasMes(int id, int mes, int dia) {
         conex.conexao();
-        conex.executaSQL("select sum(valor) as soma from transacao where id_user = '" + id + "' and mes = '" + mes + "' and dia <= '" + dia + "' and tipo = 'Receita'");
+        conex.executaSQL("select sum(valor) as soma from transacao where id_user = '" + id + "' and mes = '" + mes + "' and tipo = 'Receita'");
 
         try {
             conex.rs.first();
@@ -70,6 +70,26 @@ public class DaoReceita {
             // JOptionPane.showMessageDialog(null, "mes "+mes);
             //JOptionPane.showMessageDialog(null, "dia "+dia);
             //JOptionPane.showMessageDialog(null, "deu merda "+conex.rs.getInt("soma"));
+            return conex.rs.getInt("soma");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "deu merda");
+        }
+        conex.desconecta();
+        return 0;
+    }
+    
+    public int somarReceitasTodas(int id, int mes, int dia) {
+         //JOptionPane.showMessageDialog(null, "deu merda aqui");
+        conex.conexao();
+        conex.executaSQL("select sum(valor) as soma from transacao where id_user = '" + id + "' and tipo = 'Receita'");
+
+        try {
+            conex.rs.first();
+            //JOptionPane.showMessageDialog(null, "id "+id);
+            // JOptionPane.showMessageDialog(null, "mes "+mes);
+            //JOptionPane.showMessageDialog(null, "dia "+dia);
+            //JOptionPane.showMessageDialog(null, "deu merda "+conex.rs.getInt("soma"));
+           // JOptionPane.showMessageDialog(null, "deu merda "+conex.rs.getInt("soma"));
             return conex.rs.getInt("soma");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "deu merda");
@@ -82,7 +102,7 @@ public class DaoReceita {
 
         conex.conexao();
         try {
-            PreparedStatement pst = conex.con.prepareStatement("delete from receitas where id_user = ?");
+            PreparedStatement pst = conex.con.prepareStatement("delete from receitas where id_user_receita = ?");
             pst.setInt(1, mod.getId());
             pst.execute();
 
@@ -93,12 +113,12 @@ public class DaoReceita {
         conex.desconecta();
 
     }
-    
+
     public void excluirReceita(int id) {
 
         conex.conexao();
         try {
-            PreparedStatement pst = conex.con.prepareStatement("delete from receitas where id_transacaor = '"+id+"'");
+            PreparedStatement pst = conex.con.prepareStatement("delete from receitas where id_transacaor = '" + id + "'");
 
             pst.execute();
 
@@ -109,5 +129,6 @@ public class DaoReceita {
         conex.desconecta();
 
     }
+    
 
 }

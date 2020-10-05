@@ -9,6 +9,7 @@ import ModelBeans.BeansReceita;
 import ModelBeans.BeansTransacao;
 
 import ModelBeans.BeansUsuario;
+import ModelBeans.ExibeData;
 import ModelConnection.Connection_BD;
 import ModelDao.DaoReceita;
 import ModelDao.DaoTransacao;
@@ -36,12 +37,10 @@ public class NovaReceita extends javax.swing.JFrame {
     //BeansUsuario mod_user = new BeansUsuario();
     //DaoUser dao_user = new DaoUser();
     DaoReceita dao_receita = new DaoReceita();
-
+    ExibeData exd = new ExibeData();
     DaoTransacao dao_transacao = new DaoTransacao();
     BeansTransacao beans_transacao = new BeansTransacao();
     Connection_BD conex = new Connection_BD();
-
-    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyy");
 
     ///////////////////////////////////////////
     public NovaReceita(int user) {
@@ -341,26 +340,61 @@ public class NovaReceita extends javax.swing.JFrame {
                 || jTextFieldAno.getText().isEmpty() || jComboBoxCategoria.getSelectedItem() == null) {
             JOptionPane.showMessageDialog(rootPane, "Preencha todos os campos");
         } else {
-            int id = dao_transacao.retornaUltima();
 
-            beans_receita.setId_transacao(id);
+            int mes = Integer.valueOf(exd.dataMes());
+            int dia = Integer.valueOf(exd.datadia());
 
-            beans_transacao.setValor(Double.parseDouble(jTextFieldValor.getText()));
-            beans_transacao.setCategoria((String) jComboBoxCategoria.getSelectedItem());
-            beans_transacao.setDia(Integer.parseInt(jTextFieldValorDia.getText()));
-            beans_transacao.setMes(Integer.parseInt(jTextFieldMes.getText()));
-            beans_transacao.setAno(Integer.parseInt(jTextFieldAno.getText()));
+            //JOptionPane.showMessageDialog(rootPane, " "+mes+" "+dia);
+            if ((mes < Integer.parseInt(jTextFieldMes.getText()))
+                    || (mes == Integer.parseInt(jTextFieldMes.getText()) && dia < Integer.parseInt(jTextFieldValorDia.getText()))) {
 
-            dao_transacao.SalvarAtualizando(beans_transacao, id);
+                int confirma = 0;
+                confirma = JOptionPane.showConfirmDialog(rootPane, "A data inserida corresponde a uma data FUTURA!\n Se inserí-la, o valor"
+                        + " correspondente da receita irá ser contabilizado como já obtido!\n"
+                        + "Clique em \"Cancelar\" ou em \"Não\" para alterar a data\n ou em \"Simr\" para continuar");
 
-            dao_receita.Salvar(beans_receita);
+                if (confirma == JOptionPane.YES_OPTION) {
+                    int id = dao_transacao.retornaUltima();
 
-            TelaInicial tela = new TelaInicial(Integer.parseInt(jLabelCOD.getText()));
-            tela.setVisible(true);
-            dispose();
+                    beans_receita.setId_transacao(id);
+
+                    beans_receita.setId_user_receita(Integer.parseInt(jLabelCOD.getText()));
+
+                    beans_transacao.setValor(Double.parseDouble(jTextFieldValor.getText()));
+                    beans_transacao.setCategoria((String) jComboBoxCategoria.getSelectedItem());
+                    beans_transacao.setDia(Integer.parseInt(jTextFieldValorDia.getText()));
+                    beans_transacao.setMes(Integer.parseInt(jTextFieldMes.getText()));
+                    beans_transacao.setAno(Integer.parseInt(jTextFieldAno.getText()));
+
+                    dao_transacao.SalvarAtualizando(beans_transacao, id);
+
+                    dao_receita.Salvar(beans_receita);
+
+                    TelaInicial tela = new TelaInicial(Integer.parseInt(jLabelCOD.getText()));
+                    tela.setVisible(true);
+                    dispose();
+                }
+
+            } else {
+                int id = dao_transacao.retornaUltima();
+
+                beans_receita.setId_transacao(id);
+                beans_receita.setId_user_receita(Integer.parseInt(jLabelCOD.getText()));
+                beans_transacao.setValor(Double.parseDouble(jTextFieldValor.getText()));
+                beans_transacao.setCategoria((String) jComboBoxCategoria.getSelectedItem());
+                beans_transacao.setDia(Integer.parseInt(jTextFieldValorDia.getText()));
+                beans_transacao.setMes(Integer.parseInt(jTextFieldMes.getText()));
+                beans_transacao.setAno(Integer.parseInt(jTextFieldAno.getText()));
+
+                dao_transacao.SalvarAtualizando(beans_transacao, id);
+
+                dao_receita.Salvar(beans_receita);
+
+                TelaInicial tela = new TelaInicial(Integer.parseInt(jLabelCOD.getText()));
+                tela.setVisible(true);
+                dispose();
+            }
         }
-
-
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
@@ -378,7 +412,7 @@ public class NovaReceita extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBoxCategoriaActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-         TelaCategoria tc = new TelaCategoria(Integer.parseInt(jLabelCOD.getText()));
+        TelaCategoria tc = new TelaCategoria(Integer.parseInt(jLabelCOD.getText()));
         tc.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed

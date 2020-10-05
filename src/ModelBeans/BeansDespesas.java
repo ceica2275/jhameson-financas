@@ -3,12 +3,20 @@ package ModelBeans;
 public class BeansDespesas extends BeansTransacao{
 
     private int id_transacao;
-   
+   private int id_user_despesa;
     private String categoria;
     private String descricao;
     private String forma_pagamento;
     private String status;
     private String pesquisa;
+
+    public int getId_user_despesa() {
+        return id_user_despesa;
+    }
+
+    public void setId_user_despesa(int id_user_despesa) {
+        this.id_user_despesa = id_user_despesa;
+    }
 
     public String getPesquisa() {
         return pesquisa;

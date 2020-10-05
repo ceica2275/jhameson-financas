@@ -7,6 +7,7 @@ package ModelDao;
 
 import ModelBeans.BeansReceita;
 import ModelBeans.BeansTransacao;
+import ModelBeans.BeansUsuario;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -35,7 +36,7 @@ public class DaoTransacao {
             pst.setString(7, mod.getCategoria());
             pst.execute();
 
-            JOptionPane.showMessageDialog(null, "Transacao Cadastrado com Sucesso");
+            //JOptionPane.showMessageDialog(null, "Transacao Cadastrado com Sucesso");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erros ao cadastrar transacao: " + ex.getMessage());
         }
@@ -73,9 +74,9 @@ public class DaoTransacao {
 
             pst.execute();
 
-            JOptionPane.showMessageDialog(null, "transacao Atualizada com Sucesso");
+            //JOptionPane.showMessageDialog(null, "transacao Atualizada com Sucesso");
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "(dao_user)Erros ao atualizar: " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar transação: " + ex.getMessage());
         }
         conex.desconecta();
     }
@@ -88,9 +89,9 @@ public class DaoTransacao {
 
             pst.execute();
 
-            JOptionPane.showMessageDialog(null, "Usuário excluido com Sucesso");
+           // JOptionPane.showMessageDialog(null, "Transacoes invalidas removidas");
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "(dao_user)Erros ao excluir: " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao remover transações invalidas: " + ex.getMessage());
         }
         conex.desconecta();
 
@@ -154,5 +155,44 @@ public class DaoTransacao {
         }
         conex.desconecta();
 
+    }
+    
+    public void excluiTodasTransacoes(BeansUsuario mod) {
+
+        conex.conexao();
+        try {
+            PreparedStatement pst = conex.con.prepareStatement("delete from transacao where id_user = ?");
+            pst.setInt(1, mod.getId());
+            pst.execute();
+
+            //JOptionPane.showMessageDialog(null, "Usuário excluido com Sucesso");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erros ao excluir transacoes multi: " + ex.getMessage());
+        }
+        conex.desconecta();
+
+    }
+    
+    public void editarTransacao(BeansTransacao mod) {
+        conex.conexao();
+        try {
+            PreparedStatement pst = conex.con.prepareStatement("update transacao set  valor= ?, "
+                    + " dia = ?, mes = ?, ano = ?, categoria = ?  where id_transacao = ?");
+
+            pst.setDouble(1, mod.getValor());
+
+            pst.setInt(2, mod.getDia());
+            pst.setInt(3, mod.getMes());
+            pst.setInt(4, mod.getAno());
+            pst.setString(5, mod.getCategoria());
+            pst.setInt(6, mod.getId());
+
+            pst.execute();
+
+            JOptionPane.showMessageDialog(null, "Transacao atualizada!");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erros ao atualizar: " + ex.getMessage());
+        }
+        conex.desconecta();
     }
 }

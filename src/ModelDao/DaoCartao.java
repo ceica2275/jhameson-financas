@@ -81,7 +81,8 @@ public class DaoCartao {
     public void editarCredito(BeansCartao mod) {
         conex.conexao();
         try {
-            PreparedStatement pst = conex.con.prepareStatement("update cartao set  numero= ?,  bandeira= ?, limite= ?, valor_atual= ?, dia_fechamento = ?  where id_cartao = ?");
+            PreparedStatement pst = conex.con.prepareStatement("update cartao set  "
+                    + "numero= ?,  bandeira= ?, limite= ?, valor_atual= ?, dia_fechamento = ?  where id_cartao = ?");
 
             pst.setString(1, mod.getNumero());
 
