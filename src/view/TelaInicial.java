@@ -75,11 +75,12 @@ public class TelaInicial extends javax.swing.JFrame {
         
         
         jLabelPosse.setText(""+(todasReceitas - todasDespesas));
-        
+        preencherComboBox();
         preencherTabelaReceita("select valor, tipo, categoria, dia from transacao "
                 + "full join despesas on transacao.id_transacao = despesas.id_transacaod "
                 + "full join receitas on transacao.id_transacao = receitas.id_transacaor where id_user = '"+id_Tela+"'");
          
+   
     }
 
     private TelaInicial() {
@@ -116,7 +117,7 @@ public class TelaInicial extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBoxApelidos = new javax.swing.JComboBox<>();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel6 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -274,11 +275,11 @@ public class TelaInicial extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(51, 51, 51));
         jLabel4.setText("Informações rápidas de cartões em uso:");
 
-        jComboBox1.setBackground(new java.awt.Color(204, 0, 204));
-        jComboBox1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jComboBox1.setFocusable(false);
+        jComboBoxApelidos.setBackground(new java.awt.Color(204, 0, 204));
+        jComboBoxApelidos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jComboBoxApelidos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxApelidos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jComboBoxApelidos.setFocusable(false);
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(51, 51, 51));
@@ -333,7 +334,7 @@ public class TelaInicial extends javax.swing.JFrame {
                                     .addComponent(jLabelPosse)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jComboBoxApelidos, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jSeparator1)
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(jLabel4)
@@ -379,7 +380,7 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jComboBoxApelidos, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -649,6 +650,21 @@ public class TelaInicial extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
+    public void preencherComboBox() {
+        conecta.conexao();
+        conecta.executaSQL("select apelido from cartao where id_user = '" + jLabelCOD.getText() + "'");
+        try {
+            conecta.rs.first();
+            jComboBoxApelidos.removeAllItems();
+            do {
+                jComboBoxApelidos.addItem(conecta.rs.getString("apelido"));
+            } while (conecta.rs.next());
+        } catch (SQLException ex) {
+            // JOptionPane.showMessageDialog(null, "Erros ao preencher box: " + ex.getMessage());
+        }
+       
+    }
+    
     public void preencherTabelaReceita(String Sql) {
 
         ArrayList dados = new ArrayList();
@@ -732,7 +748,7 @@ public class TelaInicial extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonDespesas;
     private javax.swing.JButton jButtonReceitas;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBoxApelidos;
     private javax.swing.JLabel jLabel00;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

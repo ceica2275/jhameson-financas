@@ -47,6 +47,23 @@ public class DaoUser {
         }
         conex.desconecta();
     }
+    
+    public int retornaUltimo() {
+        conex.conexao();
+
+        conex.executaSQL("select user_id from usuario where user_id = (select max(user_id ) from usuario)");
+        try {
+            conex.rs.first();
+            mod.setId(conex.rs.getInt("user_id "));
+            return mod.getId();
+
+        } catch (SQLException ex) {
+           // JOptionPane.showMessageDialog(null, "Erro ao encontrar ID_Transa: " + ex);
+        }
+
+        conex.desconecta();
+        return mod.getId();
+    }
 
     public void editar(BeansUsuario mod) {
         conex.conexao();

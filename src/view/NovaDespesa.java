@@ -73,8 +73,6 @@ public class NovaDespesa extends javax.swing.JFrame {
         jTextFieldValor = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jTextFieldMes = new javax.swing.JTextField();
-        jTextFieldAno = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jComboBoxCategoria = new javax.swing.JComboBox<>();
@@ -85,6 +83,8 @@ public class NovaDespesa extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jTextFieldDescricao = new javax.swing.JTextField();
         jFormattedTextFieldDia = new javax.swing.JFormattedTextField();
+        jFormattedTextFieldMes = new javax.swing.JFormattedTextField();
+        jFormattedTextFieldAno = new javax.swing.JFormattedTextField();
 
         jButton3.setText("jButton3");
 
@@ -154,10 +154,6 @@ public class NovaDespesa extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel7.setText("Mês:");
 
-        jTextFieldMes.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-
-        jTextFieldAno.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel8.setText("Ano:");
 
@@ -211,6 +207,44 @@ public class NovaDespesa extends javax.swing.JFrame {
             }
         });
 
+        try {
+            jFormattedTextFieldMes.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jFormattedTextFieldMes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jFormattedTextFieldMesActionPerformed(evt);
+            }
+        });
+        jFormattedTextFieldMes.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jFormattedTextFieldMesKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jFormattedTextFieldMesKeyTyped(evt);
+            }
+        });
+
+        try {
+            jFormattedTextFieldAno.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jFormattedTextFieldAno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jFormattedTextFieldAnoActionPerformed(evt);
+            }
+        });
+        jFormattedTextFieldAno.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jFormattedTextFieldAnoKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jFormattedTextFieldAnoKeyTyped(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -229,26 +263,27 @@ public class NovaDespesa extends javax.swing.JFrame {
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addComponent(jTextFieldValor, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jFormattedTextFieldDia, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(13, 13, 13)
-                                        .addComponent(jTextFieldMes, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
                                         .addComponent(jLabel2)
                                         .addGap(118, 118, 118)
                                         .addComponent(jLabel4)
                                         .addGap(34, 34, 34)
-                                        .addComponent(jLabel7)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jLabel7))
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addComponent(jTextFieldValor, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jFormattedTextFieldDia, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jFormattedTextFieldMes, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(16, 16, 16)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(jPanel3Layout.createSequentialGroup()
                                         .addComponent(jLabel8)
                                         .addGap(82, 82, 82)
                                         .addComponent(jLabel3))
                                     .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addComponent(jTextFieldAno, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
+                                        .addGap(2, 2, 2)
+                                        .addComponent(jFormattedTextFieldAno, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(26, 26, 26)
                                         .addComponent(jComboBoxPagamento, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabel1)
@@ -256,7 +291,7 @@ public class NovaDespesa extends javax.swing.JFrame {
                                 .addComponent(jLabel6)
                                 .addGap(62, 62, 62)
                                 .addComponent(jLabel5)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 31, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -272,10 +307,10 @@ public class NovaDespesa extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldValor, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldMes, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldAno, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBoxPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jFormattedTextFieldDia, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jFormattedTextFieldDia, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jFormattedTextFieldMes, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jFormattedTextFieldAno, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -365,7 +400,7 @@ public class NovaDespesa extends javax.swing.JFrame {
                 jComboBoxCategoria.addItem(conex.rs.getString("nome"));
             } while (conex.rs.next());
         } catch (SQLException ex) {
-           // JOptionPane.showMessageDialog(null, "Erros ao preencher box: " + ex.getMessage());
+            // JOptionPane.showMessageDialog(null, "Erros ao preencher box: " + ex.getMessage());
         }
         conex.desconecta();
     }
@@ -376,8 +411,8 @@ public class NovaDespesa extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
-        if (jTextFieldValor.getText().isEmpty() || jFormattedTextFieldDia.getText().isEmpty() || jTextFieldMes.getText().isEmpty()
-                || jTextFieldAno.getText().isEmpty() || jComboBoxPagamento.getSelectedItem() == null
+        if (jTextFieldValor.getText().isEmpty() || jFormattedTextFieldDia.getText().isEmpty() || jFormattedTextFieldMes.getText().isEmpty()
+                || jFormattedTextFieldAno.getText().isEmpty() || jComboBoxPagamento.getSelectedItem() == null
                 || jComboBoxCategoria.getSelectedItem() == null || jComboBoxStatus.getSelectedItem() == null) {
             JOptionPane.showMessageDialog(rootPane, "Preencha todos os campos");
         } else {
@@ -394,11 +429,11 @@ public class NovaDespesa extends javax.swing.JFrame {
             beans_despesa.setStatus((String) jComboBoxStatus.getSelectedItem());
 
             beans_transacao.setDia(Integer.parseInt(jFormattedTextFieldDia.getText()));
-            beans_transacao.setMes(Integer.parseInt(jTextFieldMes.getText()));
-            beans_transacao.setAno(Integer.parseInt(jTextFieldAno.getText()));
+            beans_transacao.setMes(Integer.parseInt(jFormattedTextFieldMes.getText()));
+            beans_transacao.setAno(Integer.parseInt(jFormattedTextFieldAno.getText()));
 
             dao_transacao.SalvarAtualizando(beans_transacao, id);
-           // JOptionPane.showMessageDialog(rootPane, "aqui 1");
+            // JOptionPane.showMessageDialog(rootPane, "aqui 1");
             dao_despesa.Salvar(beans_despesa);
 
             TelaInicial tela = new TelaInicial(Integer.parseInt(jLabelCOD.getText()));
@@ -434,8 +469,7 @@ public class NovaDespesa extends javax.swing.JFrame {
 
     private void jFormattedTextFieldDiaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFormattedTextFieldDiaKeyTyped
         String caracteres = "0987654321";
-       
-        
+
         if (!caracteres.contains(evt.getKeyChar() + "")) {
             evt.consume();
         }
@@ -444,6 +478,39 @@ public class NovaDespesa extends javax.swing.JFrame {
     private void jFormattedTextFieldDiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextFieldDiaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jFormattedTextFieldDiaActionPerformed
+
+    private void jFormattedTextFieldMesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextFieldMesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jFormattedTextFieldMesActionPerformed
+
+    private void jFormattedTextFieldMesKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFormattedTextFieldMesKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jFormattedTextFieldMesKeyPressed
+
+    private void jFormattedTextFieldMesKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFormattedTextFieldMesKeyTyped
+        String caracteres = "0987654321";
+
+        if (!caracteres.contains(evt.getKeyChar() + "")) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_jFormattedTextFieldMesKeyTyped
+
+    private void jFormattedTextFieldAnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextFieldAnoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jFormattedTextFieldAnoActionPerformed
+
+    private void jFormattedTextFieldAnoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFormattedTextFieldAnoKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jFormattedTextFieldAnoKeyPressed
+
+    private void jFormattedTextFieldAnoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFormattedTextFieldAnoKeyTyped
+        String caracteres = "0987654321";
+       
+        
+        if (!caracteres.contains(evt.getKeyChar() + "")) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_jFormattedTextFieldAnoKeyTyped
 
     /**
      * @param args the command line arguments
@@ -489,7 +556,9 @@ public class NovaDespesa extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBoxCategoria;
     private javax.swing.JComboBox<String> jComboBoxPagamento;
     private javax.swing.JComboBox<String> jComboBoxStatus;
+    private javax.swing.JFormattedTextField jFormattedTextFieldAno;
     private javax.swing.JFormattedTextField jFormattedTextFieldDia;
+    private javax.swing.JFormattedTextField jFormattedTextFieldMes;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -502,9 +571,7 @@ public class NovaDespesa extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JTextField jTextFieldAno;
     private javax.swing.JTextField jTextFieldDescricao;
-    private javax.swing.JTextField jTextFieldMes;
     private javax.swing.JTextField jTextFieldValor;
     // End of variables declaration//GEN-END:variables
 }

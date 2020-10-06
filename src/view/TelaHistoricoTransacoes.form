@@ -219,22 +219,19 @@
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Component id="jRadioButtonTransacaoMes" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="32767" attributes="0"/>
-                                      <Component id="jRadioButtonReceitas" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jRadioButtonreceitas" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="jComboBoxCategoriaPesquisa" min="-2" pref="172" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Component id="jButtonPesquisarCategoria" min="-2" pref="120" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
                                       <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
                                       <Component id="jRadioButtonDespesas" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-                                      <Component id="jRadioButtonOrdenValor" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="161" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="1" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
@@ -244,10 +241,7 @@
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jRadioButtonOrdemDia" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jButtonPesquisar" min="-2" pref="120" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="jButtonPesquisar" min="-2" pref="120" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
@@ -260,20 +254,20 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jButtonPesquisar" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                          <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jFormattedTextFieldPesquisa" alignment="1" pref="30" max="32767" attributes="0"/>
-                          <Component id="jComboBoxCategoriaPesquisa" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                          <Component id="jButtonPesquisarCategoria" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jButtonPesquisar" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jComboBoxCategoriaPesquisa" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="jButtonPesquisarCategoria" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jRadioButtonTransacaoMes" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jRadioButtonReceitas" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jRadioButtonreceitas" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jRadioButtonDespesas" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jRadioButtonOrdenValor" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jRadioButtonOrdemDia" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jRadioButtonTodas" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -886,7 +880,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonTransacaoMesActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JRadioButton" name="jRadioButtonReceitas">
+            <Component class="javax.swing.JRadioButton" name="jRadioButtonreceitas">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="f4" green="e7" red="f0" type="rgb"/>
@@ -901,7 +895,7 @@
                 <Property name="focusPainted" type="boolean" value="false"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonReceitasActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonreceitasActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JRadioButton" name="jRadioButtonDespesas">
@@ -920,42 +914,6 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonDespesasActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JRadioButton" name="jRadioButtonOrdenValor">
-              <Properties>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="f4" green="e7" red="f0" type="rgb"/>
-                </Property>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="12" style="0"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Ordenar por valor"/>
-                <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                  <Color id="Hand Cursor"/>
-                </Property>
-                <Property name="focusPainted" type="boolean" value="false"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonOrdenValorActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JRadioButton" name="jRadioButtonOrdemDia">
-              <Properties>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="f4" green="e7" red="f0" type="rgb"/>
-                </Property>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="12" style="0"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Ordenar por dia"/>
-                <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                  <Color id="Hand Cursor"/>
-                </Property>
-                <Property name="focusPainted" type="boolean" value="false"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonOrdemDiaActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JRadioButton" name="jRadioButtonTodas">

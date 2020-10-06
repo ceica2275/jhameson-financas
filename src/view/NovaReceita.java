@@ -87,13 +87,13 @@ public class NovaReceita extends javax.swing.JFrame {
         jComboBoxCategoria = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextFieldValor = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jTextFieldValorDia = new javax.swing.JTextField();
-        jTextFieldMes = new javax.swing.JTextField();
-        jTextFieldAno = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        jFormattedTextFieldValor = new javax.swing.JFormattedTextField();
+        jFormattedTextFieldDia = new javax.swing.JFormattedTextField();
+        jFormattedTextFieldMes = new javax.swing.JFormattedTextField();
+        jFormattedTextFieldAno = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(600, 300));
@@ -170,32 +170,54 @@ public class NovaReceita extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(51, 51, 51));
         jLabel3.setText("Dia:");
 
-        jTextFieldValor.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextFieldValor.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(255, 255, 255), java.awt.Color.gray));
-
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(51, 51, 51));
         jLabel1.setText("Valor:");
-
-        jTextFieldValorDia.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextFieldValorDia.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(255, 255, 255), java.awt.Color.gray));
-        jTextFieldValorDia.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldValorDiaActionPerformed(evt);
-            }
-        });
-
-        jTextFieldMes.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextFieldMes.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(255, 255, 255), java.awt.Color.gray));
-
-        jTextFieldAno.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextFieldAno.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(255, 255, 255), java.awt.Color.gray));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel6.setText("Mês:");
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel7.setText("Ano:");
+
+        jFormattedTextFieldValor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jFormattedTextFieldValorKeyTyped(evt);
+            }
+        });
+
+        try {
+            jFormattedTextFieldDia.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jFormattedTextFieldDia.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jFormattedTextFieldDiaKeyTyped(evt);
+            }
+        });
+
+        try {
+            jFormattedTextFieldMes.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jFormattedTextFieldMes.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jFormattedTextFieldMesKeyTyped(evt);
+            }
+        });
+
+        try {
+            jFormattedTextFieldAno.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jFormattedTextFieldAno.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jFormattedTextFieldAnoKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -206,25 +228,24 @@ public class NovaReceita extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jTextFieldValor))
-                        .addGap(28, 28, 28)
+                            .addComponent(jLabel1)
+                            .addComponent(jFormattedTextFieldValor, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextFieldValorDia, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
-                        .addGap(18, 18, 18)
+                            .addComponent(jLabel3)
+                            .addComponent(jFormattedTextFieldDia, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jTextFieldMes, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(22, 22, 22)
-                                .addComponent(jTextFieldAno, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(20, 20, 20)
+                                .addComponent(jLabel6))
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addGap(77, 77, 77)
-                                .addComponent(jLabel7)))
-                        .addGap(61, 61, 61))
+                                .addGap(18, 18, 18)
+                                .addComponent(jFormattedTextFieldMes, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(32, 32, 32)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
+                            .addComponent(jFormattedTextFieldAno, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(57, 57, 57))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jComboBoxCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -243,16 +264,19 @@ public class NovaReceita extends javax.swing.JFrame {
                         .addComponent(jLabel6)
                         .addComponent(jLabel7)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldValor, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldValorDia, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldMes, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldAno, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jFormattedTextFieldMes, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jFormattedTextFieldAno, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 1, Short.MAX_VALUE))
+                    .addComponent(jFormattedTextFieldValor)
+                    .addComponent(jFormattedTextFieldDia))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jComboBoxCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(22, 22, 22))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -279,7 +303,7 @@ public class NovaReceita extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -338,8 +362,8 @@ public class NovaReceita extends javax.swing.JFrame {
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
 
-        if (jTextFieldValor.getText().isEmpty() || jTextFieldValorDia.getText().isEmpty() || jTextFieldMes.getText().isEmpty()
-                || jTextFieldAno.getText().isEmpty() || jComboBoxCategoria.getSelectedItem() == null) {
+        if (jFormattedTextFieldValor.getText().isEmpty() || jFormattedTextFieldDia.getText().isEmpty() || jFormattedTextFieldMes.getText().isEmpty()
+                || jFormattedTextFieldAno.getText().isEmpty() || jComboBoxCategoria.getSelectedItem() == null) {
             JOptionPane.showMessageDialog(rootPane, "Preencha todos os campos");
         } else {
 
@@ -347,8 +371,8 @@ public class NovaReceita extends javax.swing.JFrame {
             int dia = Integer.valueOf(exd.datadia());
 
             //JOptionPane.showMessageDialog(rootPane, " "+mes+" "+dia);
-            if ((mes < Integer.parseInt(jTextFieldMes.getText()))
-                    || (mes == Integer.parseInt(jTextFieldMes.getText()) && dia < Integer.parseInt(jTextFieldValorDia.getText()))) {
+            if ((mes < Integer.parseInt(jFormattedTextFieldMes.getText()))
+                    || (mes == Integer.parseInt(jFormattedTextFieldMes.getText()) && dia < Integer.parseInt(jFormattedTextFieldDia.getText()))) {
 
                 int confirma = 0;
                 confirma = JOptionPane.showConfirmDialog(rootPane, "A data inserida corresponde a uma data FUTURA!\n Se inserí-la, o valor"
@@ -362,11 +386,11 @@ public class NovaReceita extends javax.swing.JFrame {
 
                     beans_receita.setId_user_receita(Integer.parseInt(jLabelCOD.getText()));
 
-                    beans_transacao.setValor(Double.parseDouble(jTextFieldValor.getText()));
+                    beans_transacao.setValor(Double.parseDouble(jFormattedTextFieldValor.getText()));
                     beans_transacao.setCategoria((String) jComboBoxCategoria.getSelectedItem());
-                    beans_transacao.setDia(Integer.parseInt(jTextFieldValorDia.getText()));
-                    beans_transacao.setMes(Integer.parseInt(jTextFieldMes.getText()));
-                    beans_transacao.setAno(Integer.parseInt(jTextFieldAno.getText()));
+                    beans_transacao.setDia(Integer.parseInt(jFormattedTextFieldDia.getText()));
+                    beans_transacao.setMes(Integer.parseInt(jFormattedTextFieldMes.getText()));
+                    beans_transacao.setAno(Integer.parseInt(jFormattedTextFieldAno.getText()));
 
                     dao_transacao.SalvarAtualizando(beans_transacao, id);
 
@@ -382,11 +406,11 @@ public class NovaReceita extends javax.swing.JFrame {
 
                 beans_receita.setId_transacao(id);
                 beans_receita.setId_user_receita(Integer.parseInt(jLabelCOD.getText()));
-                beans_transacao.setValor(Double.parseDouble(jTextFieldValor.getText()));
+                beans_transacao.setValor(Double.parseDouble(jFormattedTextFieldValor.getText()));
                 beans_transacao.setCategoria((String) jComboBoxCategoria.getSelectedItem());
-                beans_transacao.setDia(Integer.parseInt(jTextFieldValorDia.getText()));
-                beans_transacao.setMes(Integer.parseInt(jTextFieldMes.getText()));
-                beans_transacao.setAno(Integer.parseInt(jTextFieldAno.getText()));
+                beans_transacao.setDia(Integer.parseInt(jFormattedTextFieldDia.getText()));
+                beans_transacao.setMes(Integer.parseInt(jFormattedTextFieldMes.getText()));
+                beans_transacao.setAno(Integer.parseInt(jFormattedTextFieldAno.getText()));
 
                 dao_transacao.SalvarAtualizando(beans_transacao, id);
 
@@ -405,10 +429,6 @@ public class NovaReceita extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
-    private void jTextFieldValorDiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldValorDiaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldValorDiaActionPerformed
-
     private void jComboBoxCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCategoriaActionPerformed
 
     }//GEN-LAST:event_jComboBoxCategoriaActionPerformed
@@ -418,6 +438,42 @@ public class NovaReceita extends javax.swing.JFrame {
         tc.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jFormattedTextFieldValorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFormattedTextFieldValorKeyTyped
+       String caracteres = "0987654321.";
+       
+        
+        if (!caracteres.contains(evt.getKeyChar() + "")) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_jFormattedTextFieldValorKeyTyped
+
+    private void jFormattedTextFieldDiaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFormattedTextFieldDiaKeyTyped
+       String caracteres = "0987654321";
+       
+        
+        if (!caracteres.contains(evt.getKeyChar() + "")) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_jFormattedTextFieldDiaKeyTyped
+
+    private void jFormattedTextFieldMesKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFormattedTextFieldMesKeyTyped
+        String caracteres = "0987654321";
+       
+        
+        if (!caracteres.contains(evt.getKeyChar() + "")) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_jFormattedTextFieldMesKeyTyped
+
+    private void jFormattedTextFieldAnoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFormattedTextFieldAnoKeyTyped
+        String caracteres = "0987654321";
+       
+        
+        if (!caracteres.contains(evt.getKeyChar() + "")) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_jFormattedTextFieldAnoKeyTyped
 
     /**
      * @param args the command line arguments
@@ -459,6 +515,10 @@ public class NovaReceita extends javax.swing.JFrame {
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonSalvar;
     private javax.swing.JComboBox<String> jComboBoxCategoria;
+    private javax.swing.JFormattedTextField jFormattedTextFieldAno;
+    private javax.swing.JFormattedTextField jFormattedTextFieldDia;
+    private javax.swing.JFormattedTextField jFormattedTextFieldMes;
+    private javax.swing.JFormattedTextField jFormattedTextFieldValor;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -468,9 +528,5 @@ public class NovaReceita extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JTextField jTextFieldAno;
-    private javax.swing.JTextField jTextFieldMes;
-    private javax.swing.JTextField jTextFieldValor;
-    private javax.swing.JTextField jTextFieldValorDia;
     // End of variables declaration//GEN-END:variables
 }

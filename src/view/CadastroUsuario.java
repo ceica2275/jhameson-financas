@@ -8,6 +8,7 @@ package view;
 import ModelBeans.BeansUsuario;
 import ModelDao.DaoUser;
 import ModelConnection.Connection_BD;
+import ModelDao.DaoDinheiro;
 import java.awt.Image;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -33,6 +34,7 @@ public class CadastroUsuario extends javax.swing.JFrame {
     
     BeansUsuario user_mod = new BeansUsuario();
     DaoUser dao_user = new DaoUser();
+    DaoDinheiro dao_dinheiro = new DaoDinheiro();
     Connection_BD conex = new Connection_BD();
 
     int flag = 0; //usada para saber se o usuario estar salvando ou alterando
@@ -76,6 +78,7 @@ public class CadastroUsuario extends javax.swing.JFrame {
         jButtonCarregarFoto = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setFocusable(false);
         setMinimumSize(new java.awt.Dimension(600, 400));
         setResizable(false);
 
@@ -85,12 +88,12 @@ public class CadastroUsuario extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Cadastro de Novo Usuário", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 24))); // NOI18N
         jPanel2.setEnabled(false);
 
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Logo22.png"))); // NOI18N
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/logoMINIMA.png"))); // NOI18N
 
         jButtonCancelar.setBackground(new java.awt.Color(51, 0, 51));
         jButtonCancelar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButtonCancelar.setForeground(new java.awt.Color(255, 255, 255));
-        jButtonCancelar.setText("Cancelar");
+        jButtonCancelar.setText("Voltar");
         jButtonCancelar.setBorderPainted(false);
         jButtonCancelar.setFocusPainted(false);
         jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -298,7 +301,9 @@ public class CadastroUsuario extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -310,11 +315,12 @@ public class CadastroUsuario extends javax.swing.JFrame {
                             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addGap(34, 34, 34))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                 .addComponent(jButtonCarregarFoto)
-                                .addGap(38, 38, 38)))))
-                .addContainerGap())
+                                .addGap(46, 46, 46))))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -322,17 +328,17 @@ public class CadastroUsuario extends javax.swing.JFrame {
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButtonCarregarFoto)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(36, 36, 36)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButtonCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButtonNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jButtonCarregarFoto)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -424,6 +430,7 @@ public class CadastroUsuario extends javax.swing.JFrame {
                     /*
                     dao_user.Salvar(user_mod);
                     */
+                    dispose();
                     jTextFieldNome.setText("");
                     jTextFieldEmail.setText("");
                     jTextFieldUser.setText("");
@@ -438,7 +445,7 @@ public class CadastroUsuario extends javax.swing.JFrame {
 
                     jButtonCadastrar.setEnabled(false);
                     jButtonCancelar.setEnabled(false);
-                    dispose();
+                    
                 }
 
             }
@@ -455,6 +462,7 @@ public class CadastroUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldNomeActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
+       
         dispose();
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 

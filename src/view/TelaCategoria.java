@@ -45,7 +45,7 @@ public class TelaCategoria extends javax.swing.JFrame {
         //linhas resposaveis por chamar o metodo de exibir a data na tela inicial
         String dataCompleta = exd.dataCompleta();
         jLabelData.setText(dataCompleta);
-
+        preencherComboBoxnomes();
         preencherTabelaReceita("select tipo, nome from categorias where id_user = '" + id_Tela + "'");
     }
 
@@ -73,7 +73,6 @@ public class TelaCategoria extends javax.swing.JFrame {
         jComboBoxTipo = new javax.swing.JComboBox<>();
         jTextFieldNome = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTextFieldPesquisa = new javax.swing.JTextField();
         jButtonPesquisar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableCategorias = new javax.swing.JTable();
@@ -86,6 +85,10 @@ public class TelaCategoria extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabelData = new javax.swing.JLabel();
         jButtonExcluir = new javax.swing.JButton();
+        jRadioButtontodas = new javax.swing.JRadioButton();
+        jRadioButtonreceitas = new javax.swing.JRadioButton();
+        jRadioButtondespesas = new javax.swing.JRadioButton();
+        jComboBoxNomes = new javax.swing.JComboBox<>();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
@@ -145,7 +148,7 @@ public class TelaCategoria extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 465, Short.MAX_VALUE))
                     .addComponent(jTextFieldNome))
                 .addContainerGap())
         );
@@ -165,14 +168,6 @@ public class TelaCategoria extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setText("Pesquisar Categorias:");
-
-        jTextFieldPesquisa.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jTextFieldPesquisa.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jTextFieldPesquisa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldPesquisaActionPerformed(evt);
-            }
-        });
 
         jButtonPesquisar.setBackground(new java.awt.Color(51, 0, 51));
         jButtonPesquisar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -280,6 +275,29 @@ public class TelaCategoria extends javax.swing.JFrame {
             }
         });
 
+        jRadioButtontodas.setText("Todas");
+        jRadioButtontodas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtontodasActionPerformed(evt);
+            }
+        });
+
+        jRadioButtonreceitas.setText("Receitas");
+        jRadioButtonreceitas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonreceitasActionPerformed(evt);
+            }
+        });
+
+        jRadioButtondespesas.setText("Despesas");
+        jRadioButtondespesas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtondespesasActionPerformed(evt);
+            }
+        });
+
+        jComboBoxNomes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Despesa", "Receita" }));
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -290,11 +308,16 @@ public class TelaCategoria extends javax.swing.JFrame {
                     .addComponent(jScrollPane1)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(154, 154, 154)
+                        .addComponent(jRadioButtontodas)
+                        .addGap(10, 10, 10)
+                        .addComponent(jRadioButtonreceitas)
+                        .addGap(8, 8, 8)
+                        .addComponent(jRadioButtondespesas)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(7, 7, 7)
+                        .addComponent(jComboBoxNomes, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButtonPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -309,7 +332,7 @@ public class TelaCategoria extends javax.swing.JFrame {
                                 .addComponent(jLabelData, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
                         .addComponent(jButtonExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                         .addComponent(jButtonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -325,8 +348,11 @@ public class TelaCategoria extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
+                    .addComponent(jLabel4)
+                    .addComponent(jRadioButtontodas)
+                    .addComponent(jRadioButtonreceitas)
+                    .addComponent(jRadioButtondespesas)
+                    .addComponent(jComboBoxNomes, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
@@ -467,16 +493,10 @@ public class TelaCategoria extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
-    private void jTextFieldPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldPesquisaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldPesquisaActionPerformed
-
     private void jButtonPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisarActionPerformed
-        if (jTextFieldPesquisa.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Digite algo a ser pesquisado!");
-        } else {
+        
             //variavel pesquisa
-            beans_categoria.setPesquisa(jTextFieldPesquisa.getText());
+            beans_categoria.setPesquisa((String) jComboBoxNomes.getSelectedItem());
             BeansCategoria model = dao_categoria.buscarCategoria(beans_categoria);
 
             //setando os campos
@@ -485,7 +505,8 @@ public class TelaCategoria extends javax.swing.JFrame {
 
             jComboBoxTipo.setEnabled(false);
             jTextFieldNome.setEnabled(false);
-            jTextFieldPesquisa.setEnabled(true);
+            jComboBoxNomes.setEnabled(true);
+            
 
             jButtonPesquisar.setEnabled(true);
             jButtonNova.setEnabled(true);
@@ -493,7 +514,7 @@ public class TelaCategoria extends javax.swing.JFrame {
             jButtonSalvar.setEnabled(false);
             jButtonCancelar.setEnabled(true);
             jButtonExcluir.setEnabled(true);
-        }
+        
 
     }//GEN-LAST:event_jButtonPesquisarActionPerformed
 
@@ -521,7 +542,7 @@ public class TelaCategoria extends javax.swing.JFrame {
             jButtonExcluir.setEnabled(false);
             jButtonEditar.setEnabled(false);
 
-            jTextFieldPesquisa.setEnabled(true);
+            jComboBoxNomes.setEnabled(true);
 
             jButtonSalvar.setEnabled(false);
         } else if (flag == 2) {
@@ -543,7 +564,7 @@ public class TelaCategoria extends javax.swing.JFrame {
             jButtonExcluir.setEnabled(false);
             jButtonEditar.setEnabled(false);
 
-            jTextFieldPesquisa.setEnabled(true);
+            jComboBoxNomes.setEnabled(true);
 
             jButtonSalvar.setEnabled(false);
         }
@@ -565,7 +586,7 @@ public class TelaCategoria extends javax.swing.JFrame {
         jComboBoxTipo.setEnabled(true);
         jTextFieldNome.setEnabled(true);
 
-        jTextFieldPesquisa.setEnabled(false);
+        jComboBoxNomes.setEnabled(false);
         jButtonPesquisar.setEnabled(false);
         jButtonNova.setEnabled(false);
         jButtonExcluir.setEnabled(false);
@@ -589,7 +610,7 @@ public class TelaCategoria extends javax.swing.JFrame {
 
         jTableCategorias.setEnabled(false);
 
-        jTextFieldPesquisa.setEnabled(false);
+        jComboBoxNomes.setEnabled(false);
         jButtonExcluir.setEnabled(false);
     }//GEN-LAST:event_jButtonNovaActionPerformed
 
@@ -605,7 +626,7 @@ public class TelaCategoria extends javax.swing.JFrame {
             jTextFieldNome.setText("");
             jTextFieldNome.setEnabled(false);
             jComboBoxTipo.setEnabled(false);
-            jTextFieldPesquisa.setEnabled(true);
+            jComboBoxNomes.setEnabled(true);
             jButtonPesquisar.setEnabled(true);
 
             jButtonNova.setEnabled(true);
@@ -647,6 +668,54 @@ public class TelaCategoria extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
+    private void jRadioButtontodasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtontodasActionPerformed
+       conecta.conexao();
+        if (jRadioButtontodas.isSelected()) {
+            jRadioButtonreceitas.setSelected(false);
+            jRadioButtondespesas.setSelected(false);
+            preencherTabelaReceita("select * from "
+                    + "categorias where id_user = '" + Integer.parseInt(jLabelCOD.getText()) + "'");
+
+        }
+    }//GEN-LAST:event_jRadioButtontodasActionPerformed
+
+    private void jRadioButtonreceitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonreceitasActionPerformed
+        conecta.conexao();
+        if (jRadioButtonreceitas.isSelected()) {
+            jRadioButtontodas.setSelected(false);
+            jRadioButtondespesas.setSelected(false);
+            preencherTabelaReceita("select * from "
+                    + "categorias where id_user = '" + Integer.parseInt(jLabelCOD.getText()) + "' and tipo = 'Receita'");
+
+        }
+    }//GEN-LAST:event_jRadioButtonreceitasActionPerformed
+
+    private void jRadioButtondespesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtondespesasActionPerformed
+        conecta.conexao();
+        if (jRadioButtondespesas.isSelected()) {
+            jRadioButtontodas.setSelected(false);
+            jRadioButtonreceitas.setSelected(false);
+            preencherTabelaReceita("select * from "
+                    + "categorias where id_user = '" + Integer.parseInt(jLabelCOD.getText()) + "' and tipo = 'Despesa'");
+
+        }
+    }//GEN-LAST:event_jRadioButtondespesasActionPerformed
+
+    public void preencherComboBoxnomes() {
+        conecta.conexao();
+        conecta.executaSQL("select nome from categorias where  id_user = '" + jLabelCOD.getText() + "'");
+        try {
+            conecta.rs.first();
+            jComboBoxNomes.removeAllItems();
+            do {
+                jComboBoxNomes.addItem(conecta.rs.getString("nome"));
+            } while (conecta.rs.next());
+        } catch (SQLException ex) {
+            // JOptionPane.showMessageDialog(null, "Erros ao preencher box: " + ex.getMessage());
+        }
+
+    }
+    
     public void preencherTabelaReceita(String Sql) {
 
         ArrayList dados = new ArrayList();
@@ -727,6 +796,7 @@ public class TelaCategoria extends javax.swing.JFrame {
     private javax.swing.JButton jButtonNova;
     private javax.swing.JButton jButtonPesquisar;
     private javax.swing.JButton jButtonSalvar;
+    private javax.swing.JComboBox<String> jComboBoxNomes;
     private javax.swing.JComboBox<String> jComboBoxTipo;
     private javax.swing.JLabel jLabel00;
     private javax.swing.JLabel jLabel1;
@@ -752,9 +822,11 @@ public class TelaCategoria extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JRadioButton jRadioButtondespesas;
+    private javax.swing.JRadioButton jRadioButtonreceitas;
+    private javax.swing.JRadioButton jRadioButtontodas;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableCategorias;
     private javax.swing.JTextField jTextFieldNome;
-    private javax.swing.JTextField jTextFieldPesquisa;
     // End of variables declaration//GEN-END:variables
 }

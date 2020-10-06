@@ -42,7 +42,7 @@ public class DaoCategoria {
      public BeansCategoria buscarCategoria(BeansCategoria mod) {
         conex.conexao();
 
-        conex.executaSQL("select *from categorias where nome like '%"+mod.getPesquisa() + "%' or tipo  like '%"+mod.getPesquisa() + "%'");
+        conex.executaSQL("select *from categorias where nome like '%"+mod.getPesquisa() + "%'");
         try {
             conex.rs.first();
            

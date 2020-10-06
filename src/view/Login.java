@@ -168,13 +168,14 @@ public class Login extends javax.swing.JFrame {
         jLabel5.setBounds(20, 70, 80, 17);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Cadastrar Novo Usuário");
         getContentPane().add(jLabel1);
         jLabel1.setBounds(90, 290, 170, 17);
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Logo200.png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/logORI.png"))); // NOI18N
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(550, 10, 200, 200);
+        jLabel2.setBounds(430, 10, 214, 160);
 
         jButton3.setBackground(new java.awt.Color(255, 255, 255));
         jButton3.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
@@ -188,12 +189,12 @@ public class Login extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton3);
-        jButton3.setBounds(630, 370, 110, 22);
+        jButton3.setBounds(480, 360, 110, 22);
 
         jLabelFundo.setBackground(new java.awt.Color(204, 204, 204));
         jLabelFundo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/imgFUNDO.jpeg"))); // NOI18N
         getContentPane().add(jLabelFundo);
-        jLabelFundo.setBounds(-140, -150, 1024, 768);
+        jLabelFundo.setBounds(-190, -210, 860, 620);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -201,7 +202,7 @@ public class Login extends javax.swing.JFrame {
         getContentPane().add(jLabel4);
         jLabel4.setBounds(20, 70, 80, 17);
 
-        setSize(new java.awt.Dimension(759, 400));
+        setSize(new java.awt.Dimension(659, 400));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
