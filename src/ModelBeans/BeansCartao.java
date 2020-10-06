@@ -14,6 +14,16 @@ public class BeansCartao {
     private double valor;
     private int dia_fechamento;
     private String pesquisa;
+    private String apelido;
+
+    public String getApelido() {
+        return apelido;
+    }
+
+    public void setApelido(String apelido) {
+        this.apelido = apelido;
+    }
+    
 
     public int getId_cartao() {
         return id_cartao;
