@@ -228,7 +228,6 @@ public class TelaCategoria extends javax.swing.JFrame {
         jButtonEditar.setForeground(new java.awt.Color(255, 255, 255));
         jButtonEditar.setText("Editar");
         jButtonEditar.setBorderPainted(false);
-        jButtonEditar.setEnabled(false);
         jButtonEditar.setFocusPainted(false);
         jButtonEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
